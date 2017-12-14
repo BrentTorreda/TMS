@@ -18,7 +18,8 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
-        public IEnumerable<MembersDto> GetMovies(string query = null)
+        // GET /api/members
+        public IEnumerable<MembersDto> GetMembers()
         {
             return _context.Members.ToList().Select(Mapper.Map<Members, MembersDto>);
         }
