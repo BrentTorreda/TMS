@@ -18,16 +18,10 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
-        public IEnumerable<MembersDto> GetMovies(string query = null)
+        // GET /api/members
+        public IEnumerable<MembersDto> GetMembers()
         {
-            var membersQuery = _context.Members.ToList();            
-
-            //if (!String.IsNullOrWhiteSpace(query))
-            //    membersQuery = membersQuery.Where(m => m.MemberName.Contains(query));
-
-            return membersQuery
-                .ToList()
-                .Select(Mapper.Map<Members, MembersDto>);
+            return _context.Members.ToList().Select(Mapper.Map<Members, MembersDto>);
         }
     }
 }
