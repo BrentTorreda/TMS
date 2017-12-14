@@ -20,9 +20,15 @@ namespace TaskManager.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Tasks> Tasks { get; set; }
+        public DbSet<SubTasks> SubTasks { get; set; }
+        public DbSet<Members> Members { get; set; }
+        public DbSet<MemberGroups> MemberGroups { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+
         }
 
         public static ApplicationDbContext Create()

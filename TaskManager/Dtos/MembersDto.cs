@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TaskManager.Models
+namespace TaskManager.Dtos
 {
-    public class Members
+    public class MembersDto
     {
-        [Key]
         public int MemberId { get; set; }
 
         [Required]
@@ -22,9 +17,6 @@ namespace TaskManager.Models
         public int SecurityLevelId { get; set; }
 
         [Required]
-        public int MemberGroupId { get; set; }
-
-        [ForeignKey("MemberGroupId")]
-        public MemberGroups MemberGroup { get; set; }
+        public int MemberGroupId { get; set; }        
     }
 }

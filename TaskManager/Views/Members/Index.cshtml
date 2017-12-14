@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Members Index</h2>
+
+<p>
+    @Html.ActionLink("New Member", "New", "Members", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="members" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Member Name</th>
+            <th>Group</th>
+            <th>Login Name</th>
+            <th>Security Level</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#members").DataTable({
+                ajax: {
+                    url: "/api/members",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "MemberName"
+                    },
+
+                    {
+                        data: "MemberGroup"
+                    },
+
+                    {
+                        data: "SecurityLevelId"
+                    }
+                ]
+            });
+    </script>
+}

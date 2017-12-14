@@ -21,13 +21,7 @@ namespace TaskManager.Models
         public int Hours { get; set; }
 
         [Required]
-        public DateTime DateStarted { get; set; }
-
-        [Required]
-        public int MemberId { get; set; }
-
-        [ForeignKey("MemberId")]
-        public Members Members { get; set; }
+        public DateTime DateStarted { get; set; }            
 
         [Required]
         public string TaskStatusId { get; set; }
