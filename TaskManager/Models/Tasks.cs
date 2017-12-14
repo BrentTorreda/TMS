@@ -23,6 +23,13 @@ namespace TaskManager.Models
         [Required]
         public DateTime DateStarted { get; set; }
 
+        [Required]
+        public int MemberId { get; set; }
 
+        [ForeignKey("MemberId")]
+        public Members Members { get; set; }
+
+        [Required]
+        public string TaskStatusId { get; set; }
     }
 }

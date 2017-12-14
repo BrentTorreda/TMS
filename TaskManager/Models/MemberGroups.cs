@@ -7,15 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManager.Models
 {
-    public class Members
+    public class MemberGroups
     {
         [Key]
-        public int MemberId { get; set; }
+        public int MemberGroupId { get; set; }
 
-        public string MemberName { get; set; }
-
-        public string LoginName { get; set; }
-
-        public int SecurityLevelId { get; set; }
+        [Required]
+        public string MemberGroupName { get; set; }
     }
 }
