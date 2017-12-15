@@ -12,19 +12,38 @@ namespace TaskManager.Models
         [Key]
         public int MemberId { get; set; }
 
+        [Required]      
+        [StringLength(100)]
+        public string LastName { get; set; }
+
         [Required]
-        public string MemberName { get; set; }
+        [StringLength(100)]
+        public string FirstName { get; set; }
 
         [Required]
         public string LoginName { get; set; }
 
+        [Display(Name = "Position")]
         [Required]
-        public int SecurityLevelId { get; set; }
+        public int MemberPositionId { get; set; }
 
+        [ForeignKey("MemberPositionId")]
+        public MemberPosition MemberPosition { get; set; }
+        
+        [Display(Name = "Team")]
         [Required]
         public int MemberGroupId { get; set; }
 
         [ForeignKey("MemberGroupId")]
         public MemberGroups MemberGroup { get; set; }
+
+        [StringLength(255)]
+        public string Email { get; set; }
+
+        [StringLength(255)]
+        public string Address { get; set; }
+
+        [StringLength(255)]
+        public string Phone { get; set; }
     }
 }

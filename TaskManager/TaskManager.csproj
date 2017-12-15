@@ -205,6 +205,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -221,16 +222,53 @@
     <Compile Include="Migrations\201712140519185_AddedSubTasks.Designer.cs">
       <DependentUpon>201712140519185_AddedSubTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712150231577_UpdatedMembersTable.cs" />
+    <Compile Include="Migrations\201712150231577_UpdatedMembersTable.Designer.cs">
+      <DependentUpon>201712150231577_UpdatedMembersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150335414_AddedTaskTypesTable.cs" />
+    <Compile Include="Migrations\201712150335414_AddedTaskTypesTable.Designer.cs">
+      <DependentUpon>201712150335414_AddedTaskTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150345006_AddedTaskCategories.cs" />
+    <Compile Include="Migrations\201712150345006_AddedTaskCategories.Designer.cs">
+      <DependentUpon>201712150345006_AddedTaskCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150349594_AddedTaskStatuses.cs" />
+    <Compile Include="Migrations\201712150349594_AddedTaskStatuses.Designer.cs">
+      <DependentUpon>201712150349594_AddedTaskStatuses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150401241_AddedTaskProcedures.cs" />
+    <Compile Include="Migrations\201712150401241_AddedTaskProcedures.Designer.cs">
+      <DependentUpon>201712150401241_AddedTaskProcedures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150404295_AddedPricesTable.cs" />
+    <Compile Include="Migrations\201712150404295_AddedPricesTable.Designer.cs">
+      <DependentUpon>201712150404295_AddedPricesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150408331_AddedCompaniesTable.cs" />
+    <Compile Include="Migrations\201712150408331_AddedCompaniesTable.Designer.cs">
+      <DependentUpon>201712150408331_AddedCompaniesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Companies.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MemberGroups.cs" />
+    <Compile Include="Models\MemberPosition.cs" />
     <Compile Include="Models\Members.cs" />
-    <Compile Include="Models\SubTasks.cs" />
+    <Compile Include="Models\Prices.cs" />
+    <Compile Include="Models\SubTasksLevel1.cs" />
+    <Compile Include="Models\TaskCategories.cs" />
+    <Compile Include="Models\TaskProcedures.cs" />
     <Compile Include="Models\Tasks.cs" />
+    <Compile Include="Models\TaskStatuses.cs" />
+    <Compile Include="Models\TaskTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MembersFormViewModel.cs" />
+    <Compile Include="ViewModels\TasksFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -466,6 +504,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Members\MemberForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -489,6 +529,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712140519185_AddedSubTasks.resx">
       <DependentUpon>201712140519185_AddedSubTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150231577_UpdatedMembersTable.resx">
+      <DependentUpon>201712150231577_UpdatedMembersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150335414_AddedTaskTypesTable.resx">
+      <DependentUpon>201712150335414_AddedTaskTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150345006_AddedTaskCategories.resx">
+      <DependentUpon>201712150345006_AddedTaskCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150349594_AddedTaskStatuses.resx">
+      <DependentUpon>201712150349594_AddedTaskStatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150401241_AddedTaskProcedures.resx">
+      <DependentUpon>201712150401241_AddedTaskProcedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150404295_AddedPricesTable.resx">
+      <DependentUpon>201712150404295_AddedPricesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150408331_AddedCompaniesTable.resx">
+      <DependentUpon>201712150408331_AddedCompaniesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,30 +7,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManager.Models
 {
-    public class SubTasks
+    public class TaskProcedures
     {
         [Key]
-        public int SubTaskId { get; set; }
+        public int TaskProcedureId { get; set; }
 
+        [Display(Name = "Steps")]
+        [StringLength(1000)]
         [Required]
-        public string SubTaskName { get; set; }
+        public string TaskSteps { get; set; }
 
+        [Display(Name ="Video")]
+        [StringLength(1000)]
         [Required]
-        public string SubTaskDescription { get; set; }
+        public string TaskVideoFile { get; set; }
 
-        [Required]
-        public string TaskStatusId { get; set; }
-
+        [Display(Name = "Task")]
         [Required]
         public int TaskId { get; set; }
 
         [ForeignKey("TaskId")]
         public Tasks Tasks { get; set; }
-
-        [Required]
-        public int MemberId { get; set; }
-
-        [ForeignKey("MemberId")]
-        public Members Members { get; set; }
     }
 }

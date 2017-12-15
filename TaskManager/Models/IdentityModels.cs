@@ -21,9 +21,16 @@ namespace TaskManager.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Tasks> Tasks { get; set; }
-        public DbSet<SubTasks> SubTasks { get; set; }
+        public DbSet<SubTasksLevel1> SubTasks { get; set; }
         public DbSet<Members> Members { get; set; }
         public DbSet<MemberGroups> MemberGroups { get; set; }
+        public DbSet<MemberPosition> MemberPosition { get; set; }
+        public DbSet<TaskTypes> TaskTypes { get; set; }
+        public DbSet<TaskCategories> TaskCategories { get; set; }
+        public DbSet<TaskStatuses> TaskStatuses { get; set; }
+        public DbSet<TaskProcedures> TaskProcedures { get; set; }
+        public DbSet<Prices> Prices { get; set; }
+        public DbSet<Companies> Companies { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
