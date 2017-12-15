@@ -19,10 +19,7 @@ namespace TaskManager.Models
         [Required]
         [StringLength(100)]
         public string FirstName { get; set; }
-
-        [Required]
-        public string LoginName { get; set; }
-
+        
         [Display(Name = "Position")]
         [Required]
         public int MemberPositionId { get; set; }

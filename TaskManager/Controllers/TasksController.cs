@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TaskManager.Models;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Controllers
 {
@@ -23,9 +24,22 @@ namespace TaskManager.Controllers
         }
 
         //
-        public ActionResult CreateMember()
+        public ViewResult New()
         {
-            return View();
+            var tasktypes = _context.TaskTypes.ToList();
+            var taskcategories = _context.TaskCategories.ToList();
+            var prices = _context.Prices.ToList();
+            var companies = _context.Companies.ToList();
+
+            var viewModel = new TasksFormViewModel()
+            {
+                TaskTypes  = tasktypes,
+                TaskCategories = taskcategories,
+                Prices = prices,
+                Companies = companies
+            };
+
+            return View("TaskForm", viewModel);
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿@model TaskManager.ViewModels.TasksFormViewModel
+
+@{
+    ViewBag.Title = "TaskForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Task Form</h2>
+
+@using (Html.BeginForm("Save", "Tasks"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(t => t.TaskName)
+        @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.TaskName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.TaskDescription)
+        @Html.TextBoxFor(t => t.TaskDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.TaskDescription)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.TaskTypeId)
+        @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskTypeName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.TaskTypeId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.TaskCategoryId)
+        @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "TaskCategoryName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.TaskCategoryId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.DateCreated)
+        @Html.TextBoxFor(t => t.DateCreated, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.DateCreated)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Hours)
+        @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Hours)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.CompanyId)
+        @Html.DropDownListFor(t => t.CompanyId, new SelectList(Model.Companies, "CompanyId", "CompanyName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.CompanyId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.PriceId)
+        @Html.DropDownListFor(t => t.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.PriceId)
+    </div>
+    @Html.HiddenFor(t => t.TaskId)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

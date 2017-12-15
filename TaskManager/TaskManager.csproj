@@ -250,6 +250,14 @@
     <Compile Include="Migrations\201712150408331_AddedCompaniesTable.Designer.cs">
       <DependentUpon>201712150408331_AddedCompaniesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712150433028_UpdatedTasksTable.cs" />
+    <Compile Include="Migrations\201712150433028_UpdatedTasksTable.Designer.cs">
+      <DependentUpon>201712150433028_UpdatedTasksTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712150537277_RemovedLoginNameFromMembers.cs" />
+    <Compile Include="Migrations\201712150537277_RemovedLoginNameFromMembers.Designer.cs">
+      <DependentUpon>201712150537277_RemovedLoginNameFromMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -506,6 +514,7 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Members\MemberForm.cshtml" />
+    <Content Include="Views\Tasks\TaskForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -550,6 +559,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712150408331_AddedCompaniesTable.resx">
       <DependentUpon>201712150408331_AddedCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150433028_UpdatedTasksTable.resx">
+      <DependentUpon>201712150433028_UpdatedTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712150537277_RemovedLoginNameFromMembers.resx">
+      <DependentUpon>201712150537277_RemovedLoginNameFromMembers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

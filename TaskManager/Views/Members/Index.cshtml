@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<TaskManager.Models.Members>
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,10 +14,13 @@
 <table id="members" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Member Name</th>
+            <th>Last Name</th>
+            <th>First Name</th>
             <th>Group</th>
-            <th>Login Name</th>
-            <th>Security Level</th>
+            <th>Position</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -33,17 +38,26 @@
 
                 columns: [
                     {
-                        data: "MemberName"
+                        data: "LastName"
+                    },
+                    {
+                        data: "FirstName"
                     },
 
                     {
                         data: "MemberGroupId"
                     },
                     {
-                        data: "LoginName"
+                        data: "MemberPositionId"
                     },
                     {
-                        data: "SecurityLevelId"
+                        data: "Email"
+                    },
+                    {
+                        data: "Address"
+                    },
+                    {
+                        data: "Phone"
                     }
                 ]
             });
