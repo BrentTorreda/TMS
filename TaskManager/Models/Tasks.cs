@@ -12,10 +12,12 @@ namespace TaskManager.Models
         [Key]
         public int TaskId { get; set; }
         
+        [Display(Name ="Name")]
         [StringLength(255)]
         [Required]
         public string TaskName { get; set; }
 
+        [Display(Name ="Detailed Description")]
         [StringLength(1000)]
         public string TaskDescription { get; set; }
 
@@ -26,8 +28,7 @@ namespace TaskManager.Models
         [Required]
         public DateTime DateCreated { get; set; }
 
-        [Display(Name = "Date Started")]
-        [Required]
+        [Display(Name = "Date Started")]        
         public DateTime DateWorkStarted { get; set; }
                 
         public TimeSpan TimeWorked { get; set; }
@@ -37,33 +38,38 @@ namespace TaskManager.Models
         public int TaskCategoryId { get; set; }
 
         [ForeignKey("TaskCategoryId")]
-        public TaskCategories TaskCategories { get; set; }
+        public TaskCategories TaskCategory { get; set; }
 
         [Display(Name ="Type")]
         [Required]
         public int TaskTypeId { get; set; }
 
         [ForeignKey("TaskTypeId")]
-        public TaskTypes TaskTypes { get; set; }
+        public TaskTypes TaskType { get; set; }
 
         [Display(Name = "Status")]
         public int TaskStatusId { get; set; }
 
         [ForeignKey("TaskStatusId")]
-        public TaskStatuses TaskStatuses { get; set; }
+        public TaskStatuses TaskStatus { get; set; }
         
         [Display(Name ="Company")]
         [Required]
         public int CompanyId { get; set; }
 
         [ForeignKey("CompanyId")]
-        public Companies Companies { get; set; }
+        public Companies Company { get; set; }
 
         [Display(Name ="Price")]
         [Required]
         public int PriceId { get; set; }
 
         [ForeignKey("PriceId")]
-        public Prices Prices { get; set; }                
+        public Prices Price { get; set; }
+
+        public string Priority { get; set; }
+
+        [Display(Name = "Date Due")]
+        public DateTime DateDue { get; set; }
     }
 }

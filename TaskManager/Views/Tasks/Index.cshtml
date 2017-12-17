@@ -15,10 +15,92 @@
             <th>Task Name</th>
             <th>Description</th>
             <th>Date Created</th>
+            <th>Hours</th>
+            <th>Company</th>
+            <th>Date Work Started</th>
+            <th>Time Worked</th>
+            <th>Bill</th>
+            <th>Category</th>
+            <th>Type</th>
             <th>Status</th>
+            <th> </th>
         </tr>
     </thead>
-    <tbody>
-    </tbody>
+    <tbody></tbody>
 </table>
 
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#tasks").DataTable({
+                ajax: {
+                    url: "/api/tasks",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskName",
+                        render: function (data, type, task) {
+                            return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName +"</a>";
+                        }
+                    },
+                    {
+                        data: "TaskDescription"
+                    },
+                    {
+                        data: "DateCreated"
+                    },
+                    {
+                        data: "Hours"
+                    },
+                    {
+                        data: "Company.CompanyName"
+                    },
+                    {
+                        data: "DateWorkStarted"
+                    },
+                    {
+                        data: "TimeWorked"
+                    },
+                    {
+                        data: "Price.Amount"
+                    },
+                    {
+                        data: "TaskCategory.CategoryName"
+                    },
+                    {
+                        data: "TaskType.TaskName"
+                    },
+                    {
+                        data: "TaskStatus.TaskStatusName"
+                    },
+                    {
+                        data: "TaskId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary' data-task-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#tasks").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this task?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/tasks/" + button.attr("data-task-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -59,6 +59,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NetSpell.SpellChecker">
+      <HintPath>..\packages\RichTextEditor.8.2.0.4\lib\NetSpell.SpellChecker.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -205,14 +208,23 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
+    <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
+    <Compile Include="Controllers\Apis\TasksController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Dtos\CompanyDto.cs" />
     <Compile Include="Dtos\MemberGroupDto.cs" />
     <Compile Include="Dtos\MembersDto.cs" />
     <Compile Include="Dtos\MemberPositionDto.cs" />
+    <Compile Include="Dtos\PriceDto.cs" />
+    <Compile Include="Dtos\TaskCategoryDto.cs" />
+    <Compile Include="Dtos\TaskDto.cs" />
+    <Compile Include="Dtos\TaskProcedureDto.cs" />
+    <Compile Include="Dtos\TaskStatusDto.cs" />
+    <Compile Include="Dtos\TaskTypeDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,6 +271,14 @@
     <Compile Include="Migrations\201712150537277_RemovedLoginNameFromMembers.cs" />
     <Compile Include="Migrations\201712150537277_RemovedLoginNameFromMembers.Designer.cs">
       <DependentUpon>201712150537277_RemovedLoginNameFromMembers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171110088_AddedDateDueAndPriority.cs" />
+    <Compile Include="Migrations\201712171110088_AddedDateDueAndPriority.Designer.cs">
+      <DependentUpon>201712171110088_AddedDateDueAndPriority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171213502_AddedProcedureOrderAndDescription.cs" />
+    <Compile Include="Migrations\201712171213502_AddedProcedureOrderAndDescription.Designer.cs">
+      <DependentUpon>201712171213502_AddedProcedureOrderAndDescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -567,6 +587,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712150537277_RemovedLoginNameFromMembers.resx">
       <DependentUpon>201712150537277_RemovedLoginNameFromMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171110088_AddedDateDueAndPriority.resx">
+      <DependentUpon>201712171110088_AddedDateDueAndPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171213502_AddedProcedureOrderAndDescription.resx">
+      <DependentUpon>201712171213502_AddedProcedureOrderAndDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,22 +10,29 @@ namespace TaskManager.ViewModels
 {
     public class TasksFormViewModel
     {
+        [Display(Name ="Category")]
         public IEnumerable<TaskCategories> TaskCategories { get; set; }
 
+        [Display(Name = "Status")]
         public IEnumerable<TaskStatuses> TaskStatuses { get; set; }
 
+        [Display(Name = "Type")]
         public IEnumerable<TaskTypes> TaskTypes { get; set; }
 
+        [Display(Name = "Price")]
         public IEnumerable<Prices> Prices { get; set; }
 
+        [Display(Name = "Company")]
         public IEnumerable<Companies> Companies { get; set; }
         
         public int? TaskId { get; set; }
 
+        [Display(Name = "Name")]
         [StringLength(255)]
         [Required]
         public string TaskName { get; set; }
 
+        [Display(Name = "Detailed Description")]
         [StringLength(1000)]
         public string TaskDescription { get; set; }
 

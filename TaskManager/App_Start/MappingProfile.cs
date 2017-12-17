@@ -15,6 +15,13 @@ namespace TaskManager.App_Start
             Mapper.CreateMap<Members, MembersDto>();
             Mapper.CreateMap<MemberPositions, MemberPositionDto>();
             Mapper.CreateMap<MemberGroups, MemberGroupDto>();
+            Mapper.CreateMap<Tasks, TaskDto>();
+            Mapper.CreateMap<TaskCategories, TaskCategoryDto>();
+            Mapper.CreateMap<TaskTypes, TaskTypeDto>();
+            Mapper.CreateMap<TaskStatuses, TaskStatusDto>();
+            Mapper.CreateMap<Companies, CompanyDto>();
+            Mapper.CreateMap<Prices, PriceDto>();
+            Mapper.CreateMap<TaskProcedures, TaskProcedureDto>();
         }
     }
 }

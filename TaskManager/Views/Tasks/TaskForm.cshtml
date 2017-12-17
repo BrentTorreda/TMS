@@ -17,17 +17,17 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.TaskDescription)
-        @Html.TextBoxFor(t => t.TaskDescription, new { @class = "form-control" })
+        @Html.TextAreaFor(t => t.TaskDescription, new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.TaskDescription)
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.TaskTypeId)
-        @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskTypeName"), "", new { @class = "form-control" })
+        @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskName"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.TaskTypeId)
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.TaskCategoryId)
-        @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "TaskCategoryName"), "", new { @class = "form-control" })
+        @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "CategoryName"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.TaskCategoryId)
     </div>
     <div class="form-group">
@@ -50,13 +50,67 @@
         @Html.DropDownListFor(t => t.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.PriceId)
     </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.TaskStatusId)
+        @Html.DropDownListFor(t => t.TaskStatusId, new SelectList(Model.TaskStatuses, "TaskStatusId", "TaskStatusName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.TaskStatusId)
+    </div>
     @Html.HiddenFor(t => t.TaskId)
     @Html.AntiForgeryToken()
+
+    <br />
+    <hr />
+    <h3>Task Procedure</h3>
+
+    <table id="taskSteps" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Video File</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#taskSteps").DataTable({
+                ajax: {
+                    url: "/api/taskprocedures",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskProcedureId",
+                        render: function (data, type, taskProc) {
+                            return "<a href='/tasks/edit/" + taskProc.TaskProcedureId + "'>" + taskProc.TaskSteps + "</a>";
+                        }
+                    },
+                    {
+                        data: "TaskSteps"
+                    },
+                    {
+                        data: "TaskVideoFile"
+                    },
+                    {
+                        data: "TaskProcedureId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary' data-taskprocedure-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 }
 

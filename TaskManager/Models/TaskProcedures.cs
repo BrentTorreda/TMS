@@ -12,6 +12,13 @@ namespace TaskManager.Models
         [Key]
         public int TaskProcedureId { get; set; }
 
+        [Display(Name = "Order")]
+        public int TaskProcedureOrder { get; set; }
+
+        [Display(Name = "Description")]
+        [Required]
+        public string TaskProcedureDescription { get; set; }
+
         [Display(Name = "Steps")]
         [StringLength(1000)]
         [Required]
