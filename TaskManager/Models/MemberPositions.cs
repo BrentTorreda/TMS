@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.Models
 {
-    public class MemberPosition
+    public class MemberPositions
     {
         [Key]
         public int MemberPositionId { get; set; }

@@ -32,6 +32,24 @@ namespace TaskManager.Controllers
             return View("MemberForm", viewModel);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var _context = new ApplicationDbContext();
+
+            var member = _context.Members.SingleOrDefault(m => m.MemberId == id);
+
+            if (member == null)
+                return HttpNotFound();
+
+            var viewModel = new MembersFormViewModel(member)
+            {                
+                MemberGroups = _context.MemberGroups.ToList(),
+                MemberPositions = _context.MemberPosition.ToList()
+            };
+
+            return View("MemberForm", viewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Members member)

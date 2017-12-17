@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TaskManager.Dtos;
 
 namespace TaskManager.Models
 {
@@ -25,7 +26,7 @@ namespace TaskManager.Models
         public int MemberPositionId { get; set; }
 
         [ForeignKey("MemberPositionId")]
-        public MemberPosition MemberPosition { get; set; }
+        public MemberPositions MemberPosition { get; set; }
         
         [Display(Name = "Team")]
         [Required]

@@ -14,13 +14,13 @@
 <table id="members" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
+            <th>Name</th>
             <th>Group</th>
             <th>Position</th>
             <th>Email</th>
             <th>Address</th>
             <th>Phone</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -38,17 +38,16 @@
 
                 columns: [
                     {
-                        data: "LastName"
+                        data: "LastName",
+                        render: function (data, type, member) {
+                            return "<a href='/members/edit/" + member.MemberId + "'>" + member.FirstName + " " + member.LastName + "</a>";
+                        }
+                    },                  
+                    {
+                        data: "MemberGroup.MemberGroupName"
                     },
                     {
-                        data: "FirstName"
-                    },
-
-                    {
-                        data: "MemberGroupId"
-                    },
-                    {
-                        data: "MemberPositionId"
+                        data: "MemberPosition.PositionName"
                     },
                     {
                         data: "Email"
@@ -58,8 +57,30 @@
                     },
                     {
                         data: "Phone"
+                    },
+                    {
+                        data: "MemberId",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-member-id=" + data + ">Delete</button>";
+                        }
                     }
                 ]
+            });
+
+            $("#members").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this member?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/members/" + button.attr("data-member-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>

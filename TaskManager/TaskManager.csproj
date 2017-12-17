@@ -210,7 +210,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Dtos\MemberGroupDto.cs" />
     <Compile Include="Dtos\MembersDto.cs" />
+    <Compile Include="Dtos\MemberPositionDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,7 +266,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MemberGroups.cs" />
-    <Compile Include="Models\MemberPosition.cs" />
+    <Compile Include="Models\MemberPositions.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\Prices.cs" />
     <Compile Include="Models\SubTasksLevel1.cs" />

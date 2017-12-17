@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using TaskManager.Models;
 using TaskManager.Dtos;
+using TaskManager.Models;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -19,9 +18,31 @@ namespace TaskManager.Controllers.Apis
         }
 
         // GET /api/members
-        public IEnumerable<MembersDto> GetMembers()
+        public IHttpActionResult GetMembers()
         {
-            return _context.Members.ToList().Select(Mapper.Map<Members, MembersDto>);
+            var membersQuery = _context.Members
+               .Include(m => m.MemberPosition).Include(m => m.MemberGroup);
+            
+            var memberDtos = membersQuery
+                .ToList()
+                .Select(Mapper.Map<Members, MembersDto>);
+
+            return Ok(memberDtos);
+        }
+
+        // DELETE /api/members
+        [HttpDelete]
+        public IHttpActionResult DeleteMember(int id)
+        {
+            var memberInDb = _context.Members.SingleOrDefault(m => m.MemberId == id);
+
+            if (memberInDb == null)
+                return NotFound();
+
+            _context.Members.Remove(memberInDb);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using TaskManager.Models;
+using TaskManager.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManager.Dtos
@@ -15,11 +16,11 @@ namespace TaskManager.Dtos
             
         public int MemberPositionId { get; set; }
 
-        public MemberPosition MemberPosition { get; set; }
+        public MemberPositionDto MemberPosition { get; set; }
 
         public int MemberGroupId { get; set; }
 
-        public MemberGroups MemberGroup { get; set; }
+        public MemberGroupDto MemberGroup { get; set; }
 
         public string Email { get; set; }
 

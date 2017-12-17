@@ -13,6 +13,8 @@ namespace TaskManager.App_Start
         public MappingProfile()
         {
             Mapper.CreateMap<Members, MembersDto>();
+            Mapper.CreateMap<MemberPositions, MemberPositionDto>();
+            Mapper.CreateMap<MemberGroups, MemberGroupDto>();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace TaskManager.Models
         public DbSet<SubTasksLevel1> SubTasks { get; set; }
         public DbSet<Members> Members { get; set; }
         public DbSet<MemberGroups> MemberGroups { get; set; }
-        public DbSet<MemberPosition> MemberPosition { get; set; }
+        public DbSet<MemberPositions> MemberPosition { get; set; }
         public DbSet<TaskTypes> TaskTypes { get; set; }
         public DbSet<TaskCategories> TaskCategories { get; set; }
         public DbSet<TaskStatuses> TaskStatuses { get; set; }

@@ -8,7 +8,7 @@ namespace TaskManager.ViewModels
 {
     public class MembersFormViewModel
     {
-        public IEnumerable<MemberPosition> MemberPositions { get; set; }
+        public IEnumerable<MemberPositions> MemberPositions { get; set; }
 
         public IEnumerable<MemberGroups> MemberGroups { get; set; }
 
@@ -57,6 +57,10 @@ namespace TaskManager.ViewModels
             FirstName = member.FirstName;            
             MemberPositionId = member.MemberPositionId;
             MemberGroupId = member.MemberGroupId;
+            Address = member.Address;
+            Phone = member.Phone;
+            Email = member.Email;
+            LoginName = member.LastName;
         }
     }
 }
