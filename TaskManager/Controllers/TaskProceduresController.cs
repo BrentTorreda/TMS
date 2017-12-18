@@ -17,9 +17,13 @@ namespace TaskManager.Controllers
             _context = new ApplicationDbContext();
         }
         
-        public ViewResult New()
+        public ViewResult New(int id)
         {
-            return View("TaskProceduresForm");
+            var viewModel = new TaskProcedureViewModel();
+
+            viewModel.TaskId = id;
+
+            return View("TaskProceduresForm", viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -29,16 +33,20 @@ namespace TaskManager.Controllers
             if (taskProc == null)
                 return HttpNotFound();
 
-            return View("TaskProceduresForm", taskProc);
+            var viewModel = new TaskProcedureViewModel(taskProc) { };
+
+            return View("TaskProceduresForm", viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(TaskProcedures taskProcedure)
-        {
+        {   
             if (!ModelState.IsValid)
-            {               
-                return View("TaskProceduresForm", taskProcedure);
+            {
+                var viewModel = new TaskProcedureViewModel(taskProcedure) { };
+
+                return View("TaskProceduresForm", viewModel);
             }
 
             if (taskProcedure.TaskProcedureId == 0)
@@ -56,7 +64,7 @@ namespace TaskManager.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Tasks");
+            return RedirectToAction("Edit", "Tasks", new { id = taskProcedure.TaskId });
         }
     }
 }

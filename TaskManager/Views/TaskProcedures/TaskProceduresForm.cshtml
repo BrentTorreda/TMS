@@ -1,4 +1,4 @@
-﻿@model TaskManager.Models.TaskProcedures
+﻿@model TaskManager.ViewModels.TaskProcedureViewModel
 
 @{
     ViewBag.Title = "TaskProcedures";
@@ -21,10 +21,18 @@
         @Html.ValidationMessageFor(t => t.TaskProcedureDescription)
     </div>
     <div class="form-group">
+        @Html.LabelFor(t => t.TaskSteps)
+        @Html.TextAreaFor(t => t.TaskSteps, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.TaskSteps)
+    </div>
+    <div class="form-group">
         @Html.LabelFor(t => t.TaskVideoFile)
         @Html.TextAreaFor(t => t.TaskVideoFile, new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.TaskVideoFile)
     </div>
 
+    @Html.HiddenFor(t => t.TaskId)
+    @Html.HiddenFor(t => t.TaskProcedureId)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }

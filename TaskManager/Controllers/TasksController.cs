@@ -31,7 +31,8 @@ namespace TaskManager.Controllers
                 TaskCategories = _context.TaskCategories.ToList(),
                 Prices = _context.Prices.ToList(),
                 Companies = _context.Companies.ToList(),
-                TaskStatuses = _context.TaskStatuses.ToList()
+                TaskStatuses = _context.TaskStatuses.ToList(),
+                Members = _context.Members.ToList()
             };
 
             return View("TaskForm", viewModel);
@@ -52,7 +53,8 @@ namespace TaskManager.Controllers
                 TaskCategories = _context.TaskCategories.ToList(),
                 Prices = _context.Prices.ToList(),
                 Companies = _context.Companies.ToList(),
-                TaskStatuses = _context.TaskStatuses.ToList()
+                TaskStatuses = _context.TaskStatuses.ToList(),
+                Members = _context.Members.ToList()
             };
 
             return View("TaskForm", viewModel);
@@ -73,7 +75,8 @@ namespace TaskManager.Controllers
                     TaskCategories = _context.TaskCategories.ToList(),
                     Prices = _context.Prices.ToList(),
                     Companies = _context.Companies.ToList(),
-                    TaskStatuses = _context.TaskStatuses.ToList()
+                    TaskStatuses = _context.TaskStatuses.ToList(),
+                    Members = _context.Members.ToList()
                 };
                 return View("TaskForm", viewModel);
             }
@@ -93,6 +96,7 @@ namespace TaskManager.Controllers
                 taskInDb.TaskStatusId = task.TaskStatusId;
                 taskInDb.CompanyId = task.CompanyId;
                 taskInDb.PriceId = task.PriceId;
+                taskInDb.MemberId = task.MemberId;
             }
 
             _context.SaveChanges();

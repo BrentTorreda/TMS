@@ -24,7 +24,10 @@ namespace TaskManager.ViewModels
 
         [Display(Name = "Company")]
         public IEnumerable<Companies> Companies { get; set; }
-        
+
+        [Display(Name = "Member")]
+        public IEnumerable<Members> Members { get; set; }
+
         public int? TaskId { get; set; }
 
         [Display(Name = "Name")]
@@ -67,6 +70,10 @@ namespace TaskManager.ViewModels
         [Display(Name = "Price")]
         [Required]
         public int PriceId { get; set; }
+
+        [Display(Name = "Assigned To")]
+        [Required]
+        public int MemberId { get; set; }
 
         public TasksFormViewModel()
         {

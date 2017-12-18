@@ -72,9 +72,14 @@ namespace TaskManager.Models
 
         public string Priority { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]        
         [Display(Name = "Date Due")]
         public DateTime? DateDue { get; set; }
+
+        [Display(Name ="Assinged To")]        
+        public int? MemberId { get; set; }
+        
+        [ForeignKey("MemberId")]        
+        public Members Members { get; set; }
     }
 }
