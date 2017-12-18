@@ -13,7 +13,5 @@ namespace TaskManager.Controllers
         {
             return View();
         }
-
-
     }
 }

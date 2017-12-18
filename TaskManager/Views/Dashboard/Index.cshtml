@@ -1,8 +1,59 @@
-﻿
+﻿@model TaskManager.ViewModels.TasksFormViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>My Dashboard</h2>
+
+<div style="width:100%;">
+    <div style="float:left; width:60%;">
+        <table id="dashboard" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Total Tasks</th>
+                    <th>Completed</th>
+                    <th>In Progress</th>
+                    <th>Not Started</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div style="float:right; width:40%; margin-left:10px;">
+        <table id="workpool" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Task Name</th>                    
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#dashboard").DataTable({
+                ajax: {
+                    url: "/api/dashboard",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskId"
+                    }
+                ]
+            });
+        });
+    </script>
+}
+
 

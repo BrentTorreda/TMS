@@ -44,7 +44,7 @@ namespace TaskManager.ViewModels
 
         [Display(Name = "Date Created")]
         [Required]
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
 
         [Display(Name = "Date Started")]
         [Required]
@@ -73,7 +73,7 @@ namespace TaskManager.ViewModels
 
         [Display(Name = "Assigned To")]
         [Required]
-        public int MemberId { get; set; }
+        public int? MemberId { get; set; }
 
         public TasksFormViewModel()
         {
@@ -89,6 +89,10 @@ namespace TaskManager.ViewModels
             TaskCategoryId = task.TaskCategoryId;
             PriceId = task.PriceId;
             CompanyId = task.CompanyId;
+            DateCreated = task.DateCreated;
+            MemberId = task.MemberId;
+            Hours = task.Hours;
+            TaskStatusId = task.TaskStatusId;
         }
     }
 }
