@@ -32,7 +32,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.DateCreated)
-        @Html.TextBoxFor(t => t.DateCreated, new { @class = "form-control" })
+        @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.DateCreated)
     </div>
     <div class="form-group">
@@ -61,6 +61,9 @@
     <br />
     <hr />
     <h3>Task Procedure</h3>
+    <p>
+        @Html.ActionLink("New Step", "New", "TaskProcedures", null, new { @class = "btn btn-primary" })
+    </p>
 
     <table id="taskSteps" class="table table-bordered table-hover">
         <thead>
@@ -84,6 +87,9 @@
     <script>
         $(document).ready(function () {
             var table = $("#taskSteps").DataTable({
+
+                "order": [[0, "asc"]],
+
                 ajax: {
                     url: "/api/taskprocedures",
                     dataSrc: ""
@@ -93,7 +99,7 @@
                     {
                         data: "TaskProcedureId",
                         render: function (data, type, taskProc) {
-                            return "<a href='/tasks/edit/" + taskProc.TaskProcedureId + "'>" + taskProc.TaskSteps + "</a>";
+                            return "<a href='/taskprocedures/edit/" + taskProc.TaskProcedureId + "'>" + taskProc.TaskProcedureOrder + "</a>";
                         }
                     },
                     {

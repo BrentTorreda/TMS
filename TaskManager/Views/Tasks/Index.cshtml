@@ -29,16 +29,16 @@
     <tbody></tbody>
 </table>
 
-
 @section scripts
 {
     <script>
         $(document).ready(function () {
             var table = $("#tasks").DataTable({
+                
                 ajax: {
                     url: "/api/tasks",
                     dataSrc: ""
-                },
+                },                
 
                 columns: [
                     {
@@ -51,7 +51,10 @@
                         data: "TaskDescription"
                     },
                     {
-                        data: "DateCreated"
+                        data: "DateCreated",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YY");
+                        }
                     },
                     {
                         data: "Hours"
@@ -60,7 +63,10 @@
                         data: "Company.CompanyName"
                     },
                     {
-                        data: "DateWorkStarted"
+                        data: "DateWorkStarted",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YY");
+                        }
                     },
                     {
                         data: "TimeWorked"

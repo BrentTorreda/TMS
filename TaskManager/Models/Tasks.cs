@@ -24,14 +24,17 @@ namespace TaskManager.Models
         [Required]
         public int Hours { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Created")]
-        [Required]
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Started")]        
-        public DateTime DateWorkStarted { get; set; }
+        public DateTime? DateWorkStarted { get; set; }
                 
-        public TimeSpan TimeWorked { get; set; }
+        public TimeSpan? TimeWorked { get; set; }
 
         [Display(Name ="Category")]
         [Required]
@@ -69,7 +72,9 @@ namespace TaskManager.Models
 
         public string Priority { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Due")]
-        public DateTime DateDue { get; set; }
+        public DateTime? DateDue { get; set; }
     }
 }

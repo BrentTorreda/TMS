@@ -17,7 +17,7 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
-        // GET /api/tasks
+        // GET /api/taskProcedures
         public IHttpActionResult GetTasks()
         {
             var taskProcQuery = _context.TaskProcedures;
@@ -26,6 +26,21 @@ namespace TaskManager.Controllers.Apis
                 .ToList();
 
             return Ok(taskProcDto);
+        }
+
+        // DELETE /api/taskProcedures
+        [HttpDelete]
+        public IHttpActionResult DeleteTask(int id)
+        {
+            var taskProcInDb = _context.TaskProcedures.SingleOrDefault(t => t.TaskProcedureId == id);
+
+            if (taskProcInDb == null)
+                return NotFound();
+
+            _context.TaskProcedures.Remove(taskProcInDb);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }
