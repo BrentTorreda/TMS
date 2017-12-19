@@ -5,9 +5,11 @@
 }
 
 <h2>Task Index</h2>
+<hr />
 <p>
     @Html.ActionLink("New Task", "New", "Tasks", null, new { @class = "btn btn-primary" })
 </p>
+<hr />
 
 <table id="tasks" class="table table-bordered table-hover">
     <thead>
@@ -86,7 +88,7 @@
                     {
                         data: "TaskId",
                         render: function (data) {
-                            return "<button class='js-delete btn btn-primary' data-task-id=" + data + ">Delete</button>";
+                            return "<button class='js-delete btn btn-primary btn-xs' data-task-id=" + data + ">Delete</button>";
                         }
                     }
                 ]

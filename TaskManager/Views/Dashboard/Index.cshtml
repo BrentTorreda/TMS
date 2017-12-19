@@ -1,4 +1,4 @@
-﻿@model TaskManager.ViewModels.TasksFormViewModel
+﻿@model TaskManager.ViewModels.DashboardViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -6,10 +6,13 @@
 }
 
 <h2>My Dashboard</h2>
+<hr />
 
-<div style="width:100%;">
-    <div style="float:left; width:60%;">
-        <table id="dashboard" class="table table-bordered table-hover">
+<div style="width:90%;overflow:auto;">
+    <div style="float:left; width:50%;padding-right:10px; border-right:2px groove silver ;
+      border-radius:2px;">
+        <h4>Task Status by Company</h4>
+        <table id="taskByCompany" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Company</th>
@@ -17,18 +20,25 @@
                     <th>Completed</th>
                     <th>In Progress</th>
                     <th>Not Started</th>
-                    <th> </th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                @foreach(var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.CompanyId</td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
-    <div style="float:right; width:40%; margin-left:10px;">
+    <div style="float:left; margin-left:10px;">
+        <h4>Open Task Pool</h4>
         <table id="workpool" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Task ID</th>
-                    <th>Task Name</th>                    
+                    <th>Task Name</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -40,7 +50,7 @@
 {
     <script>
         $(document).ready(function () {
-            var table = $("#dashboard").DataTable({
+            var table = $("#workpool").DataTable({
                 ajax: {
                     url: "/api/dashboard",
                     dataSrc: ""

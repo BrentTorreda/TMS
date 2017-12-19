@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TaskManager.Models;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Controllers
 {
@@ -11,7 +13,13 @@ namespace TaskManager.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            return View();
+            var _context = new ApplicationDbContext();
+
+            var viewModel = new DashboardViewModel();
+
+            viewModel.Tasks = _context.Tasks.ToList();
+            
+            return View("Index", viewModel);
         }
     }
 }

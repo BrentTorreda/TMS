@@ -1,9 +1,26 @@
+/*~~12.19.17 - BTo - font size, row BG colors, header and footer font sizes */
+th {    font-size: 13px;
+}
+
+td {
+    font-size: 12px;
+}
+
+table.dataTable tr.odd {
+    background-color: #ffffff;
+}
+
+table.dataTable tr.even {
+    background-color: #fbfbfb;
+}
+
 table.dataTable {
   clear: both;
   margin-top: 6px !important;
   margin-bottom: 6px !important;
   max-width: none !important;
 }
+
 table.dataTable td,
 table.dataTable th {
   -webkit-box-sizing: content-box;
@@ -35,6 +52,7 @@ div.dataTables_wrapper div.dataTables_filter label {
   font-weight: normal;
   white-space: nowrap;
   text-align: left;
+  font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0.5em;
@@ -53,6 +71,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   margin: 2px 0;
   white-space: nowrap;
+  font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_processing {
   position: absolute;

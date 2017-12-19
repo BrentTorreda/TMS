@@ -19,14 +19,11 @@ namespace TaskManager.Controllers
         public ViewResult New()
         {  
             var _context = new ApplicationDbContext();
-
-            var groups = _context.MemberGroups.ToList();
-            var positions = _context.MemberPosition.ToList();
-
+            
             var viewModel = new MembersFormViewModel()
             {
-                MemberGroups = groups,
-                MemberPositions = positions
+                MemberGroups = _context.MemberGroups.ToList(),
+                MemberPositions = _context.MemberPosition.ToList()
             };
 
             return View("MemberForm", viewModel);

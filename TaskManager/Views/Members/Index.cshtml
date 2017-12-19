@@ -6,10 +6,11 @@
 }
 
 <h2>Members Index</h2>
-
+<hr/>
 <p>
     @Html.ActionLink("New Member", "New", "Members", null, new { @class = "btn btn-primary" })
 </p>
+<hr/>
 
 <table id="members" class="table table-bordered table-hover">
     <thead>
@@ -61,7 +62,7 @@
                     {
                         data: "MemberId",
                         render: function (data) {
-                            return "<button class='js-delete btn btn-primary' data-member-id=" + data + ">Delete</button>";
+                            return "<button class='js-delete btn btn-primary btn-xs' data-member-id=" + data + ">Delete</button>";
                         }
                     }
                 ]
