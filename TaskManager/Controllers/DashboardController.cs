@@ -18,6 +18,7 @@ namespace TaskManager.Controllers
             var viewModel = new DashboardViewModel();
 
             viewModel.Tasks = _context.Tasks.ToList();
+            viewModel.Companies = _context.Companies.ToList();
             
             return View("Index", viewModel);
         }

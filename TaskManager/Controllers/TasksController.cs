@@ -18,8 +18,11 @@ namespace TaskManager.Controllers
         }
 
         // GET: Tasks
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+           
+            Console.WriteLine("change output to filter by company");
+           
             return View();
         }
         

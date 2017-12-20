@@ -1,0 +1,61 @@
+﻿@model TaskManager.ViewModels.SubtaskLevel1ViewModel
+@{
+    ViewBag.Title = "SubtaskLevel1Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sub Tasks</h2>
+
+@using (Html.BeginForm("Save", "SubtaskLevel1", FormMethod.Post, new { @class = "form-style-2" }))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <label for="SubTaskName">
+        <span>
+            Name
+            <span class="required">*</span>
+        </span>
+        @Html.TextBoxFor(s => s.SubTaskName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.SubTaskName)
+    </label>
+    <label for="Order">
+        <span>
+            Order
+            <span class="required">*</span>
+        </span>
+        @Html.TextBoxFor(s => s.Order, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Order)
+    </label>
+    <label for="SubTaskDescription">
+        <span>
+            Description
+            <span class="required">*</span>
+        </span>
+        @Html.TextAreaFor(s => s.SubTaskDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.SubTaskDescription)
+    </label>
+    <label for="PriceId">
+        <span>Price</span>
+        @Html.DropDownListFor(s => s.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.PriceId)
+    </label>
+    <label for="MemberId">
+        <span>Assign To</span>
+        @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "LastName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.MemberId)
+    </label>
+    <label for="DateCreated">
+        <span>Date Created</span>
+        @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.DateCreated)
+    </label>
+    <label for="Hours">
+        <span>Hours Required</span>
+        @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Hours)
+    </label>
+    @Html.HiddenFor(t => t.SubTaskId)
+    @Html.HiddenFor(t => t.TaskId)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

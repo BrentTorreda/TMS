@@ -19,9 +19,6 @@ namespace TaskManager.Models
         public string SubTaskDescription { get; set; }
 
         [Required]
-        public string TaskStatusId { get; set; }
-
-        [Required]
         public int TaskId { get; set; }
 
         [ForeignKey("TaskId")]
@@ -32,5 +29,18 @@ namespace TaskManager.Models
 
         [ForeignKey("MemberId")]
         public Members Members { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public int Hours { get; set; }
+
+        [Required]
+        public int PriceId { get; set; }
+
+        [ForeignKey("PriceId")]
+        public Prices Prices { get; set; }
+
+        [Required]
+        public int Order { get; set; }
     }
 }

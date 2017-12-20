@@ -11,7 +11,7 @@ namespace TaskManager.ViewModels
 {
     public class DashboardViewModel
     {
-        public Companies Companies { get; set; }
+        public IEnumerable<Companies> Companies { get; set; }
         public IEnumerable<Tasks> Tasks { get; set; }
     }
 }

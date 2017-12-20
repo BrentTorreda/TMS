@@ -40,5 +40,7 @@ namespace TaskManager.Dtos
         public int PriceId { get; set; }
         
         public PriceDto Price { get; set; }
+
+        public DateTime DateDue { get; set; }
     }
 }

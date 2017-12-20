@@ -21,7 +21,7 @@ namespace TaskManager.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Tasks> Tasks { get; set; }
-        public DbSet<SubTasksLevel1> SubTasks { get; set; }
+        public DbSet<SubTasksLevel1> SubTasksLevel1 { get; set; }
         public DbSet<Members> Members { get; set; }
         public DbSet<MemberGroups> MemberGroups { get; set; }
         public DbSet<MemberPositions> MemberPosition { get; set; }
@@ -31,6 +31,7 @@ namespace TaskManager.Models
         public DbSet<TaskProcedures> TaskProcedures { get; set; }
         public DbSet<Prices> Prices { get; set; }
         public DbSet<Companies> Companies { get; set; }
+        public DbSet<TaskPool> TaskPool { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

@@ -209,12 +209,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
+    <Compile Include="Controllers\Apis\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
     <Compile Include="Controllers\Apis\TasksController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Dtos\CompanyDto.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Dtos\MembersDto.cs" />
     <Compile Include="Dtos\MemberPositionDto.cs" />
     <Compile Include="Dtos\PriceDto.cs" />
+    <Compile Include="Dtos\SubtaskLevel1Dto.cs" />
     <Compile Include="Dtos\TaskCategoryDto.cs" />
     <Compile Include="Dtos\TaskDto.cs" />
     <Compile Include="Dtos\TaskProcedureDto.cs" />
@@ -290,6 +293,22 @@
     <Compile Include="Migrations\201712180315228_AddedMemberIdInTasks.Designer.cs">
       <DependentUpon>201712180315228_AddedMemberIdInTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712200126184_AddedTaskPoolTable.cs" />
+    <Compile Include="Migrations\201712200126184_AddedTaskPoolTable.Designer.cs">
+      <DependentUpon>201712200126184_AddedTaskPoolTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712200237337_AddedDateCreatedHoursPriceIdInSubtaskLevel1.cs" />
+    <Compile Include="Migrations\201712200237337_AddedDateCreatedHoursPriceIdInSubtaskLevel1.Designer.cs">
+      <DependentUpon>201712200237337_AddedDateCreatedHoursPriceIdInSubtaskLevel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712200252011_AddedWorkstartedonWorkfinishedonDatedueInTableTaskpool.cs" />
+    <Compile Include="Migrations\201712200252011_AddedWorkstartedonWorkfinishedonDatedueInTableTaskpool.Designer.cs">
+      <DependentUpon>201712200252011_AddedWorkstartedonWorkfinishedonDatedueInTableTaskpool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712200449405_AddedOrderInSubtaskLevel1Table.cs" />
+    <Compile Include="Migrations\201712200449405_AddedOrderInSubtaskLevel1Table.Designer.cs">
+      <DependentUpon>201712200449405_AddedOrderInSubtaskLevel1Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -301,6 +320,7 @@
     <Compile Include="Models\Prices.cs" />
     <Compile Include="Models\SubTasksLevel1.cs" />
     <Compile Include="Models\TaskCategories.cs" />
+    <Compile Include="Models\TaskPool.cs" />
     <Compile Include="Models\TaskProcedures.cs" />
     <Compile Include="Models\Tasks.cs" />
     <Compile Include="Models\TaskStatuses.cs" />
@@ -309,6 +329,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\MembersFormViewModel.cs" />
+    <Compile Include="ViewModels\SubtaskLevel1ViewModel.cs" />
     <Compile Include="ViewModels\TaskProcedureViewModel.cs" />
     <Compile Include="ViewModels\TasksFormViewModel.cs" />
   </ItemGroup>
@@ -600,6 +621,7 @@
     <Content Include="Views\Members\MemberForm.cshtml" />
     <Content Include="Views\Tasks\TaskForm.cshtml" />
     <Content Include="Views\TaskProcedures\TaskProceduresForm.cshtml" />
+    <Content Include="Views\SubtaskLevel1\SubtaskLevel1Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -661,6 +683,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712180315228_AddedMemberIdInTasks.resx">
       <DependentUpon>201712180315228_AddedMemberIdInTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712200126184_AddedTaskPoolTable.resx">
+      <DependentUpon>201712200126184_AddedTaskPoolTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712200237337_AddedDateCreatedHoursPriceIdInSubtaskLevel1.resx">
+      <DependentUpon>201712200237337_AddedDateCreatedHoursPriceIdInSubtaskLevel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712200252011_AddedWorkstartedonWorkfinishedonDatedueInTableTaskpool.resx">
+      <DependentUpon>201712200252011_AddedWorkstartedonWorkfinishedonDatedueInTableTaskpool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712200449405_AddedOrderInSubtaskLevel1Table.resx">
+      <DependentUpon>201712200449405_AddedOrderInSubtaskLevel1Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
