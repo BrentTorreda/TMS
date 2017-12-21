@@ -313,6 +313,10 @@
     <Compile Include="Migrations\201712210958335_AddedSubtaskIdInTaskprocedures.Designer.cs">
       <DependentUpon>201712210958335_AddedSubtaskIdInTaskprocedures.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712212347137_AddedNamesAddressInAspNetUsersTable.cs" />
+    <Compile Include="Migrations\201712212347137_AddedNamesAddressInAspNetUsersTable.Designer.cs">
+      <DependentUpon>201712212347137_AddedNamesAddressInAspNetUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -702,6 +706,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712210958335_AddedSubtaskIdInTaskprocedures.resx">
       <DependentUpon>201712210958335_AddedSubtaskIdInTaskprocedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712212347137_AddedNamesAddressInAspNetUsersTable.resx">
+      <DependentUpon>201712212347137_AddedNamesAddressInAspNetUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

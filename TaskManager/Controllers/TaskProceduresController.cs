@@ -62,11 +62,12 @@ namespace TaskManager.Controllers
                 taskProcInDb.TaskVideoFile = taskProcedure.TaskVideoFile;
                 taskProcInDb.TaskId = taskProcedure.TaskId;
                 taskProcInDb.SubtaskId = taskProcedure.SubtaskId;
+                taskProcInDb.TaskSteps = taskProcedure.TaskSteps;
             }
 
             _context.SaveChanges();
 
-            return RedirectToAction("Edit", "SubtaskLevel1", new { taskId = taskProcedure.TaskId, subtaskId = taskProcedure.SubtaskId });
+            return RedirectToAction("Edit", "SubtaskLevel1", new { id = taskProcedure.SubtaskId });
         }
     }
 }

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Subtasks</h3>
+<h4>Sub Tasks</h4>
 <hr />
 <p>
     @Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })
@@ -101,8 +101,10 @@
 
     <script>
         $(document).ready(function () {
-            var table = $("#subTasks").DataTable({
 
+            var taskId = @Html.Raw(Json.Encode(Model.TaskId));
+
+            var table = $("#subTasks").DataTable({
                 "paging": false,
                 "ordering": true,
                 "info": false,
@@ -110,7 +112,7 @@
                 "order": [[0, "asc"]],
 
                 ajax: {
-                    url: "/api/subtasklevel1",
+                    url: "/api/subtasklevel1/" + taskId,
                     dataSrc: ""
                 },
 

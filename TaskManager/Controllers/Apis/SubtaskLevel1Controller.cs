@@ -17,7 +17,7 @@ namespace TaskManager.Controllers.Apis
         }
 
         // GET /api/subtasklevel1
-        public IHttpActionResult GetSubtaskLevel1()
+        public IHttpActionResult GetSubtaskLevel1(int id)
         {
             var subTasksQuery = _context.SubTasksLevel1
                .Include(s => s.Members)
@@ -26,6 +26,7 @@ namespace TaskManager.Controllers.Apis
 
             var subTaskDtos = subTasksQuery
                 .ToList()
+                .Where(s => s.TaskId == id)
                 .Select(Mapper.Map<SubTasksLevel1, SubtaskLevel1Dto>);
 
             return Ok(subTaskDtos);

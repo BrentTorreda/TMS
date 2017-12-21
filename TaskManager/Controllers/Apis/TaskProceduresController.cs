@@ -18,12 +18,13 @@ namespace TaskManager.Controllers.Apis
         }
 
         // GET /api/taskProcedures
-        public IHttpActionResult GetTasks()
+        public IHttpActionResult GetTaskProcedures(int id)
         {
             var taskProcQuery = _context.TaskProcedures;
 
             var taskProcDto = taskProcQuery
-                .ToList();
+                .ToList()
+                .Where(t => t.SubtaskId == id);
 
             return Ok(taskProcDto);
         }
