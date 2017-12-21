@@ -75,6 +75,10 @@ namespace TaskManager.ViewModels
         [Required]
         public int? MemberId { get; set; }
 
+        public string FilterCompany { get; set; }
+
+        public int FilterCompanyId { get; set; }
+
         public TasksFormViewModel()
         {
             TaskId = 0;

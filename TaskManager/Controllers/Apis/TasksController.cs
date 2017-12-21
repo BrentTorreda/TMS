@@ -20,11 +20,41 @@ namespace TaskManager.Controllers.Apis
         public IHttpActionResult GetTasks()
         {
             var tasksQuery = _context.Tasks
-               .Include(t => t.TaskCategory).Include(t => t.TaskType).Include(t => t.TaskStatus).Include(t => t.Company).Include(t => t.Price);
+                   .Include(t => t.TaskCategory)
+                   .Include(t => t.TaskType)
+                   .Include(t => t.TaskStatus)
+                   .Include(t => t.Company)
+                   .Include(t => t.Price);
 
             var taskDtos = tasksQuery
-                .ToList()
-                .Select(Mapper.Map<Tasks, TaskDto>);
+                   .ToList()
+                   .Select(Mapper.Map<Tasks, TaskDto>);
+
+            return Ok(taskDtos);
+        }
+
+        // GET /api/tasks/1
+        public IHttpActionResult GetTasks(int? id)
+        {
+            var tasksQuery = _context.Tasks
+                   .Include(t => t.TaskCategory)
+                   .Include(t => t.TaskType)
+                   .Include(t => t.TaskStatus)
+                   .Include(t => t.Company)
+                   .Include(t => t.Price);
+
+            if (id == 0)
+            {
+               
+            }
+            else
+            {
+                tasksQuery = tasksQuery.Where(t => t.CompanyId == id);
+            }
+
+            var taskDtos = tasksQuery
+                   .ToList()
+                   .Select(Mapper.Map<Tasks, TaskDto>);
 
             return Ok(taskDtos);
         }

@@ -309,6 +309,10 @@
     <Compile Include="Migrations\201712200449405_AddedOrderInSubtaskLevel1Table.Designer.cs">
       <DependentUpon>201712200449405_AddedOrderInSubtaskLevel1Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712210958335_AddedSubtaskIdInTaskprocedures.cs" />
+    <Compile Include="Migrations\201712210958335_AddedSubtaskIdInTaskprocedures.Designer.cs">
+      <DependentUpon>201712210958335_AddedSubtaskIdInTaskprocedures.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -695,6 +699,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712200449405_AddedOrderInSubtaskLevel1Table.resx">
       <DependentUpon>201712200449405_AddedOrderInSubtaskLevel1Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712210958335_AddedSubtaskIdInTaskprocedures.resx">
+      <DependentUpon>201712210958335_AddedSubtaskIdInTaskprocedures.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

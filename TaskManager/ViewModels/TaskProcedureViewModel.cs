@@ -30,6 +30,9 @@ namespace TaskManager.ViewModels
         
         public int TaskId { get; set; }
 
+        public int SubTaskId { get; set; }
+
+
         public TaskProcedureViewModel()
         {
             TaskProcedureId = 0;
@@ -39,6 +42,7 @@ namespace TaskManager.ViewModels
         {
             TaskProcedureId = taskProc.TaskProcedureId;
             TaskId = taskProc.TaskId;
+            SubTaskId = taskProc.SubtaskId;
             TaskVideoFile = taskProc.TaskVideoFile;
             TaskProcedureDescription = taskProc.TaskProcedureDescription;
             TaskProcedureOrder = taskProc.TaskProcedureOrder;

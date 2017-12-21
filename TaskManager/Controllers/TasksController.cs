@@ -17,13 +17,24 @@ namespace TaskManager.Controllers
             _context = new ApplicationDbContext();
         }
 
-        // GET: Tasks
+        // GET: Tasks 
         public ActionResult Index(int id)
         {
-           
-            Console.WriteLine("change output to filter by company");
-           
-            return View();
+            var viewModel = new TasksFormViewModel();
+
+            if (id == 0)
+                viewModel.FilterCompany = "Task Index";                
+            else
+            {
+                var company = new Companies();
+
+                company = _context.Companies.SingleOrDefault(c => c.CompanyId == id);
+
+                viewModel.FilterCompany = company.CompanyName;
+                viewModel.FilterCompanyId = id;
+            }
+
+            return View(viewModel);            
         }
         
         public ViewResult New()
@@ -104,7 +115,7 @@ namespace TaskManager.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Tasks");
+            return RedirectToAction("Index", "Tasks", new { id = task.CompanyId });
         }
     }
 }

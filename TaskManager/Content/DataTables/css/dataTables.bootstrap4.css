@@ -1,4 +1,5 @@
 /*~~12.19.17 - BTo - font size, row BG colors, header and footer font sizes */
+/*~~12.21.17 - BTo - more font size adjustments*/
 th {    font-size: 13px;
 }
 
@@ -37,13 +38,15 @@ table.dataTable.nowrap td {
 }
 
 div.dataTables_wrapper div.dataTables_length label {
-  font-weight: normal;
-  text-align: left;
-  white-space: nowrap;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_length select {
-  width: 75px;
-  display: inline-block;
+    width: 75px;
+    display: inline-block;
+    font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_filter {
   text-align: right;
@@ -60,8 +63,9 @@ div.dataTables_wrapper div.dataTables_filter input {
   width: auto;
 }
 div.dataTables_wrapper div.dataTables_info {
-  padding-top: 0.85em;
-  white-space: nowrap;
+    padding-top: 0.85em;
+    white-space: nowrap;
+    font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;

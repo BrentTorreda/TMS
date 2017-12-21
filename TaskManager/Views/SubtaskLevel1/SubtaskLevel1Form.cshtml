@@ -4,19 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Sub Tasks</h2>
+<h2>Sub Task</h2>
+<hr/>
 
 @using (Html.BeginForm("Save", "SubtaskLevel1", FormMethod.Post, new { @class = "form-style-2" }))
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
-    <label for="SubTaskName">
-        <span>
-            Name
-            <span class="required">*</span>
-        </span>
-        @Html.TextBoxFor(s => s.SubTaskName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(s => s.SubTaskName)
-    </label>
     <label for="Order">
         <span>
             Order
@@ -24,6 +17,14 @@
         </span>
         @Html.TextBoxFor(s => s.Order, new { @class = "form-control" })
         @Html.ValidationMessageFor(s => s.Order)
+    </label>
+    <label for="SubTaskName">
+        <span>
+            Name
+            <span class="required">*</span>
+        </span>
+        @Html.TextBoxFor(s => s.SubTaskName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.SubTaskName)
     </label>
     <label for="SubTaskDescription">
         <span>
@@ -59,3 +60,90 @@
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
+<hr/>
+<h4>Steps</h4>
+
+<p>
+    @Html.ActionLink("New Step", "New", "TaskProcedures", new { taskId = Model.TaskId, subtaskId = Model.SubTaskId }, new { @class = "btn btn-primary" })
+</p>
+
+<table id="taskSteps" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Order</th>
+            <th>Name</th>
+            <th>Steps</th>
+            <th>Video</th>        
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<br />
+<hr />
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var table = $("#taskSteps").DataTable({
+
+                "paging": false,
+                "ordering": true,
+                "info": false,
+                "searching": false,
+                "order": [[0, "asc"]],
+
+                ajax: {
+                    url: "/api/taskprocedures",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskProcedureId",
+                        render: function (data, type, taskProc) {
+                            return "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit/" + data + "'> View </a>";
+                        }
+                    },
+                    {
+                        data: "TaskProcedureOrder"
+                    },
+                    {
+                        data: "TaskProcedureDescription"                        
+                    },
+                    {
+                        data: "TaskSteps"
+                    },
+                    {
+                        data: "TaskVideoFile"
+                    },
+                    {
+                        data: "TaskProcedureId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-taskprocedure-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#taskSteps").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this step?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/taskprocedures/" + button.attr("data-taskprocedure-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

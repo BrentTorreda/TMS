@@ -35,5 +35,9 @@ namespace TaskManager.Models
 
         [ForeignKey("TaskId")]
         public Tasks Tasks { get; set; }
+
+        [Display(Name = "Subtask")]
+        [Required]
+        public int SubtaskId { get; set; }        
     }
 }

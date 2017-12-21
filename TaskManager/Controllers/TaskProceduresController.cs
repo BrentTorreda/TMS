@@ -17,11 +17,12 @@ namespace TaskManager.Controllers
             _context = new ApplicationDbContext();
         }
         
-        public ViewResult New(int id)
+        public ViewResult New(int taskId, int subtaskId)
         {
             var viewModel = new TaskProcedureViewModel();
 
-            viewModel.TaskId = id;
+            viewModel.TaskId = taskId;
+            viewModel.SubTaskId = subtaskId;
 
             return View("TaskProceduresForm", viewModel);
         }
@@ -59,12 +60,13 @@ namespace TaskManager.Controllers
                 taskProcInDb.TaskProcedureOrder = taskProcedure.TaskProcedureOrder;
                 taskProcInDb.TaskProcedureDescription = taskProcedure.TaskProcedureDescription;
                 taskProcInDb.TaskVideoFile = taskProcedure.TaskVideoFile;
-                taskProcInDb.TaskId = taskProcedure.TaskId;               
+                taskProcInDb.TaskId = taskProcedure.TaskId;
+                taskProcInDb.SubtaskId = taskProcedure.SubtaskId;
             }
 
             _context.SaveChanges();
 
-            return RedirectToAction("Edit", "Tasks", new { id = taskProcedure.TaskId });
+            return RedirectToAction("Edit", "SubtaskLevel1", new { taskId = taskProcedure.TaskId, subtaskId = taskProcedure.SubtaskId });
         }
     }
 }

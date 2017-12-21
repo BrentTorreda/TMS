@@ -23,9 +23,16 @@ namespace TaskManager.Controllers
             return View();
         }
 
-        public ActionResult New()
+        public ActionResult New(int id)
         {
-            return View();
+            var viewModel = new SubtaskLevel1ViewModel()
+            {
+                Prices = _context.Prices.ToList(),
+                Members = _context.Members.ToList(),
+                TaskId = id
+            };
+
+            return View("SubtaskLevel1Form", viewModel);
         }
 
         public ActionResult Edit(int id)

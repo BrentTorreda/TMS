@@ -1,10 +1,10 @@
-﻿
+﻿@model TaskManager.ViewModels.TasksFormViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Task Index </h2>
+<h2>@Model.FilterCompany</h2>
 <hr />
 <p>
     @Html.ActionLink("New Task", "New", "Tasks", null, new { @class = "btn btn-primary" })
@@ -32,16 +32,19 @@
 
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
+<script>
+    $(document).ready(function () {
+            var companyId = @Html.Raw(Json.Encode(Model.FilterCompanyId));
+        
             var table = $("#tasks").DataTable({
-                
+
                 ajax: {
-                    url: "/api/tasks",
+                    url: "/api/tasks/" + companyId,
                     dataSrc: ""
-                },                
+                },
 
                 columns: [
+
                     {
                         data: "TaskName",
                         render: function (data, type, task) {
@@ -49,7 +52,7 @@
                         }
                     },
                     {
-                        data: "TaskDescription"
+                        data: "CompanyId"
                     },
                     {
                         data: "DateCreated",
@@ -109,5 +112,5 @@
                 });
             });
         });
-    </script>
+</script>
 }

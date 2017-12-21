@@ -31,6 +31,7 @@
         @Html.ValidationMessageFor(t => t.TaskVideoFile)
     </div>
 
+    @Html.HiddenFor(t => t.SubTaskId)
     @Html.HiddenFor(t => t.TaskId)
     @Html.HiddenFor(t => t.TaskProcedureId)
     @Html.AntiForgeryToken()
