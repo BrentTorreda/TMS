@@ -33,8 +33,7 @@ namespace TaskManager.Controllers.Apis
             return Ok(taskDtos);
         }
 
-        // GET /api/tasks/1
-        public IHttpActionResult GetTasks(int? id)
+        public IHttpActionResult GetTasks(int id)
         {
             var tasksQuery = _context.Tasks
                    .Include(t => t.TaskCategory)
@@ -43,14 +42,30 @@ namespace TaskManager.Controllers.Apis
                    .Include(t => t.Company)
                    .Include(t => t.Price);
 
-            if (id == 0)
-            {
-               
-            }
-            else
-            {
+            if (id != 0)
                 tasksQuery = tasksQuery.Where(t => t.CompanyId == id);
-            }
+
+            var taskDtos = tasksQuery
+                   .ToList()
+                   .Select(Mapper.Map<Tasks, TaskDto>);
+
+            return Ok(taskDtos);
+        }
+
+        [Route("api/Tasks/{id}/{getBy}")]
+        public IHttpActionResult GetTasks(int id, string getBy)
+        {
+            var tasksQuery = _context.Tasks
+                   .Include(t => t.TaskCategory)
+                   .Include(t => t.TaskType)
+                   .Include(t => t.TaskStatus)
+                   .Include(t => t.Company)
+                   .Include(t => t.Price);
+
+            if (getBy == "status")  
+                tasksQuery = tasksQuery.Where(t => t.TaskStatusId == id);
+            else if (getBy == "company")
+                tasksQuery = tasksQuery.Where(t => t.CompanyId == id);
 
             var taskDtos = tasksQuery
                    .ToList()

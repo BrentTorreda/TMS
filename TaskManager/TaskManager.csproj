@@ -317,6 +317,18 @@
     <Compile Include="Migrations\201712212347137_AddedNamesAddressInAspNetUsersTable.Designer.cs">
       <DependentUpon>201712212347137_AddedNamesAddressInAspNetUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712220012512_AddedMemberPositionInIdentityModelAndIsTemplateInTasks.cs" />
+    <Compile Include="Migrations\201712220012512_AddedMemberPositionInIdentityModelAndIsTemplateInTasks.Designer.cs">
+      <DependentUpon>201712220012512_AddedMemberPositionInIdentityModelAndIsTemplateInTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712220027523_TempRemovedMemberPositionInIdentityModel.cs" />
+    <Compile Include="Migrations\201712220027523_TempRemovedMemberPositionInIdentityModel.Designer.cs">
+      <DependentUpon>201712220027523_TempRemovedMemberPositionInIdentityModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712220040440_TempRemovedRequiredFromIdentityModel.cs" />
+    <Compile Include="Migrations\201712220040440_TempRemovedRequiredFromIdentityModel.Designer.cs">
+      <DependentUpon>201712220040440_TempRemovedRequiredFromIdentityModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -709,6 +721,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712212347137_AddedNamesAddressInAspNetUsersTable.resx">
       <DependentUpon>201712212347137_AddedNamesAddressInAspNetUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712220012512_AddedMemberPositionInIdentityModelAndIsTemplateInTasks.resx">
+      <DependentUpon>201712220012512_AddedMemberPositionInIdentityModelAndIsTemplateInTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712220027523_TempRemovedMemberPositionInIdentityModel.resx">
+      <DependentUpon>201712220027523_TempRemovedMemberPositionInIdentityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712220040440_TempRemovedRequiredFromIdentityModel.resx">
+      <DependentUpon>201712220040440_TempRemovedRequiredFromIdentityModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

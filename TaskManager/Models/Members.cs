@@ -43,5 +43,12 @@ namespace TaskManager.Models
 
         [StringLength(255)]
         public string Phone { get; set; }
+
+        private string _fullName { get; set; }
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
     }
 }

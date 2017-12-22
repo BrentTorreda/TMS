@@ -31,9 +31,10 @@
                            "Index",
                            "Tasks",
                            new {
-                               id=company.CompanyId
+                               id = company.CompanyId
                            },
-                           null)</td>
+                           null)
+                        </td>
                         @{
                             int totalTasks = 0;
                             int tasksOpen = 0;
@@ -102,14 +103,19 @@
     <script>
         $(document).ready(function () {
             var table = $("#workpool").DataTable({
+
+                //TEMPORARY: Hard coded task status
                 ajax: {
-                    url: "/api/tasks",
+                    url: "/api/tasks/1/status",
                     dataSrc: ""
                 },
 
                 columns: [
                     {
-                        data: "TaskName"
+                        data: "TaskName",
+                        render: function (data, type, task) {
+                            return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName + "</a>";
+                        }
                     },
                     {
                         data: "DateCreated",

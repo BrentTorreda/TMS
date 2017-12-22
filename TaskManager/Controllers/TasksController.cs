@@ -23,15 +23,15 @@ namespace TaskManager.Controllers
             var viewModel = new TasksFormViewModel();
 
             if (id == 0)
-                viewModel.FilterCompany = "Task Index";                
+                viewModel.FilterBy = "Task Index";                
             else
             {
                 var company = new Companies();
 
                 company = _context.Companies.SingleOrDefault(c => c.CompanyId == id);
 
-                viewModel.FilterCompany = company.CompanyName;
-                viewModel.FilterCompanyId = id;
+                viewModel.FilterBy = company.CompanyName;
+                viewModel.FilterId = id;
             }
 
             return View(viewModel);            

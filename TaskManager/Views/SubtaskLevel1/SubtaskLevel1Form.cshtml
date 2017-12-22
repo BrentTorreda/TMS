@@ -41,7 +41,7 @@
     </label>
     <label for="MemberId">
         <span>Assign To</span>
-        @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "LastName"), "", new { @class = "form-control" })
+        @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(s => s.MemberId)
     </label>
     <label for="DateCreated">

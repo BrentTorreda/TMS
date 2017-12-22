@@ -64,6 +64,15 @@ namespace TaskManager.Models
 
     public class RegisterViewModel
     {
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        
+        [Display(Name = "Address")]
+        public string Address { get; set; }        
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

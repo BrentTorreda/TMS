@@ -81,5 +81,7 @@ namespace TaskManager.Models
         
         [ForeignKey("MemberId")]        
         public Members Members { get; set; }
+
+        public bool IsTemplate { get; set; }
     }
 }

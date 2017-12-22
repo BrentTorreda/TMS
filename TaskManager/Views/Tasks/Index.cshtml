@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.FilterCompany</h2>
+<h2>@Model.FilterBy</h2>
 <hr />
 <p>
     @Html.ActionLink("New Task", "New", "Tasks", null, new { @class = "btn btn-primary" })
@@ -33,17 +33,16 @@
 {
 <script>
     $(document).ready(function () {
-            var companyId = @Html.Raw(Json.Encode(Model.FilterCompanyId));
-        
-            var table = $("#tasks").DataTable({
+        var id = @Html.Raw(Json.Encode(Model.FilterId));
+        var filterBy = @Html.Raw(Json.Encode(Model.FilterBy));
 
+            var table = $("#tasks").DataTable({
                 ajax: {
-                    url: "/api/tasks/" + companyId,
+                    url: "/api/tasks/" + id,
                     dataSrc: ""
                 },
 
                 columns: [
-
                     {
                         data: "TaskName",
                         render: function (data, type, task) {

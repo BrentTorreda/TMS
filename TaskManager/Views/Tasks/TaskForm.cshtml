@@ -5,8 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Sub Tasks</h4>
+<h2>Task Form</h2>
 <hr />
+<h4>Sub Tasks</h4>
 <p>
     @Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })
 </p>
@@ -26,14 +27,14 @@
     </thead>
     <tbody></tbody>
 </table>
-<br/>
-<hr/>
+<br />
+<hr />
 
-<h3>Task Details</h3>
+<h4>Task Details</h4>
 @using (Html.BeginForm("Save", "Tasks",
             FormMethod.Post, new { @class = "form-style-2" }))
 {
-    @Html.ValidationSummary(true, "Please fix the following errors.")     
+    @Html.ValidationSummary(true, "Please fix the following errors.")
     <label for="TaskName">
         <span>
             Name
@@ -82,7 +83,7 @@
     </label>
     <label for="PriceId">
         <span>Assigned To</span>
-        @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "LastName"), "", new { @class = "form-control" })
+        @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(t => t.MemberId)
     </label>
     <label for="TaskStatusId">
@@ -92,6 +93,7 @@
     </label>
     @Html.HiddenFor(t => t.TaskId)
     @Html.AntiForgeryToken()
+    <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
@@ -116,7 +118,7 @@
                     dataSrc: ""
                 },
 
-                columns: [   
+                columns: [
                     {
                         data: "SubTaskId",
                         render: function (data, type, subtask) {
@@ -124,10 +126,10 @@
                         }
                     },
                     {
-                        data: "Order"                        
+                        data: "Order"
                     },
                     {
-                        data: "SubTaskName",                        
+                        data: "SubTaskName",
                     },
                     {
                         data: "SubTaskDescription"
@@ -140,7 +142,7 @@
                         render: function (data) {
                             return moment(data).format("DD MMM YY");
                         }
-                    },   
+                    },
                     {
                         data: "Members.LastName",
                         render: function (data, type, member) {

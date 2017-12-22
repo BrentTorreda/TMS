@@ -45,6 +45,12 @@ namespace TaskManager.ViewModels
         [StringLength(255)]
         public string Phone { get; set; }
 
+        private string _fullName { get; set; }
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
         public MembersFormViewModel()
         {
             MemberId = 0;
