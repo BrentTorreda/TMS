@@ -32,7 +32,7 @@ namespace TaskManager.Controllers
                 TaskId = id
             };
 
-            return View("SubtaskLevel1Form", viewModel);
+            return View("SubtaskLevel1FormNew", viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -49,7 +49,7 @@ namespace TaskManager.Controllers
                 Tasks = _context.Tasks.ToList()
             };
 
-            return View("SubTaskLevel1Form", viewModel);
+            return View("SubTaskLevel1FormEdit", viewModel);
         }
 
         // POST: SubtaskLevel1
@@ -59,7 +59,7 @@ namespace TaskManager.Controllers
             {
                 var viewModel = new SubtaskLevel1ViewModel(subTask) { };
 
-                return View("SubTaskLevel1Form", viewModel);
+                return View("SubTaskLevel1FormNew", viewModel);
             }
 
             if (subTask.SubTaskId == 0)

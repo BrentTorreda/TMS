@@ -13,6 +13,11 @@ namespace TaskManager.Models
         [Key]
         public int MemberId { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
+        [ForeignKey("ApplicationUserId")]
+        public ApplicationUser ApplicationUser { get; set; }
+
         [Required]      
         [StringLength(100)]
         public string LastName { get; set; }

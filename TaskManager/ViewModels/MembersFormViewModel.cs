@@ -12,6 +12,8 @@ namespace TaskManager.ViewModels
 
         public IEnumerable<MemberGroups> MemberGroups { get; set; }
 
+        public IEnumerable<ApplicationUser> ApplicationUsers { get; set; }
+        
         public int? MemberId { get; set; }
 
         [Display(Name = "Last Name")]
@@ -45,6 +47,8 @@ namespace TaskManager.ViewModels
         [StringLength(255)]
         public string Phone { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
         private string _fullName { get; set; }
         public string FullName
         {
@@ -58,6 +62,7 @@ namespace TaskManager.ViewModels
 
         public MembersFormViewModel(Members member)
         {
+            ApplicationUserId = member.ApplicationUserId;
             MemberId = member.MemberId;
             LastName = member.LastName;
             FirstName = member.FirstName;            

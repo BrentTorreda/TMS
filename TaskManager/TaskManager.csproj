@@ -329,6 +329,10 @@
     <Compile Include="Migrations\201712220040440_TempRemovedRequiredFromIdentityModel.Designer.cs">
       <DependentUpon>201712220040440_TempRemovedRequiredFromIdentityModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712240250014_AddedApplicationUserIdToMembers.cs" />
+    <Compile Include="Migrations\201712240250014_AddedApplicationUserIdToMembers.Designer.cs">
+      <DependentUpon>201712240250014_AddedApplicationUserIdToMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -354,6 +358,7 @@
     <Compile Include="ViewModels\TasksFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -463,7 +468,6 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
-    <Content Include="Content\Form-style-2.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -639,9 +643,11 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Members\MemberForm.cshtml" />
-    <Content Include="Views\Tasks\TaskForm.cshtml" />
+    <Content Include="Views\Tasks\TaskFormEdit.cshtml" />
     <Content Include="Views\TaskProcedures\TaskProceduresForm.cshtml" />
-    <Content Include="Views\SubtaskLevel1\SubtaskLevel1Form.cshtml" />
+    <Content Include="Views\SubtaskLevel1\SubtaskLevel1FormNew.cshtml" />
+    <Content Include="Views\SubtaskLevel1\SubTaskLevel1FormEdit.cshtml" />
+    <Content Include="Views\Tasks\TaskFormNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -730,6 +736,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712220040440_TempRemovedRequiredFromIdentityModel.resx">
       <DependentUpon>201712220040440_TempRemovedRequiredFromIdentityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712240250014_AddedApplicationUserIdToMembers.resx">
+      <DependentUpon>201712240250014_AddedApplicationUserIdToMembers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

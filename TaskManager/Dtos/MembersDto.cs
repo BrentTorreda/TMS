@@ -27,5 +27,9 @@ namespace TaskManager.Dtos
         public string Address { get; set; }
 
         public string Phone { get; set; }
+
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

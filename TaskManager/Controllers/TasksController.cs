@@ -49,7 +49,7 @@ namespace TaskManager.Controllers
                 Members = _context.Members.ToList()
             };
 
-            return View("TaskForm", viewModel);
+            return View("TaskFormNew", viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -71,7 +71,7 @@ namespace TaskManager.Controllers
                 Members = _context.Members.ToList()
             };
 
-            return View("TaskForm", viewModel);
+            return View("TaskFormEdit", viewModel);
         }
 
         // POST: Tasks
@@ -92,7 +92,7 @@ namespace TaskManager.Controllers
                     TaskStatuses = _context.TaskStatuses.ToList(),
                     Members = _context.Members.ToList()
                 };
-                return View("TaskForm", viewModel);
+                return View("TaskFormNew", viewModel);
             }
 
             if (task.TaskId == 0)

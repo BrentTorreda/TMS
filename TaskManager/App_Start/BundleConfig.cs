@@ -28,8 +28,7 @@ namespace TaskManager
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/datatables/css/datatables.bootstrap4.css",
-                      "~/Content/Form-style-2.css"));
+                      "~/Content/datatables/css/datatables.bootstrap4.css"));
         }
     }
 }

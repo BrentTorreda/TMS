@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TaskManager.Controllers
 {
@@ -19,13 +20,13 @@ namespace TaskManager.Controllers
         public ViewResult New()
         {  
             var _context = new ApplicationDbContext();
-            
+
             var viewModel = new MembersFormViewModel()
             {
                 MemberGroups = _context.MemberGroups.ToList(),
-                MemberPositions = _context.MemberPosition.ToList()
+                MemberPositions = _context.MemberPosition.ToList(),
+                ApplicationUsers = _context.Users.ToList()
             };
-
             return View("MemberForm", viewModel);
         }
 
@@ -41,7 +42,8 @@ namespace TaskManager.Controllers
             var viewModel = new MembersFormViewModel(member)
             {                
                 MemberGroups = _context.MemberGroups.ToList(),
-                MemberPositions = _context.MemberPosition.ToList()
+                MemberPositions = _context.MemberPosition.ToList(),
+                ApplicationUsers = _context.Users.ToList()
             };
 
             return View("MemberForm", viewModel);

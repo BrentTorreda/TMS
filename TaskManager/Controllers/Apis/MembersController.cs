@@ -21,7 +21,7 @@ namespace TaskManager.Controllers.Apis
         public IHttpActionResult GetMembers()
         {
             var membersQuery = _context.Members
-               .Include(m => m.MemberPosition).Include(m => m.MemberGroup);
+               .Include(m => m.MemberPosition).Include(m => m.MemberGroup).Include(m => m.ApplicationUser);
             
             var memberDtos = membersQuery
                 .ToList()
