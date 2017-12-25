@@ -6,110 +6,117 @@
 }
 
 <h2>Task Form</h2>
-<hr />
-<h4>Sub Tasks</h4>
-<p>
-    @Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })
-</p>
 
-<table id="subTasks" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th> </th>
-            <th>Order</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Hours</th>
-            <th>Date Created</th>
-            <th>Assigned To</th>
-            <th> </th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-<br />
-<hr />
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Details</a></li>
+    <li><a data-toggle="tab" href="#menu1">Sub Tasks</a></li>
+</ul>
 
-<h4>Task Details</h4>
-@using (Html.BeginForm("Save", "Tasks",
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <br />
+        @using (Html.BeginForm("Save", "Tasks",
             FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    @Html.ValidationSummary(true, "Please fix the following errors.")
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="TaskName">Name</label>
-        <div class="col-sm-10">
-            @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.TaskName)
-        </div>
+        {
+            @Html.ValidationSummary(true, "Please fix the following errors.")
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="TaskName">Name</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.TaskName)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="TaskDescription">Description</label>
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(t => t.TaskDescription, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.TaskDescription)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="TaskTypeId">Type</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskName"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.TaskTypeId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="TaskCategoryId">Category</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "CategoryName"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.TaskCategoryId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="DateCreated">Date Created</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.DateCreated)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Hours">Hours Required</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.Hours)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="CompanyId">Company</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(t => t.CompanyId, new SelectList(Model.Companies, "CompanyId", "CompanyName"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.CompanyId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="PriceId">Price</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(t => t.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.PriceId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="PriceId">Assigned To</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.MemberId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="TaskStatusId">Status</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(t => t.TaskStatusId, new SelectList(Model.TaskStatuses, "TaskStatusId", "TaskStatusName"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(t => t.TaskStatusId)
+                </div>
+            </div>
+            @Html.HiddenFor(t => t.TaskId)
+            @Html.AntiForgeryToken()
+            <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
     </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="TaskDescription">Description</label>
-        <div class="col-sm-10">
-            @Html.TextAreaFor(t => t.TaskDescription, new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.TaskDescription)
-        </div>
+
+    <div id="menu1" class="tab-pane fade">
+        <br />
+        <p>@Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })</p>
+
+        <table id="subTasks" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>Order</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Hours</th>
+                    <th>Date Created</th>
+                    <th>Assigned To</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="TaskTypeId">Type</label>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.TaskTypeId)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="TaskCategoryId">Category</label>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "CategoryName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.TaskCategoryId)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="DateCreated">Date Created</label>
-        <div class="col-sm-10">
-            @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.DateCreated)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="Hours">Hours Required</label>
-        <div class="col-sm-10">
-            @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.Hours)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="CompanyId">Company</label>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(t => t.CompanyId, new SelectList(Model.Companies, "CompanyId", "CompanyName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.CompanyId)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="PriceId">Price</label>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(t => t.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.PriceId)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="PriceId">Assigned To</label>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.MemberId)
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="TaskStatusId">Status</label>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(t => t.TaskStatusId, new SelectList(Model.TaskStatuses, "TaskStatusId", "TaskStatusName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(t => t.TaskStatusId)
-        </div>
-    </div>
-    @Html.HiddenFor(t => t.TaskId)
-    @Html.AntiForgeryToken()
-    <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
-    <button type="submit" class="btn btn-primary">Save</button>
-}
+</div>
 
 @section scripts
 {

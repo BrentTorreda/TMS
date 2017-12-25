@@ -1,5 +1,16 @@
 /*~~12.19.17 - BTo - font size, row BG colors, header and footer font sizes */
 /*~~12.21.17 - BTo - more font size adjustments*/
+/*~~12.25.17 - BTo - added child row BG images*/
+
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
 th {    font-size: 13px;
 }
 
