@@ -648,6 +648,7 @@
     <Content Include="Views\SubtaskLevel1\SubtaskLevel1FormNew.cshtml" />
     <Content Include="Views\SubtaskLevel1\SubTaskLevel1FormEdit.cshtml" />
     <Content Include="Views\Tasks\TaskFormNew.cshtml" />
+    <Content Include="Views\SubtaskLevel1\SubTaskLevel1View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

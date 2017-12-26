@@ -1,0 +1,140 @@
+﻿@model TaskManager.ViewModels.SubtaskLevel1ViewModel
+@{
+    ViewBag.Title = "SubtaskLevel1FView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.SubTaskName</h2>
+<hr />
+
+<br />
+<p>@Html.ActionLink("New Step", "New", "TaskProcedures", new { taskId = Model.TaskId, subtaskId = Model.SubTaskId }, new { @class = "btn btn-primary" })</p>
+
+<table id="taskSteps" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Order</th>
+            <th>Name</th>
+            <th>Steps</th>
+            <th>Video</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<br />
+<hr />
+
+@using (Html.BeginForm("Save", "SubtaskLevel1",
+    FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="Order">Order</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(s => s.Order, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Order)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="SubTaskName">Name</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(s => s.SubTaskName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.SubTaskName)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="SubTaskDescription">Description</label>
+        <div class="col-sm-10">
+            @Html.TextAreaFor(s => s.SubTaskDescription, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.SubTaskDescription)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="PriceId">Price</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(s => s.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.PriceId)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="MemberId">Assigned to</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.MemberId)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="DateCreated">Date Created</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.DateCreated)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="Hours">Hours</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Hours)
+        </div>
+    </div>
+    @Html.HiddenFor(t => t.SubTaskId)
+    @Html.HiddenFor(t => t.TaskId)
+    @Html.AntiForgeryToken()
+
+    if (Model.TaskId == 0)
+    {
+        <a href="/Tasks/New" class="btn btn-default">Close</a>
+    }
+    else
+    {
+        <a href='@("/Tasks/Edit/" + Model.TaskId)' class="btn btn-default">Close</a>
+    }
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            var subtaskId = @Html.Raw(Json.Encode(Model.SubTaskId));
+
+            var table = $("#taskSteps").DataTable({
+
+                "paging": false,
+                "ordering": true,
+                "info": false,
+                "searching": false,
+                "order": [[0, "asc"]],
+
+                ajax: {
+                    url: "/api/taskprocedures/" + subtaskId,
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskProcedureId",
+                        render: function (data, type, taskProc) {
+                            return "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit/" + data + "'> View </a>";
+                        }
+                    },
+                    {
+                        data: "TaskProcedureOrder"
+                    },
+                    {
+                        data: "TaskProcedureDescription"
+                    },
+                    {
+                        data: "TaskSteps"
+                    },
+                    {
+                        data: "TaskVideoFile"
+                    }                    
+                ]
+            });
+        });
+    </script>
+}
