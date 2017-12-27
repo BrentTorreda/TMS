@@ -60,6 +60,13 @@
             @Html.ValidationMessageFor(t => t.Hours)
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="TaskStatusId">Status</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(s => s.TaskStatusId, new SelectList(Model.TaskStatuses, "TaskStatusId", "TaskStatusName"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.TaskStatusId)
+        </div>
+    </div>
     @Html.HiddenFor(t => t.SubTaskId)
     @Html.HiddenFor(t => t.TaskId)
     @Html.AntiForgeryToken()

@@ -22,7 +22,8 @@ namespace TaskManager.Controllers.Apis
             var subTasksQuery = _context.SubTasksLevel1
                .Include(s => s.Members)
                .Include(s => s.Prices)
-               .Include(s => s.Tasks);
+               .Include(s => s.Tasks)
+               .Include(s => s.TaskStatuses);
 
             var subTaskDtos = subTasksQuery
                 .ToList()

@@ -42,12 +42,13 @@
                 return '<table id="' + table_id + '" class="display" border="0" style="padding-left:50px; width:100%;">' +
                     '<thead>' +
                     '<th></th >' +
-                    '<th>Order</th >' +
                     '<th>Name</th>' +
                     '<th>Description</th>' +
                     '<th>Hours</th>' +
                     '<th>Date Created</th>' +
                     '<th>Assigned To</th>' +
+                    '<th>Time Worked</th>' +
+                    '<th>Status</th>' +
                     '</thead>' +
                     '</table>';
         }
@@ -68,14 +69,11 @@
                         {
                             data: "TaskId",
                             render: function (data, type, subtask) {
-                                return "<a class='btn btn-primary btn-xs' href='/subtasklevel1/edit/" + subtask.SubTaskId + "'> View </a>";
+                                return "<a class='btn btn-primary btn-xs' href='/subtasklevel1/view/" + subtask.SubTaskId + "'> View </a>";
                             }
                         },
                         {
-                            data: "Order"
-                        },
-                        {
-                            data: "SubTaskName",
+                            data: "SubTaskName"
                         },
                         {
                             data: "SubTaskDescription"
@@ -94,6 +92,12 @@
                             render: function (data, type, member) {
                                 return member.Members.FirstName + " " + member.Members.LastName;
                             }
+                        },
+                        {
+                            data: "TimeWorked"
+                        },
+                        {
+                            data: "TaskStatuses.TaskStatusName"
                         }
                     ]             
                 });

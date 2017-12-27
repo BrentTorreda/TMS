@@ -29,10 +29,29 @@ namespace TaskManager.Controllers
             {
                 Prices = _context.Prices.ToList(),
                 Members = _context.Members.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList(),
                 TaskId = id
             };
 
             return View("SubtaskLevel1FormNew", viewModel);
+        }
+
+        // GET: SubtaskLevel1\1
+        public ActionResult View(int id)
+        {
+            var subTask = _context.SubTasksLevel1.SingleOrDefault(t => t.SubTaskId == id);
+
+            if (subTask == null)
+                return HttpNotFound();
+
+            var viewModel = new SubtaskLevel1ViewModel(subTask)
+            {
+                Prices = _context.Prices.ToList(),
+                Members = _context.Members.ToList(),
+                Tasks = _context.Tasks.ToList()
+            };
+
+            return View("SubTaskLevel1View", viewModel);
         }
 
         public ActionResult Edit(int id)

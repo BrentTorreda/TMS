@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.Dtos
 {
@@ -29,6 +30,13 @@ namespace TaskManager.Dtos
 
         public TaskDto Tasks { get; set; }
 
+        public TaskStatusDto TaskStatuses { get; set; }
+
         public int Order { get; set; }
+
+        public TimeSpan TimeWorked { get; set; }
+
+        [StringLength(1500)]
+        public string Notes { get; set; }
     }
 }

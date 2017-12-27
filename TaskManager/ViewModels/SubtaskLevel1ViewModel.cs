@@ -16,6 +16,8 @@ namespace TaskManager.ViewModels
 
         public IEnumerable<Members> Members { get; set; }
 
+        public IEnumerable<TaskStatuses> TaskStatuses { get; set; }
+
         public int SubTaskId { get; set; }
         
         public string SubTaskName { get; set; }
@@ -33,6 +35,14 @@ namespace TaskManager.ViewModels
         public int PriceId { get; set; }
 
         public int Order { get; set; }
+
+        public int TaskStatusId { get; set; }
+
+        public string Notes { get; set; }
+
+        public TimeSpan TimeWorked { get; set; }
+        
+        public bool IsCompleted { get; set; }
 
         public SubtaskLevel1ViewModel()
         {

@@ -15,6 +15,7 @@ namespace TaskManager
                         "~/Scripts/respond.js",
                         "~/Scripts/datatables/jquery.datatables.js",
                         "~/Scripts/datatables/datatables.bootstrap.js",
+                        "~/Scripts/Countimer/dist/ez.countimer.js",
                         "~/Scripts/moment.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

@@ -42,5 +42,17 @@ namespace TaskManager.Models
 
         [Required]
         public int Order { get; set; }
+
+
+        [Required]
+        public int TaskStatusId { get; set; }
+
+        [ForeignKey("TaskStatusId")]
+        public TaskStatuses TaskStatuses { get; set; }
+
+        public TimeSpan TimeWorked { get; set; }
+
+        [StringLength(1500)]    
+        public string Notes { get; set; }        
     }
 }

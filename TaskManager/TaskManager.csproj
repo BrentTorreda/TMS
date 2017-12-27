@@ -333,6 +333,14 @@
     <Compile Include="Migrations\201712240250014_AddedApplicationUserIdToMembers.Designer.cs">
       <DependentUpon>201712240250014_AddedApplicationUserIdToMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712270005534_AddedTaskStatusToSubtaskLevel1.cs" />
+    <Compile Include="Migrations\201712270005534_AddedTaskStatusToSubtaskLevel1.Designer.cs">
+      <DependentUpon>201712270005534_AddedTaskStatusToSubtaskLevel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712270018475_AddedTimeworkedAndNotes.cs" />
+    <Compile Include="Migrations\201712270018475_AddedTimeworkedAndNotes.Designer.cs">
+      <DependentUpon>201712270018475_AddedTimeworkedAndNotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Companies.cs" />
@@ -740,6 +748,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712240250014_AddedApplicationUserIdToMembers.resx">
       <DependentUpon>201712240250014_AddedApplicationUserIdToMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712270005534_AddedTaskStatusToSubtaskLevel1.resx">
+      <DependentUpon>201712270005534_AddedTaskStatusToSubtaskLevel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712270018475_AddedTimeworkedAndNotes.resx">
+      <DependentUpon>201712270018475_AddedTimeworkedAndNotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
