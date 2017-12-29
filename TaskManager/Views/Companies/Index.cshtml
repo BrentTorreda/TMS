@@ -1,0 +1,75 @@
+﻿@model IEnumerable<TaskManager.Models.Companies>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Companies Index</h2>
+<hr />
+<p>
+    @Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="companies" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>   
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#companies").DataTable({
+                ajax: {
+                    url: "/api/companies",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "CompanyName",
+                        render: function (data, type, company) {
+                            return "<a href='/companies/edit/" + company.CompanyId + "'>" + company.CompanyName +  "</a>";
+                        }
+                    },
+                    {
+                        data: "Email"
+                    },
+                    {
+                        data: "Phone"
+                    },                   
+                    {
+                        data: "CompanyId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-company-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#companies").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this company?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/companies/" + button.attr("data-company-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

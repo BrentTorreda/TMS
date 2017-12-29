@@ -1,0 +1,45 @@
+﻿@model TaskManager.Models.Companies
+
+@{
+    ViewBag.Title = "Company Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Company Form</h2>
+
+@using (Html.BeginForm("Save", "Companies",
+            FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="CompanyName">Name</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(c => c.CompanyName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.CompanyName)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="Email">Email</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.Email)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="Phone">Phone</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(c => c.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.Phone)
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.CompanyId)
+    @Html.AntiForgeryToken()
+    <a href='@("/Companies/Index")' class="btn btn-default">Close</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

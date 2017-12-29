@@ -51,7 +51,7 @@ namespace TaskManager.Controllers
                 Tasks = _context.Tasks.ToList()
             };
 
-            return View("SubTaskLevel1View", viewModel);
+            return View("SubTaskLevel1LogWork", viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -77,9 +77,12 @@ namespace TaskManager.Controllers
             if (!ModelState.IsValid)
             {
                 var viewModel = new SubtaskLevel1ViewModel(subTask) { };
-
                 return View("SubTaskLevel1FormNew", viewModel);
             }
+
+            string action = "Edit";
+            string controller = "Tasks";
+            int procId = subTask.TaskId;
 
             if (subTask.SubTaskId == 0)
             {
@@ -94,11 +97,21 @@ namespace TaskManager.Controllers
                 subTaskInDb.MemberId = subTask.MemberId;
                 subTaskInDb.PriceId = subTask.PriceId;
                 subTaskInDb.TaskId = subTask.TaskId;
+                subTaskInDb.Notes = subTask.Notes;
+
+                if (subTask.TimeWorked != subTaskInDb.TimeWorked) //from Work Log
+                {
+                    action = "View";
+                    controller = "SubTaskLevel1";
+                    procId = subTask.SubTaskId;
+                }
+
+                subTaskInDb.TimeWorked = subTask.TimeWorked;                
             }
 
             _context.SaveChanges();
 
-            return RedirectToAction("Edit", "Tasks", new { id = subTask.TaskId });
+            return RedirectToAction( action, controller, new { id = procId });
         }
     }
 }

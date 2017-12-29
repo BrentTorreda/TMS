@@ -207,11 +207,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Apis\CompaniesController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
     <Compile Include="Controllers\Apis\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
     <Compile Include="Controllers\Apis\TasksController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -656,7 +658,9 @@
     <Content Include="Views\SubtaskLevel1\SubtaskLevel1FormNew.cshtml" />
     <Content Include="Views\SubtaskLevel1\SubTaskLevel1FormEdit.cshtml" />
     <Content Include="Views\Tasks\TaskFormNew.cshtml" />
-    <Content Include="Views\SubtaskLevel1\SubTaskLevel1View.cshtml" />
+    <Content Include="Views\SubtaskLevel1\SubTaskLevel1LogWork.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\CompanyForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

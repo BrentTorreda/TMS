@@ -60,6 +60,8 @@ namespace TaskManager.ViewModels
             Hours = subTask.Hours;
             PriceId = subTask.PriceId;
             Order = subTask.Order;
+            TimeWorked = subTask.TimeWorked;
+            Notes = subTask.Notes;
         }
     }
 }

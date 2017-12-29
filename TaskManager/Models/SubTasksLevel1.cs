@@ -43,7 +43,6 @@ namespace TaskManager.Models
         [Required]
         public int Order { get; set; }
 
-
         [Required]
         public int TaskStatusId { get; set; }
 
