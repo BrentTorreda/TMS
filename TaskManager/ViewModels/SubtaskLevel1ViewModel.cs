@@ -34,7 +34,7 @@ namespace TaskManager.ViewModels
         
         public int PriceId { get; set; }
 
-        public int Order { get; set; }
+        public int SubTaskOrder { get; set; }
 
         public int TaskStatusId { get; set; }
 
@@ -43,6 +43,8 @@ namespace TaskManager.ViewModels
         public TimeSpan TimeWorked { get; set; }
         
         public bool IsCompleted { get; set; }
+
+        public bool PrevTaskDone { get; set; }
 
         public SubtaskLevel1ViewModel()
         {
@@ -59,7 +61,7 @@ namespace TaskManager.ViewModels
             DateCreated = subTask.DateCreated;
             Hours = subTask.Hours;
             PriceId = subTask.PriceId;
-            Order = subTask.Order;
+            SubTaskOrder = subTask.SubTaskOrder;
             TimeWorked = subTask.TimeWorked;
             Notes = subTask.Notes;
         }

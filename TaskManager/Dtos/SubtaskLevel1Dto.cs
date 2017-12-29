@@ -32,7 +32,7 @@ namespace TaskManager.Dtos
 
         public TaskStatusDto TaskStatuses { get; set; }
 
-        public int Order { get; set; }
+        public int SubTaskOrder { get; set; }
 
         public TimeSpan TimeWorked { get; set; }
 

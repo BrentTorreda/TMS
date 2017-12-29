@@ -8,134 +8,142 @@
 <h2>My Dashboard</h2>
 <hr />
 
-<div style="width:100%;overflow:auto;">
-    <div style="float:left; width:50%; margin-right:10px;">
-        <h4>Task Status by Company</h4>
-        <table id="taskByCompany" class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Company</th>
-                    <th>Total Tasks</th>
-                    <th>Completed</th>
-                    <th>In Progress</th>
-                    <th>Not Started</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var company in Model.Companies)
-                {
-                    <tr>
-                        <td>@Html.ActionLink(
-                           company.CompanyName,
-                           "Index",
-                           "Tasks",
-                           new {
-                               id = company.CompanyId
-                           },
-                           null)
-                        </td>
-                        @{
-                            int totalTasks = 0;
-                            int tasksOpen = 0;
-                            int tasksDone = 0;
-                            int tasksNotStarted = 0;
-                            decimal percentComplete;
+<div style="width:100%;overflow:auto;position:relative">
+    <div style="float:left; width:50%; margin-right:10px;height:100%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Task Status by Company</div>
+            <div class="panel-body">
+                <table id="taskByCompany" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Total Tasks</th>
+                            <th>Completed</th>
+                            <th>In Progress</th>
+                            <th>Not Started</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var company in Model.Companies)
+                        {
+                            <tr>
+                                <td>@Html.ActionLink(
+                                   company.CompanyName,
+                                   "Index",
+                                   "Tasks",
+                                   new {
+                                       id = company.CompanyId
+                                   },
+                                   null)
+                                </td>
+                                @{
+                                    int totalTasks = 0;
+                                    int tasksOpen = 0;
+                                    int tasksDone = 0;
+                                    int tasksNotStarted = 0;
+                                    decimal percentComplete;
 
-                            foreach (var task in Model.Tasks)
-                            {
-                                if (task.CompanyId == company.CompanyId)
-                                {
-                                    totalTasks++;
-                                    if (task.TaskStatusId == 1)
+                                    foreach (var task in Model.Tasks)
                                     {
-                                        tasksNotStarted++;
+                                        if (task.CompanyId == company.CompanyId)
+                                        {
+                                            totalTasks++;
+                                            if (task.TaskStatusId == 1)
+                                            {
+                                                tasksNotStarted++;
+                                            }
+                                            if( task.TaskStatusId == 2)
+                                            {
+                                                tasksDone++;
+                                            }
+                                            if (task.TaskStatusId == 2)
+                                            {
+                                                tasksOpen++;
+                                            }
+                                        }
                                     }
-                                    if( task.TaskStatusId == 2)
+                                    if (totalTasks > 0)
                                     {
-                                        tasksDone++;
+                                        percentComplete = tasksDone / totalTasks;
                                     }
-                                    if (task.TaskStatusId == 2)
+                                    else
                                     {
-                                        tasksOpen++;
+                                        percentComplete = 0;
                                     }
+
+                                    <td>@(totalTasks != 0 ? totalTasks.ToString() : "-") </td>
+                                    <td>@(tasksDone != 0 ? tasksDone.ToString() : "-" )</td>
+                                    <td>@(tasksOpen != 0 ? tasksOpen.ToString() : "-")</td>
+                                    <td>@(tasksNotStarted != 0 ? tasksNotStarted.ToString() : "-")</td>
+                                    <td>@percentComplete.ToString("P")</td>
                                 }
-                            }
-                            if (totalTasks > 0)
-                            {
-                                percentComplete = tasksDone / totalTasks;
-                            }
-                            else
-                            {
-                                percentComplete = 0;
-                            }
-
-                            <td>@(totalTasks != 0 ? totalTasks.ToString() : "-") </td>
-                            <td>@(tasksDone != 0 ? tasksDone.ToString() : "-" )</td>
-                            <td>@(tasksOpen != 0 ? tasksOpen.ToString() : "-")</td>
-                            <td>@(tasksNotStarted != 0 ? tasksNotStarted.ToString() : "-")</td>
-                            <td>@percentComplete.ToString("P")</td>
+                            </tr>
                         }
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div style="float:left;padding-left:10px; border-left:2px groove silver ;
-      border-radius:2px;">
-        <h4>Open Task Pool</h4>
-        <table id="workpool" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Task Name</th>
-                    <th>Created</th>
-                    <th>Due</th>
-                    <th>Hours</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+
+    <div style="float:left;width:45%;height:100%">
+        <div class="panel panel-info">
+            <div class="panel-heading">Open Task Pool</div>
+            <div class="panel-body">
+                <table id="workpool" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>Created</th>
+                            <th>Due</th>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            var table = $("#workpool").DataTable({
+        <script>
+            $(document).ready(function () {
+                var table = $("#workpool").DataTable({
 
-                //TEMPORARY: Hard coded task status
-                ajax: {
-                    url: "/api/tasks/1/status",
-                    dataSrc: ""
-                },
+                    //TEMPORARY: Hard coded task status
+                    ajax: {
+                        url: "/api/tasks/1/status",
+                        dataSrc: ""
+                    },
 
-                columns: [
-                    {
-                        data: "TaskName",
-                        render: function (data, type, task) {
-                            return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName + "</a>";
+                    columns: [
+                        {
+                            data: "TaskName",
+                            render: function (data, type, task) {
+                                return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName + "</a>";
+                            }
+                        },
+                        {
+                            data: "DateCreated",
+                            render: function (data) {
+                                return moment(data).format("DD/MM/YY");
+                            }
+                        },
+                        {
+                            data: "DateDue",
+                            render: function (data) {
+                                return moment(data).format("DD/MM/YY");
+                            }
+                        },
+                        {
+                            data: "Hours"
                         }
-                    },
-                    {
-                        data: "DateCreated",
-                        render: function (data) {
-                            return moment(data).format("DD/MM/YY");
-                        }
-                    },
-                    {
-                        data: "DateDue",
-                        render: function (data) {
-                            return moment(data).format("DD/MM/YY");
-                        }
-                    },
-                    {
-                        data: "Hours"
-                    }
-                ]
+                    ]
+                });
             });
-        });
-    </script>
-}
+        </script>
+    }
 
 

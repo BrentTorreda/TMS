@@ -210,6 +210,7 @@
     <Compile Include="Controllers\Apis\CompaniesController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
+    <Compile Include="Controllers\Apis\PricesController.cs" />
     <Compile Include="Controllers\Apis\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
     <Compile Include="Controllers\Apis\TasksController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -342,6 +344,10 @@
     <Compile Include="Migrations\201712270018475_AddedTimeworkedAndNotes.cs" />
     <Compile Include="Migrations\201712270018475_AddedTimeworkedAndNotes.Designer.cs">
       <DependentUpon>201712270018475_AddedTimeworkedAndNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.cs" />
+    <Compile Include="Migrations\201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.Designer.cs">
+      <DependentUpon>201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -661,6 +667,8 @@
     <Content Include="Views\SubtaskLevel1\SubTaskLevel1LogWork.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Companies\CompanyForm.cshtml" />
+    <Content Include="Views\Prices\Index.cshtml" />
+    <Content Include="Views\Prices\PriceForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -758,6 +766,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712270018475_AddedTimeworkedAndNotes.resx">
       <DependentUpon>201712270018475_AddedTimeworkedAndNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.resx">
+      <DependentUpon>201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

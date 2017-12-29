@@ -11,7 +11,7 @@ namespace TaskManager.Controllers
 {
     public class CompaniesController : Controller
     {
-        // GET: Members        
+        // GET: Companies        
         public ActionResult Index()
         {
             return View();
@@ -19,9 +19,12 @@ namespace TaskManager.Controllers
 
         public ViewResult New()
         {
-            var _context = new ApplicationDbContext();
-            
-            return View("CompanyForm");
+            //12.29.17 - BTo - Needed. Otherwise View will return a Model.IsValid = false
+            var model = new Companies();
+
+            model.CompanyId = 0;
+
+            return View("CompanyForm", model);
         }
 
         public ActionResult Edit(int id)
@@ -41,7 +44,7 @@ namespace TaskManager.Controllers
         public ActionResult Save(Companies company)
         {
             var _context = new ApplicationDbContext();
-
+            
             if (!ModelState.IsValid)
             {               
                 return View("CompanyForm");

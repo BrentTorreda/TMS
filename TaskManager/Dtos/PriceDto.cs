@@ -10,5 +10,7 @@ namespace TaskManager.Dtos
         public int PriceId { get; set; }
 
         public float Amount { get; set; }
+
+        public string PriceDescription { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
+using System.Data.SqlClient;
+
 
 namespace TaskManager.Controllers
 {
@@ -41,6 +43,11 @@ namespace TaskManager.Controllers
         {
             var subTask = _context.SubTasksLevel1.SingleOrDefault(t => t.SubTaskId == id);
 
+            //get previous task status
+            int prevOrderNum = subTask.SubTaskOrder - 1;
+            string SQL = "select* from SubTasksLevel1 where SubTaskOrder = " + prevOrderNum  + " and TaskId = " + subTask.TaskId;
+            var prevSubTask = _context.SubTasksLevel1.SqlQuery(SQL).SingleOrDefault();
+            
             if (subTask == null)
                 return HttpNotFound();
 
@@ -50,6 +57,17 @@ namespace TaskManager.Controllers
                 Members = _context.Members.ToList(),
                 Tasks = _context.Tasks.ToList()
             };
+
+            //if there is a subtask, check it's status
+            if (prevSubTask != null)
+            {
+                if (prevSubTask.SubTaskId != 4) //4 means it's completed
+                    viewModel.PrevTaskDone = false;
+                else
+                    viewModel.PrevTaskDone = true;
+            }
+            else
+                viewModel.PrevTaskDone = true; //first subtask
 
             return View("SubTaskLevel1LogWork", viewModel);
         }
@@ -74,15 +92,15 @@ namespace TaskManager.Controllers
         // POST: SubtaskLevel1
         public ActionResult Save(SubTasksLevel1 subTask )
         {
+            string action = "Edit";
+            string controller = "Tasks";
+            int procId = subTask.TaskId;
+
             if (!ModelState.IsValid)
             {
                 var viewModel = new SubtaskLevel1ViewModel(subTask) { };
                 return View("SubTaskLevel1FormNew", viewModel);
             }
-
-            string action = "Edit";
-            string controller = "Tasks";
-            int procId = subTask.TaskId;
 
             if (subTask.SubTaskId == 0)
             {
@@ -93,22 +111,22 @@ namespace TaskManager.Controllers
                 var subTaskInDb = _context.SubTasksLevel1.Single(s => s.SubTaskId == subTask.SubTaskId);
                 subTaskInDb.SubTaskName = subTask.SubTaskName;
                 subTaskInDb.SubTaskDescription = subTask.SubTaskDescription;
-                subTaskInDb.Order = subTask.Order;
+                subTaskInDb.SubTaskOrder = subTask.SubTaskOrder;
                 subTaskInDb.MemberId = subTask.MemberId;
                 subTaskInDb.PriceId = subTask.PriceId;
                 subTaskInDb.TaskId = subTask.TaskId;
                 subTaskInDb.Notes = subTask.Notes;
 
-                if (subTask.TimeWorked != subTaskInDb.TimeWorked) //from Work Log
-                {
-                    action = "View";
-                    controller = "SubTaskLevel1";
-                    procId = subTask.SubTaskId;
-                }
+                if (subTask.TimeWorked != null)
+                    if (subTask.TimeWorked != subTaskInDb.TimeWorked) //from Work Log
+                    {
+                        action = "View";
+                        controller = "SubTaskLevel1";
+                        procId = subTask.SubTaskId;
+                    }
 
                 subTaskInDb.TimeWorked = subTask.TimeWorked;                
             }
-
             _context.SaveChanges();
 
             return RedirectToAction( action, controller, new { id = procId });

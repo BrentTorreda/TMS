@@ -6,8 +6,7 @@
 
 <h2>@Model.SubTaskName</h2>
 <hr />
-
-<h5>Procedure</h5>
+<h4>Procedure</h4>
 
 <table id="taskSteps" class="table table-striped table-hover">
     <thead>
@@ -23,53 +22,61 @@
 <br />
 <hr />
 
-@using (Html.BeginForm("Save", "SubtaskLevel1", FormMethod.Post))
+@if (Model.PrevTaskDone)
 {
-    @Html.ValidationSummary(true, "Please fix the following errors.")
-
-    <div class="form-group" width="100%">
-        <label for="Notes">Notes</label>
-        @Html.TextAreaFor(s => s.Notes, new { @class = "form-control" })
-        @Html.ValidationMessageFor(s => s.Notes)
-    </div>
-
-    <div class="form-group">
-        @Html.TextBoxFor(t => t.TimeWorked, new{ @class="timer", @name="timer" })
-        <br />
-        <br />
-        <div name="sw_controls" class="sw_controls" id="sw_controls">
-            <input type="button" value="Start" class="sw_start btn btn-sm btn-success" id="sw_start">
-            <input type="button" value="Stop" class="sw_stop btn btn-sm btn-danger" id="sw_stop">
-            <input type="button" value="Resume" class="sw_resume btn btn-sm btn-default" id="sw_resume">
+    using (Html.BeginForm("Save", "SubtaskLevel1", FormMethod.Post, new { @class = "form-horizontal", @style="border=1;" }))
+    {
+        @Html.ValidationSummary(true, "Please fix the following errors.")
+        <div class="form-group">
+            @Html.TextBoxFor(t => t.TimeWorked, new { @class = "timer", @name = "timer", @readonly = "readonly" })
+            <br />
+            <br />
+            <div name="sw_controls" class="sw_controls" id="sw_controls">
+                <input type="button" value="Start" class="sw_start btn btn-sm btn-success" id="sw_start">
+                <input type="button" value="Stop" class="sw_stop btn btn-sm btn-danger" id="sw_stop">
+                <input type="button" value="Resume" class="sw_resume btn btn-sm btn-default" id="sw_resume">
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            <label class="control-label" for="Notes">Notes:</label>            
+            <textarea rows ="8" style="width:100%" cols="40" id="Notes" name="Notes"></textarea>
+            @Html.ValidationMessageFor(s => s.Notes)                     
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label><input type="checkbox" name="IsCompleted" id="IsCompleted"> Completed</label>
+            </div>            
+        </div>
+
+        @Html.HiddenFor(t => t.SubTaskOrder)
+        @Html.HiddenFor(t => t.TaskStatusId)
+        @Html.HiddenFor(t => t.PriceId)
+        @Html.HiddenFor(t => t.MemberId)
+        @Html.HiddenFor(t => t.SubTaskName)
+        @Html.HiddenFor(t => t.SubTaskDescription)
+        @Html.HiddenFor(t => t.SubTaskId)
+        @Html.HiddenFor(t => t.TaskId)
+        @Html.AntiForgeryToken()
+
+        <div class="form-group"> 
+            <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
+            <button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
+        </div>
+    }
+}
+else
+{
+    <h4 class="text-danger">You cannot edit this subtask. The previous task hasn't been completed yet.</h4>
 
     <div class="form-group">
-        <label for="TaskStatusId">Completed</label>
-        @Html.CheckBoxFor(s => s.IsCompleted, new { @class = "form-control" })
-        @Html.ValidationMessageFor(s => s.IsCompleted)
+        <label for="TimeWorked">Time Worked</label>
+        @Html.TextBoxFor(t => t.TimeWorked, new { @class = "timer", @name = "timer", @readonly = "readonly" })
     </div>
-
-    
-    @Html.HiddenFor(t => t.Order)
-    @Html.HiddenFor(t => t.TaskStatusId)
-    @Html.HiddenFor(t => t.PriceId)
-    @Html.HiddenFor(t => t.MemberId)
-    @Html.HiddenFor(t => t.SubTaskName)
-    @Html.HiddenFor(t => t.SubTaskDescription)
-    @Html.HiddenFor(t => t.SubTaskId)
-    @Html.HiddenFor(t => t.TaskId)
-    @Html.AntiForgeryToken()
-
-    if (Model.TaskId == 0)
-    {
-        <a href="/Tasks/New" class="btn btn-default">Close</a>
-    }
-    else
-    {
-        <a href='@("/Tasks/Edit/" + Model.TaskId)' class="btn btn-default">Close</a>
-    }
-    <button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
+    <div class="form-group">
+        <label for="Notes">Notes</label>
+        @Html.TextAreaFor(s => s.Notes, new { @class = "form-control min-width: 100%", @readonly = "readonly"})
+    </div>
+    <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
 }
 
 @section scripts

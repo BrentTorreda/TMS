@@ -41,7 +41,7 @@ namespace TaskManager.Models
         public Prices Prices { get; set; }
 
         [Required]
-        public int Order { get; set; }
+        public int SubTaskOrder { get; set; }
 
         [Required]
         public int TaskStatusId { get; set; }
