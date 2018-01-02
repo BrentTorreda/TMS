@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
+    <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -348,6 +349,10 @@
     <Compile Include="Migrations\201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.cs" />
     <Compile Include="Migrations\201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.Designer.cs">
       <DependentUpon>201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.cs" />
+    <Compile Include="Migrations\201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.Designer.cs">
+      <DependentUpon>201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -525,6 +530,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -538,6 +545,8 @@
     </Content>
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -621,6 +630,8 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -769,6 +780,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.resx">
       <DependentUpon>201712290434362_RenamedOrdertoSubTaskOrderInSubtaskLevel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.resx">
+      <DependentUpon>201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -32,6 +32,13 @@ namespace TaskManager.ViewModels
 
         public int SubTaskId { get; set; }
 
+        public bool IsStepDone { get; set; }
+
+        public string Image1 { get; set; }
+
+        public string Image2 { get; set; }
+
+        public string Image3 { get; set; }
 
         public TaskProcedureViewModel()
         {

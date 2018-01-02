@@ -20,6 +20,13 @@
                 @Html.ValidationMessageFor(t => t.TaskName)
             </div>
         </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="IsTemplate">Use as Template</label>
+            <div class="col-sm-8">
+                @Html.CheckBoxFor(t => t.IsTemplate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.IsTemplate)
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6">

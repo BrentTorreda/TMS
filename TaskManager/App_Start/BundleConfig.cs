@@ -16,7 +16,8 @@ namespace TaskManager
                         "~/Scripts/datatables/jquery.datatables.js",
                         "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/Countimer/dist/ez.countimer.js",
-                        "~/Scripts/moment.js"));
+                        "~/Scripts/moment.js",
+                        "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,6 +30,7 @@ namespace TaskManager
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
+                      "~/Content/toastr.css",
                       "~/Content/datatables/css/datatables.bootstrap4.css"));
         }
     }

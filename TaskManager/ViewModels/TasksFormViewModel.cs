@@ -79,6 +79,8 @@ namespace TaskManager.ViewModels
 
         public int FilterId { get; set; }
 
+        public bool IsTemplate { get; set; }
+
         public TasksFormViewModel()
         {
             TaskId = 0;

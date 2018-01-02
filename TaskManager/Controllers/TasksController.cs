@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
+using TaskManager.SQL;
 
 namespace TaskManager.Controllers
 {
@@ -51,6 +52,31 @@ namespace TaskManager.Controllers
 
             return View("TaskFormNew", viewModel);
         }
+
+        public ActionResult NewFromTemplate(int id)
+        {
+            var sqlDirect = new PrepareTemplate();
+
+            var taskId = sqlDirect.InsertTemplate(id);
+
+            var task = _context.Tasks.SingleOrDefault(t => t.TaskId == taskId);
+
+            if (task == null)
+                return HttpNotFound();
+
+            var viewModel = new TasksFormViewModel(task)
+            {
+                TaskTypes = _context.TaskTypes.ToList(),
+                TaskCategories = _context.TaskCategories.ToList(),
+                Prices = _context.Prices.ToList(),
+                Companies = _context.Companies.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList(),
+                Members = _context.Members.ToList()
+            };
+
+            return View("TaskFormEdit", viewModel);
+        }
+
 
         public ActionResult Edit(int id)
         {
