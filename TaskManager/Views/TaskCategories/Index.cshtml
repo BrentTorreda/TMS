@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TaskManager.Models.TaskCategories>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Task Categories Index</h2>
+<hr />
+<p>
+    @Html.ActionLink("New Category", "New", "TaskCategories", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="categories" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Category Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#categories").DataTable({
+                ajax: {
+                    url: "/api/taskcategories",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskCategoryId",
+                        render: function (data, type, category) {
+                            return "<a class='btn btn-primary btn-xs' href='/taskcategories/edit/" + category.TaskCategoryId + "'>View</a>";
+                        }
+                    },
+                    {
+                        data: "CategoryName"
+                    },                    
+                    {
+                        data: "TaskCategoryId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-category-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#categories").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this category?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/taskcategories/" + button.attr("data-category-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

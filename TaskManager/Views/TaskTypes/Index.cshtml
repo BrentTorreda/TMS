@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TaskManager.Models.TaskTypes>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Task Types Index</h2>
+<hr />
+<p>
+    @Html.ActionLink("New Type", "New", "TaskTypes", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="types" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Task Type Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#types").DataTable({
+                ajax: {
+                    url: "/api/tasktypes",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskTypeId",
+                        render: function (data, type, taskType) {
+                            return "<a class='btn btn-primary btn-xs' href='/tasktypes/edit/" + taskType.TaskTypeId + "'>View</a>";
+                        }
+                    },
+                    {
+                        data: "TaskName"
+                    },
+                    {
+                        data: "TaskTypeId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-type-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#types").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this type?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/tasktypes/" + button.attr("data-type-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -212,14 +212,18 @@
     <Compile Include="Controllers\Apis\MembersController.cs" />
     <Compile Include="Controllers\Apis\PricesController.cs" />
     <Compile Include="Controllers\Apis\SubtaskLevel1Controller.cs" />
+    <Compile Include="Controllers\Apis\TaskCategoriesController.cs" />
     <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
     <Compile Include="Controllers\Apis\TasksController.cs" />
+    <Compile Include="Controllers\Apis\TaskTypesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
+    <Compile Include="Controllers\TaskCategoriesController.cs" />
+    <Compile Include="Controllers\TaskTypesController.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
@@ -680,6 +684,10 @@
     <Content Include="Views\Companies\CompanyForm.cshtml" />
     <Content Include="Views\Prices\Index.cshtml" />
     <Content Include="Views\Prices\PriceForm.cshtml" />
+    <Content Include="Views\TaskCategories\Index.cshtml" />
+    <Content Include="Views\TaskCategories\TaskCategoryForm.cshtml" />
+    <Content Include="Views\TaskTypes\Index.cshtml" />
+    <Content Include="Views\TaskTypes\TaskTypeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
