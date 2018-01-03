@@ -42,5 +42,7 @@ namespace TaskManager.Dtos
         public PriceDto Price { get; set; }
 
         public DateTime DateDue { get; set; }
+
+        public bool IsTemplate { get; set; }
     }
 }

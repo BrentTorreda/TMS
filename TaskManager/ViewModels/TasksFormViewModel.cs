@@ -42,10 +42,14 @@ namespace TaskManager.ViewModels
         [Required]
         public int Hours { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Created")]
         [Required]
         public DateTime? DateCreated { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Started")]
         [Required]
         public DateTime DateWorkStarted { get; set; }

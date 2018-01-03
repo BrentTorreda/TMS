@@ -1,0 +1,55 @@
+﻿@model TaskManager.ViewModels.TasksFormViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Task Templates</h2>
+
+@using (Html.BeginForm("Save", "Tasks", FormMethod.Post,
+            FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <table id="tasks" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Is Template? </th>
+                <th>Task Name</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#tasks").DataTable({
+                ajax: {
+                    url: "/api/tasks/",
+                    dataSrc: ""
+                },
+
+                columnDefs: [{
+                    targets: 0,
+                    searchable: false,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    render: function (data, type, full, meta) {
+                        return '<input type="checkbox" name="isTemplate" value=' + data + '>';
+                    }
+                }],
+
+                columns: [
+                    {
+                        data: "IsTemplate"
+                    },
+                    {
+                        data: "TaskName"
+                    }
+                ]
+            });
+        });
+    </script>
+}

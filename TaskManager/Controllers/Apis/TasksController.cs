@@ -31,7 +31,7 @@ namespace TaskManager.Controllers.Apis
                    .Select(Mapper.Map<Tasks, TaskDto>);
 
             return Ok(taskDtos);
-        }
+        }              
 
         public IHttpActionResult GetTasks(int id)
         {

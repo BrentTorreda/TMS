@@ -8,8 +8,8 @@
 <h2>My Dashboard</h2>
 <hr />
 
-<div style="width:100%;overflow:auto;position:relative">
-    <div style="float:left; width:50%; margin-right:10px;height:100%">
+<div class="container">
+    <div class="col-sm-6" >
         <div class="panel panel-primary">
             <div class="panel-heading">Task Status by Company</div>
             <div class="panel-body">
@@ -86,11 +86,11 @@
         </div>
     </div>
 
-    <div style="float:left;width:45%;height:100%">
+    <div class="col-sm-6">
         <div class="panel panel-info">
             <div class="panel-heading">Open Task Pool</div>
             <div class="panel-body">
-                <table id="workpool" class="table table-bordered table-hover" style="width:100%">
+                <table id="workpool" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Task Name</th>
@@ -103,6 +103,13 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
+
+   
+    <div class="panel panel-success col-sm-12">
+        <div class="panel-heading">My Tasks</div>
+        <div class="panel-body">Task List Filtered by Status</div>
     </div>
 </div>
 

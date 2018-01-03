@@ -6,6 +6,7 @@
 }
 
 <h2>Task Form</h2>
+<h4>From Template: @Model.TaskName</h4>
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Details</a></li>
@@ -16,14 +17,14 @@
     <div id="home" class="tab-pane fade in active">
         <br />
         @using (Html.BeginForm("Save", "Tasks",
-        FormMethod.Post, new { @class = "form-horizontal" }))
+            FormMethod.Post, new { @class = "form-horizontal", @id = "Tasks" }))
         {
-        @Html.ValidationSummary(true, "Please fix the following errors.")
+            @Html.ValidationSummary(true, "Please fix the following errors.")
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label class="control-label col-sm-3" for="TaskName">Name</label>
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control" })
+                        @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control", @Value = Model.TaskName + " - 001" })
                         @Html.ValidationMessageFor(t => t.TaskName)
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                 <div class="form-group col-sm-6">
                     <label class="control-label col-sm-3" for="DateCreated">Date Created</label>
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                        @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control", @Value = DateTime.Now })
                         @Html.ValidationMessageFor(t => t.DateCreated)
                     </div>
                 </div>
@@ -103,8 +104,10 @@
             </div>
             @Html.HiddenFor(t => t.TaskId)
             @Html.AntiForgeryToken()
-            <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <div class="row" name="taskFormButtons" id="taskFormButtons">
+                <a name="cancelTrans" id="cancelTrans" class="btn btn-default">Close</a>
+                <button id="commit" name="commit" type="submit" class="btn btn-primary">Save</button>
+            </div>
         }
     </div>
 
@@ -138,6 +141,20 @@
 
             var taskId = @Html.Raw(Json.Encode(Model.TaskId));
 
+            formmodified = 1;
+         
+            window.onbeforeunload = confirmExit;
+
+            function confirmExit() {
+                if (formmodified == 1) {
+                    return "New information not saved. Do you wish to leave the page?";
+                }
+            }
+            $("#taskFormButtons").on("click", "#commit", function () {
+                formmodified = 0;
+            });
+
+            
             var table = $("#subTasks").DataTable({
                 "paging": false,
                 "ordering": true,
@@ -205,7 +222,23 @@
                     }
                 });
             });
-        });
+
+            $("#taskFormButtons").on("click", "#cancelTrans", function (e) {
+                e.preventDefault();
+                bootbox.confirm("Are you sure you want to cancel?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/tasks/" + taskId,
+                            method: "DELETE",
+                            success: function () {
+                                window.open("/Tasks/Index/0", "_self");
+                            }
+                        });
+                    }
+                })
+
+            });
+        });         
     </script>
 }
 

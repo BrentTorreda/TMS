@@ -74,7 +74,7 @@ namespace TaskManager.Controllers
                 Members = _context.Members.ToList()
             };
 
-            return View("TaskFormEdit", viewModel);
+            return View("TaskFormNewFromTemplate", viewModel);
         }
 
 
@@ -141,7 +141,7 @@ namespace TaskManager.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Tasks", new { id = task.CompanyId });
+            return RedirectToAction("Index", "Tasks", new { id = 0 });
         }
     }
 }

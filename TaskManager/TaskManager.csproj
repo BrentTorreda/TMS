@@ -223,6 +223,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
+    <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
@@ -688,6 +689,8 @@
     <Content Include="Views\TaskCategories\TaskCategoryForm.cshtml" />
     <Content Include="Views\TaskTypes\Index.cshtml" />
     <Content Include="Views\TaskTypes\TaskTypeForm.cshtml" />
+    <Content Include="Views\Tasks\TaskFormNewFromTemplate.cshtml" />
+    <Content Include="Views\TaskTemplates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
