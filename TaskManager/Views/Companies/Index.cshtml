@@ -14,6 +14,7 @@
 <table id="companies" class="table table-bordered table-hover">
     <thead>
         <tr>
+            <th></th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -35,10 +36,14 @@
 
                 columns: [
                     {
-                        data: "CompanyName",
+                        data: "CompanyId",
                         render: function (data, type, company) {
-                            return "<a href='/companies/edit/" + company.CompanyId + "'>" + company.CompanyName +  "</a>";
+                            return "<a class='btn btn-primary btn-xs' href='/companies/edit/" + company.CompanyId + "'>Edit</a>";
                         }
+                    },
+                    {
+                        data: "CompanyName"
+                        
                     },
                     {
                         data: "Email"

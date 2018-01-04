@@ -19,6 +19,7 @@ namespace TaskManager.Controllers
 
             viewModel.Tasks = _context.Tasks.ToList();
             viewModel.Companies = _context.Companies.ToList();
+            viewModel.SubTasksLevel1 = _context.SubTasksLevel1.ToList();
             
             return View("Index", viewModel);
         }

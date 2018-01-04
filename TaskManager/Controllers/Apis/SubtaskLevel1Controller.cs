@@ -33,6 +33,30 @@ namespace TaskManager.Controllers.Apis
             return Ok(subTaskDtos);
         }
 
+        // GET /api/subtasklevel1/id/filterby
+        [Route("api/Tasks/{id}/{getBy}")]
+        public IHttpActionResult GetSubtaskLevel1(int id, string getBy)
+        {
+            var subTasksQuery = _context.SubTasksLevel1
+               .Include(s => s.Members)
+               .Include(s => s.Prices)
+               .Include(s => s.Tasks)
+               .Include(s => s.TaskStatuses);
+
+            
+            if (getBy == "status")
+                subTasksQuery = subTasksQuery.Where(t => t.TaskStatusId == id);
+            else if (getBy == "member")
+                subTasksQuery = subTasksQuery.Where(t => t.MemberId == id);
+
+            var subTaskDtos = subTasksQuery
+                .ToList()
+                .Where(s => s.TaskId == id)
+                .Select(Mapper.Map<SubTasksLevel1, SubtaskLevel1Dto>);
+
+            return Ok(subTaskDtos);
+        }
+
         // DELETE /api/subtasklevel1
         public IHttpActionResult DeleteSubtaskLevel1(int id)
         {

@@ -1,4 +1,4 @@
-﻿@model TaskManager.ViewModels.TasksFormViewModel
+﻿@model List<TaskManager.Models.Tasks>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,18 +6,24 @@
 
 <h2>Manage Task Templates</h2>
 
-@using (Html.BeginForm("Save", "Tasks", FormMethod.Post,
-            FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Save", "TaskTemplates", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <table id="tasks" class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Is Template? </th>
+                <th>Template? </th>
+                <th></th>
                 <th>Task Name</th>
+                <th>Description</th>
+                <th>Date Created</th>
+                <th></th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        </tbody>
     </table>
+   
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
@@ -26,27 +32,54 @@
     <script>
         $(document).ready(function () {
             var table = $("#tasks").DataTable({
+
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+
                 ajax: {
                     url: "/api/tasks/",
                     dataSrc: ""
                 },
 
-                columnDefs: [{
-                    targets: 0,
-                    searchable: false,
-                    orderable: false,
-                    className: 'dt-body-center',
-                    render: function (data, type, full, meta) {
-                        return '<input type="checkbox" name="isTemplate" value=' + data + '>';
-                    }
-                }],
-
                 columns: [
                     {
-                        data: "IsTemplate"
+                        data: "IsTemplate",
+                        width: "10%",
+                        className: 'dt-body-center',
+                        render: function (data, type, full, meta) {
+                            return '<input data-val="true" type="checkbox" id="[' + meta.row + '].IsTemplate" name="[' + meta.row + '].IsTemplate" value="true" ' + (data ? 'checked' : '') + ' />';                               
+                        }
                     },
                     {
-                        data: "TaskName"
+                        data: "IsTemplate",
+                        width: "0%",
+                        render: function (data, type, task, meta) {
+                            return '<input type="hidden" id="[' + meta.row + '].IsTemplate" name="[' + meta.row + '].IsTemplate" value="false" />';
+                        }
+                    },
+                    {
+                        data: "TaskName",
+                        width: "25%"
+                    },
+                    {
+                        data: "TaskDescription",
+                        width: "50%"
+                    },
+                    {
+                        data: "DateCreated",
+                        width: "15%",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YYYY");
+                        }
+                    },
+                    {
+                        data: "TaskId",
+                        width: "0%",
+                        render: function (data, type, task, meta) {
+                            return '<input type="hidden" id="[' + meta.row + '].TaskId" name="[' + meta.row + '].TaskId" value="' + task.TaskId + '" />';
+                        }
                     }
                 ]
             });

@@ -13,5 +13,6 @@ namespace TaskManager.ViewModels
     {
         public IEnumerable<Companies> Companies { get; set; }
         public IEnumerable<Tasks> Tasks { get; set; }
+        public IEnumerable<SubTasksLevel1> SubTasksLevel1 { get; set; }
     }
 }

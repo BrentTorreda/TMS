@@ -116,6 +116,7 @@ namespace TaskManager.Controllers
                 subTaskInDb.PriceId = subTask.PriceId;
                 subTaskInDb.TaskId = subTask.TaskId;
                 subTaskInDb.Notes = subTask.Notes;
+                subTaskInDb.IsCompleted = subTask.IsCompleted;
 
                 if (subTask.TimeWorked != null)
                     if (subTask.TimeWorked != subTaskInDb.TimeWorked) //from Work Log

@@ -52,6 +52,8 @@ namespace TaskManager.Models
         public TimeSpan TimeWorked { get; set; }
 
         [StringLength(1500)]    
-        public string Notes { get; set; }        
+        public string Notes { get; set; }
+
+        public bool IsCompleted { get; set; }
     }
 }

@@ -64,6 +64,7 @@ namespace TaskManager.ViewModels
             SubTaskOrder = subTask.SubTaskOrder;
             TimeWorked = subTask.TimeWorked;
             Notes = subTask.Notes;
+            IsCompleted = subTask.IsCompleted;
         }
     }
 }

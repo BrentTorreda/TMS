@@ -52,11 +52,11 @@
     <thead>
         <tr>
             <th> </th>
-            <th>Task Name</th>
+            <th>Name</th>
             <th>Description</th>
             <th>Date Created</th>
             <th>Hours</th>
-            <th>Date Work Started</th>
+            <th>Date Started</th>
             <th>Time Worked</th>
             <th>Bill</th>
             <th>Category</th>
@@ -129,18 +129,22 @@
                 columns: [
                     {
                         data: "TaskId",
+                        width: "5%",
                         render: function (data, type, subtask) {
                             return "<a class='btn btn-primary btn-xs' href='/subtasklevel1/view/" + subtask.SubTaskId + "'> View </a>";
                         }
                     },
                     {
-                        data: "SubTaskName"
+                        data: "SubTaskName",
+                        width: "10%"
                     },
                     {
-                        data: "SubTaskDescription"
+                        data: "SubTaskDescription",
+                        width: "30%"
                     },
                     {
-                        data: "Hours"
+                        data: "Hours",
+                        width: "5%"
                     },
                     {
                         data: "DateCreated",
@@ -168,12 +172,11 @@
             ajax: {
                 url: "/api/tasks/" + id,
                 dataSrc: ""
-            },
+            },            
 
             columns: [
                 {
                     className: 'details-control',
-                    orderable: false,
                     data: "TaskId",
                     defaultContent: '',
                     render: function (data) {
@@ -187,7 +190,7 @@
                     }
                 },
                 {
-                    data: "TaskDescription"
+                    data: "TaskDescription",
                 },
                 {
                     data: "DateCreated",
@@ -196,7 +199,8 @@
                     }
                 },
                 {
-                    data: "Hours"
+                    data: "Hours",
+                    ordering: true
                 },
                 {
                     data: "DateWorkStarted",

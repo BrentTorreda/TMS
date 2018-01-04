@@ -225,6 +225,10 @@
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.cs" />
+    <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.Designer.cs">
+      <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
@@ -794,6 +798,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.resx">
       <DependentUpon>201712310355218_AddedIsStepDoneImage1Image2Image3InTaskProcedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.resx">
+      <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
