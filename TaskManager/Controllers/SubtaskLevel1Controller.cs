@@ -38,8 +38,8 @@ namespace TaskManager.Controllers
             return View("SubtaskLevel1FormNew", viewModel);
         }
 
-        // GET: SubtaskLevel1\1
-        public ActionResult View(int id)
+        // GET: SubtaskLevel1\LogWork\1
+        public ActionResult LogWork(int id)
         {
             var subTask = _context.SubTasksLevel1.SingleOrDefault(t => t.SubTaskId == id);
 
@@ -70,6 +70,25 @@ namespace TaskManager.Controllers
                 viewModel.PrevTaskDone = true; //first subtask
 
             return View("SubTaskLevel1LogWork", viewModel);
+        }
+
+        public ActionResult View(int id)
+        {
+            var subTask = _context.SubTasksLevel1.SingleOrDefault(t => t.SubTaskId == id);
+
+            if (subTask == null)
+                return HttpNotFound();
+
+            var viewModel = new SubtaskLevel1ViewModel(subTask)
+            {
+                Prices = _context.Prices.ToList(),
+                Members = _context.Members.ToList(),
+                Tasks = _context.Tasks.ToList()
+            };
+
+            viewModel.ViewOnly_bv = 1;
+
+            return View("SubTaskLevel1FormEdit", viewModel);
         }
 
         public ActionResult Edit(int id)

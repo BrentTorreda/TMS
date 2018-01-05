@@ -34,11 +34,16 @@ namespace TaskManager.ViewModels
 
         public bool IsStepDone { get; set; }
 
+        [StringLength(1000)]
         public string Image1 { get; set; }
 
+        [StringLength(1000)]
         public string Image2 { get; set; }
 
+        [StringLength(1000)]
         public string Image3 { get; set; }
+
+        public int ViewOnly_bv { get; set; }
 
         public TaskProcedureViewModel()
         {

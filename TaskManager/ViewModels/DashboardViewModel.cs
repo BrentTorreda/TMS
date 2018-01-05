@@ -12,7 +12,11 @@ namespace TaskManager.ViewModels
     public class DashboardViewModel
     {
         public IEnumerable<Companies> Companies { get; set; }
+
         public IEnumerable<Tasks> Tasks { get; set; }
+
         public IEnumerable<SubTasksLevel1> SubTasksLevel1 { get; set; }
+
+        public int MemberId { get; set; }
     }
 }

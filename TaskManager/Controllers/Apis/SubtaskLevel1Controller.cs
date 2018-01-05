@@ -34,7 +34,7 @@ namespace TaskManager.Controllers.Apis
         }
 
         // GET /api/subtasklevel1/id/filterby
-        [Route("api/Tasks/{id}/{getBy}")]
+        [Route("api/subtaskLevel1/{id}/{getBy}")]
         public IHttpActionResult GetSubtaskLevel1(int id, string getBy)
         {
             var subTasksQuery = _context.SubTasksLevel1
@@ -51,7 +51,6 @@ namespace TaskManager.Controllers.Apis
 
             var subTaskDtos = subTasksQuery
                 .ToList()
-                .Where(s => s.TaskId == id)
                 .Select(Mapper.Map<SubTasksLevel1, SubtaskLevel1Dto>);
 
             return Ok(subTaskDtos);

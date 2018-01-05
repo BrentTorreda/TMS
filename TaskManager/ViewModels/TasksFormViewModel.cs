@@ -85,6 +85,8 @@ namespace TaskManager.ViewModels
 
         public bool IsTemplate { get; set; }
 
+        public int ViewOnly_bv { get; set; }
+
         public TasksFormViewModel()
         {
             TaskId = 0;

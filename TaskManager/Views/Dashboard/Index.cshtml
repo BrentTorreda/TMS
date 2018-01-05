@@ -8,88 +8,88 @@
 <h2>My Dashboard</h2>
 <hr />
 
-<div class="container .row.row-eq-height">   
+<div class="container .row.row-eq-height">
     <div class="row" style="display:flex;">
-        <div class="col-sm-6">
-            <div class="panel panel-primary">
+        <div class="col-sm-6" style="display:flex; width:100%;">
+            <div class="panel panel-primary" style="width:100%">
                 <div class="panel-heading">Task Status by Company</div>
                 <div class="panel-body">
                     <table id="taskByCompany" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Company</th>
-                                <th>Total Tasks</th>
-                                <th>Completed</th>
-                                <th>In Progress</th>
-                                <th>Not Started</th>
+                                <th style="width:40%;">Company</th>
+                                <th style="width:15%;">Total Tasks</th>
+                                <th style="width:15%;">Completed</th>
+                                <th style="width:15%;">In Progress</th>
+                                <th style="width:15%;">Not Started</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var company in Model.Companies)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(
-                                         company.CompanyName,
-                                         "Index",
-                                         "Tasks",
-                                         new
-                                         {
-                                             id = company.CompanyId
-                                         },
-                                         null)
-                                </td>
-                                @{
-                                int totalTasks = 0;
-                                int tasksOpen = 0;
-                                int tasksDone = 0;
-                                int tasksNotStarted = 0;
-                                decimal percentComplete;
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink(
+                                                       company.CompanyName,
+                                                       "Index",
+                                                       "Tasks",
+                                                       new
+                                                       {
+                                                           id = company.CompanyId
+                                                       },
+                                                       null)
+                                    </td>
+                                    @{
+                                        int totalTasks = 0;
+                                        int tasksOpen = 0;
+                                        int tasksDone = 0;
+                                        int tasksNotStarted = 0;
+                                        decimal percentComplete;
 
-                                foreach (var task in Model.Tasks)
-                                {
-                                    if (task.CompanyId == company.CompanyId)
-                                    {
-                                        totalTasks++;
-                                        if (task.TaskStatusId == 1)
+                                        foreach (var task in Model.Tasks)
                                         {
-                                            tasksNotStarted++;
+                                            if (task.CompanyId == company.CompanyId)
+                                            {
+                                                totalTasks++;
+                                                if (task.TaskStatusId == 1)
+                                                {
+                                                    tasksNotStarted++;
+                                                }
+                                                if (task.TaskStatusId == 2)
+                                                {
+                                                    tasksDone++;
+                                                }
+                                                if (task.TaskStatusId == 2)
+                                                {
+                                                    tasksOpen++;
+                                                }
+                                            }
                                         }
-                                        if (task.TaskStatusId == 2)
+                                        if (totalTasks > 0)
                                         {
-                                            tasksDone++;
+                                            percentComplete = tasksDone / totalTasks;
                                         }
-                                        if (task.TaskStatusId == 2)
+                                        else
                                         {
-                                            tasksOpen++;
+                                            percentComplete = 0;
                                         }
+
+                                        <td>@(totalTasks != 0 ? totalTasks.ToString() : "-") </td>
+                                        <td>@(tasksDone != 0 ? tasksDone.ToString() : "-" )</td>
+                                        <td>@(tasksOpen != 0 ? tasksOpen.ToString() : "-")</td>
+                                        <td>@(tasksNotStarted != 0 ? tasksNotStarted.ToString() : "-")</td>
+                                        <td>@percentComplete.ToString("P")</td>
                                     }
-                                }
-                                if (totalTasks > 0)
-                                {
-                                    percentComplete = tasksDone / totalTasks;
-                                }
-                                else
-                                {
-                                    percentComplete = 0;
-                                }
-
-                                <td>@(totalTasks != 0 ? totalTasks.ToString() : "-") </td>
-                                <td>@(tasksDone != 0 ? tasksDone.ToString() : "-" )</td>
-                                <td>@(tasksOpen != 0 ? tasksOpen.ToString() : "-")</td>
-                                <td>@(tasksNotStarted != 0 ? tasksNotStarted.ToString() : "-")</td>
-                                <td>@percentComplete.ToString("P")</td>
-                                }
-                            </tr>
-                    }
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="panel panel-info">
+        <div class="col-sm-6" style="display:flex; width:100%;">
+            <div class="panel panel-info" style="width:100%">
                 <div class="panel-heading">Open Task Pool</div>
                 <div class="panel-body">
                     <table id="workpool" class="table table-bordered table-hover">
@@ -109,32 +109,61 @@
     </div>
 </div>
 
-<div style="padding-left:30px; padding-right:30px;">
-    <div class="row">
-        <div class="panel panel-success">
-            <div class="panel-heading">My Tasks</div>
+<div class="panel-group" style="padding-left:1em; padding-right:1em;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#currentTasks">My Tasks</a>
+            </h4>
+        </div>
+        <div id="currentTasks" class="panel-collapse collapse">
             <div class="panel-body">
-                <table id="myTasks" class="table table-bordered table-hover">
+                <table id="myTasks" class="table table-bordered table-hover" style="width:100%;">
                     <thead>
                         <tr>
                             <th>Task</th>
                             <th>Subtask</th>
                             <th>Started</th>
-                            <th>Due</th>
+                            <th>Hours Needed </th>
                             <th>Hours Worked</th>
+                            <th>Complete?</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Panel 2</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">Panel Body</div>
+            <div class="panel-footer">Panel Footer</div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse2">Panel 3</a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">Panel Body</div>
+            <div class="panel-footer">Panel Footer</div>
         </div>
     </div>
 </div>
 
 @section scripts
 {
-<script>
-        $(document).ready(function () {
+    <script>
+    $(document).ready(function () {
+            var memberId = @Html.Raw(Json.Encode(Model.MemberId));
 
             var table = $("#workpool").DataTable({
                 //TEMPORARY: Hard coded task status
@@ -174,36 +203,51 @@
                 ]
             });
 
-            var table = $("#myTasks").DataTable({
+            var table2 = $("#myTasks").DataTable({
                 ajax: {
-                    url: "/api/subtasks",
+                    url: "/api/subtasklevel1/" + memberId + "/member",
                     dataSrc: ""
                 },
 
-                columns: [
+                columns: [                    
                     {
                         data: "Tasks.TaskName",
-                        render: function (data, type, task) {
-                            return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName + "</a>";
+                        width: "30%",
+                    },
+                    {
+                        data: "SubTaskName",
+                        width: "25%",
+                        render: function (data, type, subTask) {
+                            return "<a href='/subtasklevel1/view/" + subTask.SubTaskId + "'>" + data + "</a>";
                         }
                     },
                     {
-                        data: "SubtaskName"                       
+                        data: "DateCreated",
+                        width: "20%",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YYYY");
+                        }
                     },
                     {
-                        data: "SubtaskName"
-                    },
-                    {
-                        data: "Hours"
+                        data: "Hours",
+                        width: "5%",
                     },
                     {
                         data: "TimeWorked",
+                        width: "10%",
                         ordering: false
+                    },
+                    {
+                        data: "IsCompleted",
+                        width: "10%",
+                        render: function (data, type, full, meta) {
+                            return '<input disabled readonly data-val="true" type="checkbox"' + (data ? 'checked' : '') + ' />';
+                        }
                     }
                 ]
             });
         });
-</script>
+    </script>
 }
 
 

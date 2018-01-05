@@ -4,8 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Sub Task</h2>
+<h2>Sub Task Form</h2>
+<h4>@Model.SubTaskName</h4>
 <hr />
+
+@if (Model.ViewOnly_bv == 1)
+{
+    <a class="btn btn-primary" href="/subtasklevel1/logwork/@Model.SubTaskId">Log Work</a>
+    <br />
+    <br />
+}
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Details</a></li>
@@ -15,77 +23,129 @@
 <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
         <br />
-    @using (Html.BeginForm("Save", "SubtaskLevel1",
-        FormMethod.Post, new { @class = "form-horizontal" }))
-    {
-        @Html.ValidationSummary(true, "Please fix the following errors.")
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="SubTaskOrder">Order</label>
-            <div class="col-sm-10">
-                @Html.TextBoxFor(s => s.SubTaskOrder, new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.SubTaskOrder)
+        @using (Html.BeginForm("Save", "SubtaskLevel1",
+            FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.ValidationSummary(true, "Please fix the following errors.")
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="SubTaskOrder">Step</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.TextBoxFor(s => s.SubTaskOrder, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.SubTaskOrder)
+                    }
+                    else
+                    {
+                        <h5> @Model.SubTaskOrder </h5>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="SubTaskName">Name</label>
-            <div class="col-sm-10">
-                @Html.TextBoxFor(s => s.SubTaskName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.SubTaskName)
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="SubTaskName">Name</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.TextBoxFor(s => s.SubTaskName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.SubTaskName)
+                    }
+                    else
+                    {
+                        <h5> @Model.SubTaskName</h5>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="SubTaskDescription">Description</label>
-            <div class="col-sm-10">
-                @Html.TextAreaFor(s => s.SubTaskDescription, new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.SubTaskDescription)
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="SubTaskDescription">Description</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.TextAreaFor(s => s.SubTaskDescription, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.SubTaskDescription)
+                    }
+                    else
+                    {
+                        <h5>@Model.SubTaskDescription</h5>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="PriceId">Price</label>
-            <div class="col-sm-10">
-                @Html.DropDownListFor(s => s.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.PriceId)
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="PriceId">Price</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.DropDownListFor(s => s.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.PriceId)
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(s => s.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @disabled = "disabled" })
+                    }
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="MemberId">Assigned to</label>
-            <div class="col-sm-10">
-                @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.MemberId)
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="MemberId">Assigned to</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.MemberId)
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(s => s.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @disabled = "disabled" })
+                    }
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="DateCreated">Date Created</label>
-            <div class="col-sm-10">
-                @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-                @Html.ValidationMessageFor(t => t.DateCreated)
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="DateCreated">Date Created</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(t => t.DateCreated)
+                    }
+                    else
+                    {
+                        <h5>@Model.DateCreated</h5>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="Hours">Hours</label>
-            <div class="col-sm-10">
-                @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
-                @Html.ValidationMessageFor(t => t.Hours)
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Hours">Hours</label>
+                <div class="col-sm-10">
+                    @if (Model.ViewOnly_bv == 0)
+                    {
+                        @Html.TextBoxFor(t => t.Hours, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(t => t.Hours)
+                    }
+                    else
+                    {
+                        <h5>@Model.Hours</h5>
+                    }
+                </div>
             </div>
-        </div>
-        @Html.HiddenFor(t => t.SubTaskId)
-        @Html.HiddenFor(t => t.TaskId)
-        @Html.AntiForgeryToken()
+            @Html.HiddenFor(t => t.SubTaskId)
+            @Html.HiddenFor(t => t.TaskId)
+            @Html.AntiForgeryToken()
 
-    if (Model.TaskId == 0)
-    {
-        <a href="/Tasks/New" class="btn btn-default">Close</a>
-    }
-    else
-    {
-        <a href='@("/Tasks/Edit/" + Model.TaskId)' class="btn btn-default">Close</a>
-    }
-        <button type="submit" class="btn btn-primary">Save</button>
-    }
+            if (Model.TaskId == 0)
+            {
+                <a href="/Tasks/New" class="btn btn-default">Close</a>
+            }
+            else
+            {
+                <a href='@("/Tasks/Edit/" + Model.TaskId)' class="btn btn-default">Close</a>
+            }
+            if (Model.ViewOnly_bv == 0)
+            {
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
+        }
+
     </div>
     <div id="menu1" class="tab-pane fade">
         <br />
-        <p>@Html.ActionLink("New Step", "New", "TaskProcedures", new { taskId = Model.TaskId, subtaskId = Model.SubTaskId }, new { @class = "btn btn-primary" })</p>
 
         <table id="taskSteps" class="table table-bordered table-hover">
             <thead>
@@ -114,6 +174,8 @@
 
             var subtaskId = @Html.Raw(Json.Encode(Model.SubTaskId));
 
+            var viewOnly_bv = @Html.Raw(Json.Encode(Model.ViewOnly_bv));
+
             var table = $("#taskSteps").DataTable({
 
                 "paging": false,
@@ -131,7 +193,14 @@
                     {
                         data: "TaskProcedureId",
                         render: function (data, type, taskProc) {
-                            return "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit/" + data + "'> View </a>";
+                            var viewMarkup = "";
+                            if (viewOnly_bv == 0) {
+                                viewMarkup = "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit/" + data + "'> View </a>";
+                            }
+                            else {
+                                viewMarkup = "<a class='btn btn-primary btn-xs' href='/taskprocedures/view/" + data + "'> View </a>";
+                            }
+                            return viewMarkup;
                         }
                     },
                     {
@@ -149,7 +218,11 @@
                     {
                         data: "TaskProcedureId",
                         render: function (data) {
-                            return "<button class='js-delete btn btn-primary btn-xs' data-taskprocedure-id=" + data + ">Delete</button>";
+                            var delMarkup = "";
+                            if (viewOnly_bv == 0) {
+                                delMarkup = "<button class='js-delete btn btn-primary btn-xs' data- taskprocedure - id=" + data + " > Delete</button >";
+                            }
+                            return delMarkup;
                         }
                     }
                 ]

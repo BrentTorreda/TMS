@@ -1,0 +1,70 @@
+﻿@model TaskManager.ViewModels.TaskProcedureViewModel
+
+@{
+    ViewBag.Title = "TaskProcedures";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Task Procedures</h2>
+<h4>@Model.TaskProcedureDescription</h4>
+
+<div class="container">
+    <label class="col-sm-2">Step</label>
+    <div class="col-sm-10">
+        <h5>@Model.TaskProcedureOrder</h5>
+    </div>
+
+    <label class="col-sm-2">Description</label>
+    <div class="col-sm-10">
+        <h5>@Model.TaskProcedureDescription</h5>
+    </div>
+
+    <label class="col-sm-2">Steps</label>
+    <div class="col-sm-10">
+        <h5>@Model.TaskSteps</h5>
+    </div>
+
+    <label class="col-sm-2">Video</label>
+    <div class="col-sm-10">
+        <div class="panel panel-primary">
+            <div class="panel-heading">The following video illustrates this step:</div>
+            <div class="panel-body">
+                <iframe width="854" height="480" src="https://www.youtube.com/embed/StTqXEQ2l-Y" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-heading">Images</div>
+    <div class="panel-body">
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Image 1</div>
+                <div class="panel-body">
+                    <img src="~/Content/Images/images59NSPFUB.jpg" alt="No image available" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Image 2</div>
+                <div class="panel-body">
+                    <img src="~/Content/Images/imagesP08ZF16E.jpg" alt="No image available" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Image 3</div>
+                <div class="panel-body">
+                    <img src="~/Content/Images/untitled.png" alt="No image available" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href='@("/SubtaskLevel1/Edit/" + @Model.SubTaskId)' class="btn btn-default">Close</a>

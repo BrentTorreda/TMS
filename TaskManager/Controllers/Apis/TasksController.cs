@@ -33,7 +33,7 @@ namespace TaskManager.Controllers.Apis
             return Ok(taskDtos);
         }              
 
-        public IHttpActionResult GetTasks(int id)
+        public IHttpActionResult GetTask(int id)
         {
             var tasksQuery = _context.Tasks
                    .Include(t => t.TaskCategory)

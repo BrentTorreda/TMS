@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TaskManager.ViewModels;
 using TaskManager.Models;
-using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.ViewModels
 {
@@ -20,8 +17,10 @@ namespace TaskManager.ViewModels
 
         public int SubTaskId { get; set; }
         
+        [Display(Name ="Name")]
         public string SubTaskName { get; set; }
-        
+
+        [Display(Name = "Description")]
         public string SubTaskDescription { get; set; }
         
         public int TaskId { get; set; }    
@@ -34,6 +33,7 @@ namespace TaskManager.ViewModels
         
         public int PriceId { get; set; }
 
+        
         public int SubTaskOrder { get; set; }
 
         public int TaskStatusId { get; set; }
@@ -45,6 +45,8 @@ namespace TaskManager.ViewModels
         public bool IsCompleted { get; set; }
 
         public bool PrevTaskDone { get; set; }
+
+        public int ViewOnly_bv { get; set; }
 
         public SubtaskLevel1ViewModel()
         {

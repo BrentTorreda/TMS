@@ -695,9 +695,11 @@
     <Content Include="Views\TaskTypes\TaskTypeForm.cshtml" />
     <Content Include="Views\Tasks\TaskFormNewFromTemplate.cshtml" />
     <Content Include="Views\TaskTemplates\Index.cshtml" />
+    <Content Include="Views\TaskProcedures\TaskProceduresFormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

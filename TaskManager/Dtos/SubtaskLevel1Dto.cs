@@ -38,5 +38,7 @@ namespace TaskManager.Dtos
 
         [StringLength(1500)]
         public string Notes { get; set; }
+
+        public bool IsCompleted { get; set; }
     }
 }

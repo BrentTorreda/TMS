@@ -39,6 +39,18 @@ namespace TaskManager.Controllers
             return View("TaskProceduresForm", viewModel);
         }
 
+        public ActionResult View(int id)
+        {
+            var taskProc = _context.TaskProcedures.SingleOrDefault(t => t.TaskProcedureId == id);
+
+            if (taskProc == null)
+                return HttpNotFound();
+
+            var viewModel = new TaskProcedureViewModel(taskProc) { };            
+
+            return View("TaskProceduresFormView", viewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(TaskProcedures taskProcedure)

@@ -54,12 +54,11 @@
             <th> </th>
             <th>Name</th>
             <th>Description</th>
-            <th>Date Created</th>
+            <th>Created</th>
+            <th>ETD</th>
+            <th>Started</th>
             <th>Hours</th>
-            <th>Date Started</th>
-            <th>Time Worked</th>
             <th>Bill</th>
-            <th>Category</th>
             <th>Type</th>
             <th>Status</th>
             <th> </th>
@@ -104,7 +103,6 @@
                 '<thead>' +
                 '<th></th >' +
                 '<th>Name</th>' +
-                '<th>Description</th>' +
                 '<th>Hours</th>' +
                 '<th>Date Created</th>' +
                 '<th>Assigned To</th>' +
@@ -131,17 +129,14 @@
                         data: "TaskId",
                         width: "5%",
                         render: function (data, type, subtask) {
-                            return "<a class='btn btn-primary btn-xs' href='/subtasklevel1/view/" + subtask.SubTaskId + "'> View </a>";
+                            return "<a class='btn btn-primary btn-xs' href='/subtasklevel1/logwork/" + subtask.SubTaskId + "'> View </a>";
                         }
                     },
                     {
                         data: "SubTaskName",
-                        width: "10%"
+                        width: "40%"
                     },
-                    {
-                        data: "SubTaskDescription",
-                        width: "30%"
-                    },
+                    
                     {
                         data: "Hours",
                         width: "5%"
@@ -213,9 +208,6 @@
                 },
                 {
                     data: "Price.Amount"
-                },
-                {
-                    data: "TaskCategory.CategoryName"
                 },
                 {
                     data: "TaskType.TaskName"
