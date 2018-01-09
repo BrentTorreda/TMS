@@ -45,6 +45,15 @@ namespace TaskManager.ViewModels
 
         public int ViewOnly_bv { get; set; }
 
+        [StringLength(1000)]
+        public string FilePath1 { get; set; }
+
+        [StringLength(1000)]
+        public string FilePath2 { get; set; }
+
+        [StringLength(1000)]
+        public string FilePath3 { get; set; }
+
         public TaskProcedureViewModel()
         {
             TaskProcedureId = 0;
@@ -59,6 +68,9 @@ namespace TaskManager.ViewModels
             TaskProcedureDescription = taskProc.TaskProcedureDescription;
             TaskProcedureOrder = taskProc.TaskProcedureOrder;
             TaskSteps = taskProc.TaskSteps;
+            FilePath1 = taskProc.FilePath1;
+            FilePath2 = taskProc.FilePath2;
+            FilePath3 = taskProc.FilePath3;
         }
     }
 }

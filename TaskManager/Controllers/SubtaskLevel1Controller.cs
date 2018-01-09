@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
-using System.Data.SqlClient;
+using TaskManager.SQL;
 
 
 namespace TaskManager.Controllers
@@ -61,7 +58,7 @@ namespace TaskManager.Controllers
             //if there is a subtask, check it's status
             if (prevSubTask != null)
             {
-                if (prevSubTask.SubTaskId != 4) //4 means it's completed
+                if (prevSubTask.TaskStatusId != 4) //4 means it's completed
                     viewModel.PrevTaskDone = false;
                 else
                     viewModel.PrevTaskDone = true;
@@ -137,11 +134,22 @@ namespace TaskManager.Controllers
                 subTaskInDb.Notes = subTask.Notes;
                 subTaskInDb.IsCompleted = subTask.IsCompleted;
 
+                if (subTask.IsCompleted)
+                {
+                    var updateMainTask = new CheckIfTaskIsDone();
+                    updateMainTask.UpdateParentTask(subTask.TaskId); //check if all subtasks are done
+                    subTaskInDb.TaskStatusId = 4;
+                }
+                else
+                {
+                    subTaskInDb.TaskStatusId = 3;
+                }
+
                 if (subTask.TimeWorked != null)
                     if (subTask.TimeWorked != subTaskInDb.TimeWorked) //from Work Log
                     {
-                        action = "View";
-                        controller = "SubTaskLevel1";
+                        action = "LogWork";
+                        controller = "SubtaskLevel1";
                         procId = subTask.SubTaskId;
                     }
 

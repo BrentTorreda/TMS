@@ -216,8 +216,10 @@
     <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
     <Compile Include="Controllers\Apis\TasksController.cs" />
     <Compile Include="Controllers\Apis\TaskTypesController.cs" />
+    <Compile Include="Controllers\Apis\UploadFileController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DownloadFileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -229,6 +231,15 @@
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.Designer.cs">
       <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801070609406_AddedFilePathsToTaskProcedures.cs" />
+    <Compile Include="Migrations\201801070609406_AddedFilePathsToTaskProcedures.Designer.cs">
+      <DependentUpon>201801070609406_AddedFilePathsToTaskProcedures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801070639430_SyncDB.cs" />
+    <Compile Include="Migrations\201801070639430_SyncDB.Designer.cs">
+      <DependentUpon>201801070639430_SyncDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SQL\CheckIfTaskIsDone.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
@@ -700,6 +711,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Content\Videos\" />
+    <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\DownloadFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -803,6 +817,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.resx">
       <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801070609406_AddedFilePathsToTaskProcedures.resx">
+      <DependentUpon>201801070609406_AddedFilePathsToTaskProcedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801070639430_SyncDB.resx">
+      <DependentUpon>201801070639430_SyncDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

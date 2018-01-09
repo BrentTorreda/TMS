@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
@@ -75,6 +72,9 @@ namespace TaskManager.Controllers
                 taskProcInDb.TaskId = taskProcedure.TaskId;
                 taskProcInDb.SubtaskId = taskProcedure.SubtaskId;
                 taskProcInDb.TaskSteps = taskProcedure.TaskSteps;
+                taskProcInDb.FilePath1 = taskProcedure.FilePath1;
+                taskProcInDb.FilePath2 = taskProcedure.FilePath2;
+                taskProcInDb.FilePath3 = taskProcedure.FilePath3;
             }
 
             _context.SaveChanges();

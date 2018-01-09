@@ -47,5 +47,14 @@ namespace TaskManager.Models
         public string Image2 { get; set; }
 
         public string Image3 { get; set; }
+
+        [StringLength(1000)]
+        public string FilePath1 { get; set; }
+
+        [StringLength(1000)]
+        public string FilePath2 { get; set; }
+
+        [StringLength(1000)]
+        public string FilePath3 { get; set; }
     }
 }

@@ -7,6 +7,8 @@
 
 <h2>Task Procedures Form</h2>
 <h4>@Model.TaskProcedureDescription</h4>
+<hr />
+<br />
 
 @using (Html.BeginForm("Save", "TaskProcedures",
             FormMethod.Post, new { @class = "form-horizontal" }))
@@ -35,12 +37,11 @@
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="TaskVideoFile">Video</label>
-        <dive class="col-sm-10">
+        <div class="col-sm-10">
             @Html.TextAreaFor(t => t.TaskVideoFile, new { @class = "form-control" })
             @Html.ValidationMessageFor(t => t.TaskVideoFile)
-        </dive>
+        </div>
     </div>
-
     @Html.HiddenFor(t => t.SubTaskId)
     @Html.HiddenFor(t => t.TaskId)
     @Html.HiddenFor(t => t.TaskProcedureId)
@@ -48,4 +49,132 @@
 
     <a href='@("/SubtaskLevel1/Edit/" + @Model.SubTaskId)' class="btn btn-default">Close</a>
     <button type="submit" class="btn btn-primary">Save</button>
+}
+
+<hr />
+
+<h3>Upload Resource Files:</h3>
+
+<hr />
+
+<h4>Video:</h4>
+
+<form id="videoUpload" name="videoUpload" method="post" action="/api/UploadFile" enctype="multipart/form-data">
+    <input class="form-control-file" name="video" type="file" />
+    <input class="hidden" name="procId" value="@Model.TaskProcedureId" />
+    <input class="hidden" name="fileType" value="video" />
+    <br />
+    <input class="btn btn-primary btn-sm" id="videoButton" type="button" value="Upload" />
+</form>
+
+<hr />
+
+<h4>Documents:</h4>
+
+<div class="container border-primary">
+    <form id="uploadFile1" method="post" action="/api/UploadFile" enctype="multipart/form-data">
+        <input class="form-control-file" name="file" type="file" />
+        <input class="hidden" name="procId" value="@Model.TaskProcedureId" />
+        <input class="hidden" name="fileType" value="file1" />
+        <br />
+        <input class="btn btn-primary btn-sm" id="file1" type="button" value="Upload" />
+    </form>
+</div>
+<br />
+<hr style="width:50%;" />
+
+<div class="container border-primary">
+    <form id="uploadFile2" method="post" action="/api/UploadFile" enctype="multipart/form-data">
+        <input class="form-control-file" name="file" type="file" />
+        <input class="hidden" name="procId" value="@Model.TaskProcedureId" />
+        <input class="hidden" name="fileType" value="file2" />
+        <br />
+        <input class="btn btn-primary btn-sm" id="file2" type="button" value="Upload" />
+    </form>
+</div>
+<br />
+<hr style="width:50%;" />
+
+<div class="container border-primary">
+    <form id="uploadFile3" method="post" action="/api/UploadFile" enctype="multipart/form-data">
+        <input class="form-control-file" name="file" type="file" />
+        <input class="hidden" name="procId" value="@Model.TaskProcedureId" />
+        <input class="hidden" name="fileType" value="file3" />
+        <br />
+        <input class="btn btn-primary btn-sm btn" id="file3" type="button" value="Upload" />
+    </form>
+</div>
+
+@section scripts
+{
+    <script>
+        var myform = document.getElementById("videoUpload");
+        var fd = new FormData(myform);
+
+        $('#videoButton').on('click', function () {
+            myform = document.getElementById("videoUpload");
+            fd = new FormData(myform);
+            uploadFile();
+        });
+
+        $('#file1').on('click', function () {
+            myform = document.getElementById("uploadFile1");
+            fd = new FormData(myform);
+            uploadFile();
+        });
+
+        $('#file2').on('click', function () {
+            myform = document.getElementById("uploadFile2");
+            fd = new FormData(myform);
+            uploadFile();
+        });
+
+        $('#file3').on('click', function () {
+            myform = document.getElementById("uploadFile3");
+            fd = new FormData(myform);
+            uploadFile();
+        });
+
+        function uploadFile() {
+            $.ajax({
+                // Your server script to process the upload
+                url: '/api/UploadFile',
+                type: 'POST',
+
+                // Form data
+                data: fd,
+
+                // Tell jQuery not to process data or worry about content-type
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                // Custom XMLHttpRequest
+                xhr: function () {
+                    var myXhr = $.ajaxSettings.xhr();
+                    if (myXhr.upload) {
+                        // For handling the progress of the upload
+                        myXhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                $('progress').attr({
+                                    value: e.loaded,
+                                    max: e.total,
+                                });
+                            }
+                        }, false);
+                    }
+                    return myXhr;
+                },
+
+
+            })
+                .done(function () {
+                    console.log("done");
+                    toastr.success("Upload successful.");
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });;
+        }
+    </script>
 }

@@ -21,5 +21,11 @@ namespace TaskManager.Dtos
         public string TaskVideoFile { get; set; }
 
         public int SubTaskId { get; set; }
+        
+        public string FilePath1 { get; set; }
+        
+        public string FilePath2 { get; set; }
+        
+        public string FilePath3 { get; set; }
     }
 }
