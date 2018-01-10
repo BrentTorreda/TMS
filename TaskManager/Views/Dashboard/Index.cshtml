@@ -95,10 +95,10 @@
                     <table id="workpool" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Task Name</th>
+                                <th>Subtask Name</th>
                                 <th>Created</th>
-                                <th>Due</th>
-                                <th>Hours</th>
+                                <th>Parent Task</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -168,7 +168,7 @@
             var table = $("#workpool").DataTable({
                 //TEMPORARY: Hard coded task status
                 ajax: {
-                    url: "/api/tasks/1/status",
+                    url: "/api/subtasklevel1/0/member",
                     dataSrc: ""
                 },
 
@@ -179,9 +179,9 @@
 
                 columns: [
                     {
-                        data: "TaskName",
-                        render: function (data, type, task) {
-                            return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName + "</a>";
+                        data: "SubTaskName",
+                        render: function (data, type, subTask) {
+                            return "<a href='/subtasklevel1/view/" + subTask.SubTaskId + "'>" + data + "</a>";
                         }
                     },
                     {
@@ -191,14 +191,13 @@
                         }
                     },
                     {
-                        data: "DateDue",
-                        render: function (data) {
-                            return moment(data).format("DD/MM/YY");
-                        }
+                        data: "Tasks.TaskName"
                     },
                     {
-                        data: "Hours",
-                        ordering: false
+                        data: "SubTaskId",
+                        render: function (data) {
+                            return "<button class='js-takeTask btn btn-primary btn-xs' data-subtask-id=" + data + ">Take</button>";
+                        }
                     }
                 ]
             });
@@ -246,6 +245,24 @@
                     }
                 ]
             });
+
+            $("#workpool").on("click", ".js-takeTask", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to take this task?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/subtasklevel1/" + button.attr("data-subtask-id")  + "/" + memberId,
+                            method: "PUT",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                                toastr.success("Task successfully assigned.");
+                            }
+                        });
+                    }
+                });
+            });
+
         });
     </script>
 }

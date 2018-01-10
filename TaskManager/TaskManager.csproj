@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201801070639430_SyncDB.Designer.cs">
       <DependentUpon>201801070639430_SyncDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.cs" />
+    <Compile Include="Migrations\201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.Designer.cs">
+      <DependentUpon>201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
@@ -823,6 +827,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801070639430_SyncDB.resx">
       <DependentUpon>201801070639430_SyncDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.resx">
+      <DependentUpon>201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

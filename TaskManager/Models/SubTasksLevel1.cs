@@ -23,9 +23,8 @@ namespace TaskManager.Models
 
         [ForeignKey("TaskId")]
         public Tasks Tasks { get; set; }
-
-        [Required]
-        public int MemberId { get; set; }
+        
+        public int? MemberId { get; set; }
 
         [ForeignKey("MemberId")]
         public Members Members { get; set; }

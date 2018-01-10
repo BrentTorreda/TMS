@@ -43,12 +43,18 @@ namespace TaskManager.Controllers.Apis
                .Include(s => s.Tasks)
                .Include(s => s.TaskStatuses);
 
-            
+
             if (getBy == "status")
                 subTasksQuery = subTasksQuery.Where(t => t.TaskStatusId == id);
             else if (getBy == "member")
-                subTasksQuery = subTasksQuery.Where(t => t.MemberId == id);
-
+            {
+                if(id == 0) //if 0, all the unassigned subtasks will be retrieved
+                {
+                    subTasksQuery = subTasksQuery.Where(t => t.MemberId == null);
+                }
+                else
+                    subTasksQuery = subTasksQuery.Where(t => t.MemberId == id); 
+            }
             var subTaskDtos = subTasksQuery
                 .ToList()
                 .Select(Mapper.Map<SubTasksLevel1, SubtaskLevel1Dto>);
@@ -71,5 +77,18 @@ namespace TaskManager.Controllers.Apis
         }
 
 
+        // PUT /api/subtasklevel1
+        [Route("api/subtaskLevel1/{id}/{memberId}")]
+        public IHttpActionResult PutSubtaskLevel1(int id, int memberId)
+        {
+            var subtaskInDb = _context.SubTasksLevel1.SingleOrDefault(t => t.SubTaskId == id);
+
+            if (subtaskInDb == null)
+                return NotFound();
+
+            subtaskInDb.MemberId = memberId;
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }

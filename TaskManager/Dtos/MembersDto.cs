@@ -31,5 +31,10 @@ namespace TaskManager.Dtos
         public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 }

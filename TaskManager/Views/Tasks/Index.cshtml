@@ -148,10 +148,8 @@
                         }
                     },
                     {
-                        data: "Members.LastName",
-                        render: function (data, type, member) {
-                            return member.Members.FirstName + " " + member.Members.LastName;
-                        }
+                        data: "Members.FullName",
+                        defaultContent: "<i>Not set</i>"
                     },
                     {
                         data: "TimeWorked"
