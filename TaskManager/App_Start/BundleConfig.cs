@@ -17,6 +17,7 @@ namespace TaskManager
                         "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/Countimer/dist/ez.countimer.js",
                         "~/Scripts/moment.js",
+                        "~/Scripts/bootstrap-datetimepicker.min.js",
                         "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -31,6 +32,7 @@ namespace TaskManager
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/toastr.css",
+                      "~/Content/bootstrap-datetimepicker.css",
                       "~/Content/datatables/css/datatables.bootstrap4.css"));
         }
     }

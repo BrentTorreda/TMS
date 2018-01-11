@@ -1,6 +1,8 @@
 ﻿@model TaskManager.ViewModels.TasksFormViewModel
 
 @{
+    /**/
+
     ViewBag.Title = "TaskForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -53,12 +55,18 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="form-group col-sm-6">
             <label class="control-label col-sm-3" for="DateCreated">Date Created</label>
             <div class="col-sm-8">
-                @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-                @Html.ValidationMessageFor(t => t.DateCreated)
+                <div class='input-group date' id='datetimepicker1'>
+                    @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    @Html.ValidationMessageFor(t => t.DateCreated)
+                </div>
             </div>
         </div>
         <div class="form-group col-sm-6">
@@ -105,5 +113,14 @@
     @Html.AntiForgeryToken()
     <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
     <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+    </script>
 }
 
