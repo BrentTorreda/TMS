@@ -35,6 +35,7 @@ namespace TaskManager.Models
         public DbSet<Prices> Prices { get; set; }
         public DbSet<Companies> Companies { get; set; }
         public DbSet<TaskPool> TaskPool { get; set; }
+        public DbSet<Notes> Notes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

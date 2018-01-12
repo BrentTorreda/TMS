@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace TaskManager.Models
 {
@@ -19,6 +20,7 @@ namespace TaskManager.Models
         [Required]
         public string TaskProcedureDescription { get; set; }
 
+        [AllowHtml]
         [Display(Name = "Steps")]
         [StringLength(1000)]
         [Required]

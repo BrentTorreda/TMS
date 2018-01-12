@@ -110,6 +110,10 @@
         var myform = document.getElementById("videoUpload");
         var fd = new FormData(myform);
 
+        $('#TaskSteps').summernote({
+            height: 300
+        });
+
         $('#videoButton').on('click', function () {
             myform = document.getElementById("videoUpload");
             fd = new FormData(myform);
@@ -164,8 +168,6 @@
                     }
                     return myXhr;
                 },
-
-
             })
                 .done(function () {
                     console.log("done");

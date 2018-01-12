@@ -223,6 +223,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
@@ -243,6 +244,27 @@
     <Compile Include="Migrations\201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.Designer.cs">
       <DependentUpon>201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801112336553_AddedNotesTable.cs" />
+    <Compile Include="Migrations\201801112336553_AddedNotesTable.Designer.cs">
+      <DependentUpon>201801112336553_AddedNotesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120028577_ChangedCreatedByToIntInTableNotes.cs" />
+    <Compile Include="Migrations\201801120028577_ChangedCreatedByToIntInTableNotes.Designer.cs">
+      <DependentUpon>201801120028577_ChangedCreatedByToIntInTableNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120043592_ChangedForeignKeyInTableNotes.cs" />
+    <Compile Include="Migrations\201801120043592_ChangedForeignKeyInTableNotes.Designer.cs">
+      <DependentUpon>201801120043592_ChangedForeignKeyInTableNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120100459_SyncNotesTable.cs" />
+    <Compile Include="Migrations\201801120100459_SyncNotesTable.Designer.cs">
+      <DependentUpon>201801120100459_SyncNotesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.cs" />
+    <Compile Include="Migrations\201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.Designer.cs">
+      <DependentUpon>201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notes.cs" />
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
@@ -398,6 +420,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\MembersFormViewModel.cs" />
+    <Compile Include="ViewModels\NoteFormViewModel.cs" />
     <Compile Include="ViewModels\SubtaskLevel1ViewModel.cs" />
     <Compile Include="ViewModels\TaskProcedureViewModel.cs" />
     <Compile Include="ViewModels\TasksFormViewModel.cs" />
@@ -713,6 +736,7 @@
     <Content Include="Views\Tasks\TaskFormNewFromTemplate.cshtml" />
     <Content Include="Views\TaskTemplates\Index.cshtml" />
     <Content Include="Views\TaskProcedures\TaskProceduresFormView.cshtml" />
+    <Content Include="Views\Notes\NoteForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -832,6 +856,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.resx">
       <DependentUpon>201801100048407_ChangedMemberIdInSubtaskLevel1ToNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801112336553_AddedNotesTable.resx">
+      <DependentUpon>201801112336553_AddedNotesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120028577_ChangedCreatedByToIntInTableNotes.resx">
+      <DependentUpon>201801120028577_ChangedCreatedByToIntInTableNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120043592_ChangedForeignKeyInTableNotes.resx">
+      <DependentUpon>201801120043592_ChangedForeignKeyInTableNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120100459_SyncNotesTable.resx">
+      <DependentUpon>201801120100459_SyncNotesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.resx">
+      <DependentUpon>201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

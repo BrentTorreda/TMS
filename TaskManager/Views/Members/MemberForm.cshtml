@@ -65,8 +65,14 @@
     @Html.HiddenFor(m => m.MemberId)
     @Html.AntiForgeryToken()
 
-    <a href='@("/Members/Index")' class="btn btn-default">Close</a>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div class="form-group" style="display:block;"> 
+        <div class="col-sm-12">
+            <div class="btn-group pull-right">
+                <a href='@("/Members/Index")' class="btn btn-default">Close</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
 }
 
 @section scripts
