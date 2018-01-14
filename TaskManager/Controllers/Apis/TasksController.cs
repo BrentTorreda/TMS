@@ -33,6 +33,8 @@ namespace TaskManager.Controllers.Apis
             return Ok(taskDtos);
         }              
 
+        // GET /api/tasks
+
         public IHttpActionResult GetTask(int id)
         {
             var tasksQuery = _context.Tasks
@@ -52,6 +54,7 @@ namespace TaskManager.Controllers.Apis
             return Ok(taskDtos);
         }
 
+        // GET api/tasks
         [Route("api/Tasks/{id}/{getBy}")]
         public IHttpActionResult GetTasks(int id, string getBy)
         {
@@ -86,6 +89,13 @@ namespace TaskManager.Controllers.Apis
             _context.Tasks.Remove(taskInDb);
             _context.SaveChanges();
 
+            return Ok();
+        }
+
+        // POST /api/tasks
+        public IHttpActionResult PostTasks(int id)
+        {
+            System.Console.WriteLine(id);
             return Ok();
         }
     }

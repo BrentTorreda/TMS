@@ -266,6 +266,7 @@
     </Compile>
     <Compile Include="Models\Notes.cs" />
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
+    <Compile Include="SQL\InsertTaskOccurences.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />

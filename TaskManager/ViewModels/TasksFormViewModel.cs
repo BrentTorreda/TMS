@@ -107,6 +107,7 @@ namespace TaskManager.ViewModels
             MemberId = task.MemberId;
             Hours = task.Hours;
             TaskStatusId = task.TaskStatusId;
+            IsTemplate = task.IsTemplate;
         }
     }
 }

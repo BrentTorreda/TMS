@@ -35,6 +35,7 @@ namespace TaskManager
                       "~/Content/toastr.css",
                       "~/Content/bootstrap-datetimepicker.css",
                       "~/Content/summernote.css",
+                      "~/Content/font-awesome-4.7.0/css/font-awesome.css",
                       "~/Content/datatables/css/datatables.bootstrap4.css"));
         }
     }

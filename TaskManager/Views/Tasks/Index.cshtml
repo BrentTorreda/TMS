@@ -39,9 +39,11 @@
                 </form>
             </div>
             <div id="modalButtons" class="modal-footer">
-                <button type="button" id="modalAccept" class="btn btn-success">Yes</button>
-                <button type="button" id="modalClose" class="btn btn-primary">No</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <div class="btn-group pull-right">
+                    <button type="button" id="modalAccept" class="btn btn-success">Yes</button>
+                    <button type="button" id="modalClose" class="btn btn-primary">No</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
 
@@ -94,10 +96,13 @@
 
         $(document).delegate("#modalAccept", "click", function (event) {
             var v = $("#taskTemplates").val();
-            window.open("/Tasks/NewFromTemplate/" + v, "_self");
+            if (v == "select") { /*BTo - No value selected. Weird*/
+                toastr.error("Please select a template.")
+            } else {
+                window.open("/Tasks/NewFromTemplate/" + v, "_self");
+            }
         });
 
-        /* Formatting function for row details - modify as you need */
         function format(table_id) {
             return '<table id="' + table_id + '" class="display" border="0" style="padding-left:50px; width:100%;">' +
                 '<thead>' +

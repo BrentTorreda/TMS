@@ -71,14 +71,21 @@
     @Html.HiddenFor(t => t.TaskId)
     @Html.AntiForgeryToken()
 
-    if (Model.TaskId == 0)
-    {
-        <a href="/Tasks/New" class="btn btn-default">Close</a>
-    }
-    else
-    {
-        <a href='@("/Tasks/Edit/" + Model.TaskId)' class="btn btn-default">Close</a>
-    }
-    <button type="submit" class="btn btn-primary">Save</button>
+
+    <div class="form-group" style="display:block;">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right">
+                @if (Model.TaskId == 0)
+                {
+                    <a href="/Tasks/New" class="btn btn-default">Close</a>
+                }
+                else
+                {
+                    <a href='@("/Tasks/Edit/" + Model.TaskId)' class="btn btn-default">Close</a>
+                }
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
 }
 
