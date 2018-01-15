@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.Designer.cs">
       <DependentUpon>201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801150057344_AddedAncestorTaskIdInTasks.cs" />
+    <Compile Include="Migrations\201801150057344_AddedAncestorTaskIdInTasks.Designer.cs">
+      <DependentUpon>201801150057344_AddedAncestorTaskIdInTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Notes.cs" />
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
     <Compile Include="SQL\InsertTaskOccurences.cs" />
@@ -872,6 +876,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.resx">
       <DependentUpon>201801120130222_AddedAllowHTMLInNotesAndTaskProcedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801150057344_AddedAncestorTaskIdInTasks.resx">
+      <DependentUpon>201801150057344_AddedAncestorTaskIdInTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -89,6 +89,8 @@ namespace TaskManager.ViewModels
 
         public bool IsCompleted { get; set; }
 
+        public int AncestorTaskId { get; set; }
+
         public TasksFormViewModel()
         {
             TaskId = 0;
@@ -108,6 +110,7 @@ namespace TaskManager.ViewModels
             Hours = task.Hours;
             TaskStatusId = task.TaskStatusId;
             IsTemplate = task.IsTemplate;
+            AncestorTaskId = task.AncestorTaskId;
         }
     }
 }

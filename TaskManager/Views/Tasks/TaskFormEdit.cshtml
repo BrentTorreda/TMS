@@ -6,115 +6,199 @@
 }
 
 <h2>Task Form</h2>
-
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Details</a></li>
-    <li><a data-toggle="tab" href="#menu1">Sub Tasks</a></li>
-</ul>
+<hr />
 
 @using (Html.BeginForm("Save", "Tasks",
-        FormMethod.Post, new { @class = "form-horizontal" }))
+        FormMethod.Post, new { @class = "form-horizontal", @id = "Tasks" }))
 {
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-            <br />
-            @Html.ValidationSummary(true, "Please fix the following errors.")
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="TaskName">Name</label>
-                    <div class="col-sm-8">
-                        @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.TaskName)
-                    </div>
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="TaskName">Name</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.TaskName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.TaskName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="TaskDescription">Description</label>
+            <div class="col-sm-8">
+                @Html.TextAreaFor(t => t.TaskDescription, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.TaskDescription)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="TaskTypeId">Type</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.TaskTypeId)
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="TaskCategoryId">Category</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "CategoryName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.TaskCategoryId)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="DateCreated">Date Created</label>
+            <div class="col-sm-8">
+                <div class='input-group date' id='datetimepicker1'>
+                    @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    @Html.ValidationMessageFor(t => t.DateCreated)
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="TaskDescription">Description</label>
-                    <div class="col-sm-8">
-                        @Html.TextAreaFor(t => t.TaskDescription, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.TaskDescription)
-                    </div>
-                </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="Hours">Hours Required</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.Hours, new { @class = "form-control", @type = "number" })
+                @Html.ValidationMessageFor(t => t.Hours)
             </div>
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="TaskTypeId">Type</label>
-                    <div class="col-sm-8">
-                        @Html.DropDownListFor(t => t.TaskTypeId, new SelectList(Model.TaskTypes, "TaskTypeId", "TaskName"), "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.TaskTypeId)
-                    </div>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="TaskCategoryId">Category</label>
-                    <div class="col-sm-8">
-                        @Html.DropDownListFor(t => t.TaskCategoryId, new SelectList(Model.TaskCategories, "TaskCategoryId", "CategoryName"), "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.TaskCategoryId)
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="CompanyId">Company</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(t => t.CompanyId, new SelectList(Model.Companies, "CompanyId", "CompanyName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.CompanyId)
             </div>
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="DateCreated">Date Created</label>
-                    <div class="col-sm-8">
-                        <div class='input-group date' id='datetimepicker1'>
-                            @Html.TextBoxFor(t => t.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                            @Html.ValidationMessageFor(t => t.DateCreated)
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="PriceId">Price</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(t => t.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.PriceId)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="PriceId">Assigned To</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.MemberId)
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-3" for="TaskStatusId">Status</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(t => t.TaskStatusId, new SelectList(Model.TaskStatuses, "TaskStatusId", "TaskStatusName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.TaskStatusId)
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(t => t.TaskId)
+    @Html.AntiForgeryToken()
+
+    if (Model.IsTemplate)
+    {
+        <div id="occurrences" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn btn-default" data-toggle="collapse" href="#setOccurrences">Occurence Options</a>
+                </h4>
+            </div>
+            <div id="setOccurrences" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="container">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Hours">Renewal Pattern</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="RenewalPattern" name="RenewalPattern">
+                                        <option value="0" selected="selected">Weekly</option>
+                                        <option value="1">Every Weekday</option>
+                                        <option value="2">Every MondayWednesdayFriday</option>
+                                        <option value="3">Every TuesdayThursday</option>
+                                        <option value="4">Every Daily</option>
+                                        <option value="5">Every Monthly</option>
+                                        <option value="6">Every Yearly</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Hours">Repeat Every</label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="RepeatEvery" name="RepeatEvery" class="form-control" value="1">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Hours">Start Date</label>
+                                <div class="col-sm-8">
+                                    <div class='input-group date' id='datetimepicker2'>
+                                        <input id="StartDate" name="StartDate" type="text" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Hours">End On Date</label>
+                                <div class="col-sm-8">
+                                    <div class='input-group date' id='datetimepicker3'>
+                                        <input id="EndDate" name="EndDate" type="text" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Hours">Number Of Dates</label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="NumberOfDates" name="NumberOfDates" class="form-control" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <ul style="list-style-type:none">
+                                <li><div style="display:flex"><div style="width:30%;float:left">Sunday</div><div style="width:30%"><input id="daylistSunday" name="daylistSunday" type="checkbox" /></div></div></li>
+                                <li><div style="display:flex"><div style="width:30%;float:left">Monday</div><div style="width:30%"><input id="daylistMonday" name="daylistMonday" type="checkbox" /></div></div></li>
+                                <li><div style="display:flex"><div style="width:30%;float:left">Tuesday</div><div style="width:30%"><input id="daylistTuesday" name="daylistTuesday" type="checkbox" /></div></div></li>
+                                <li><div style="display:flex"><div style="width:30%;float:left">Wednesday</div><div style="width:30%"> <input id="daylistWednesday" name="daylistWednesday" type="checkbox" /></div></div></li>
+                                <li><div style="display:flex"><div style="width:30%;float:left">Thursday</div><div style="width:30%"> <input id="daylistThursday" name="daylistThursday" type="checkbox" /></div></div></li>
+                                <li><div style="display:flex"><div style="width:30%;float:left">Friday</div><div style="width:30%"> <input id="daylistFriday" name="daylistFriday" type="checkbox" /></div></div></li>
+                                <li><div style="display:flex"><div style="width:30%;float:left">Saturday</div><div style="width:30%"> <input id="daylistSaturday" name="daylistSaturday" type="checkbox" /></div></div></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right">
+                            <button id="DeleteOccur" type="button" class="btn btn-default">Delete Occurences</button>
+                            <button type="button" class="btn btn-primary js-inserttask">Insert Occurences</button>
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="Hours">Hours Required</label>
-                    <div class="col-sm-8">
-                        @Html.TextBoxFor(t => t.Hours, new { @class = "form-control", @type = "number" })
-                        @Html.ValidationMessageFor(t => t.Hours)
-                    </div>
-                </div>
             </div>
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="CompanyId">Company</label>
-                    <div class="col-sm-8">
-                        @Html.DropDownListFor(t => t.CompanyId, new SelectList(Model.Companies, "CompanyId", "CompanyName"), "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.CompanyId)
-                    </div>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="PriceId">Price</label>
-                    <div class="col-sm-8">
-                        @Html.DropDownListFor(t => t.PriceId, new SelectList(Model.Prices, "PriceId", "Amount"), "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.PriceId)
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="PriceId">Assigned To</label>
-                    <div class="col-sm-8">
-                        @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.MemberId)
-                    </div>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label class="control-label col-sm-3" for="TaskStatusId">Status</label>
-                    <div class="col-sm-8">
-                        @Html.DropDownListFor(t => t.TaskStatusId, new SelectList(Model.TaskStatuses, "TaskStatusId", "TaskStatusName"), "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(t => t.TaskStatusId)
-                    </div>
-                </div>
-            </div>
-            @Html.HiddenFor(t => t.TaskId)
-            @Html.AntiForgeryToken()
-            
         </div>
+    }
 
-        <div id="menu1" class="tab-pane fade">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Subtasks</a></li>
+        <li><a data-toggle="tab" href="#insertedOcc">Occurrences</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
             <br />
             <p>@Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })</p>
-
             <table id="subTasks" class="table table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
@@ -131,98 +215,24 @@
                 <tbody></tbody>
             </table>
         </div>
-    </div>
-
-    if (Model.IsTemplate)
-    {
-        <div id="occurrences" class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a class="btn btn-default" data-toggle="collapse" href="#currentTasks">Occurence Options</a>
-                </h4>
-            </div>
-            <div id="currentTasks" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form action="/" method="post" class="form-horizontal">
-                        <div class="container">
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="Hours">Renewal Pattern</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" id="RenewalPattern" name="RenewalPattern">
-                                            <option value="0" selected="selected">Weekly</option>
-                                            <option value="1">Every Weekday</option>
-                                            <option value="2">Every MondayWednesdayFriday</option>
-                                            <option value="3">Every TuesdayThursday</option>
-                                            <option value="4">Every Daily</option>
-                                            <option value="5">Every Monthly</option>
-                                            <option value="6">Every Yearly</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="Hours">Repeat Every</label>
-                                    <div class="col-sm-8">
-                                        <input type="number" id="RepeatEvery" class="form-control" value="1">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="Hours">Start Date</label>
-                                    <div class="col-sm-8">
-                                        <div class='input-group date' id='datetimepicker2'>
-                                            <input type="text" class="form-control" />
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="Hours">End On Date</label>
-                                    <div class="col-sm-8">
-                                        <div class='input-group date' id='datetimepicker3'>
-                                            <input type="text" class="form-control" />
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="Hours">Number Of Dates</label>
-                                    <div class="col-sm-8">
-                                        <input type="number" id="NumberOfDates" class="form-control" value="1">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <ul style="list-style-type:none">
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Sunday</div><div style="width:30%"><input id="daylistSunday" type="checkbox" /></div></div></li>
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Monday</div><div style="width:30%"><input id="daylistMonday" type="checkbox" /></div></div></li>
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Tuesday</div><div style="width:30%"><input id="daylistTuesday" type="checkbox" /></div></div></li>
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Wednesday</div><div style="width:30%"> <input id="daylistWednesday" type="checkbox" /></div></div></li>
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Thursday</div><div style="width:30%"> <input id="daylistThursday" type="checkbox" /></div></div></li>
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Friday</div><div style="width:30%"> <input id="daylistFriday" type="checkbox" /></div></div></li>
-                                    <li><div style="display:flex"><div style="width:30%;float:left">Saturday</div><div style="width:30%"> <input id="daylistSaturday" type="checkbox" /></div></div></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="col-sm-12">
-                        <div class="btn-group pull-right">
-                            <button id="DeleteOccur" type="button" class="btn btn-default">Delete Occurences</button>
-                            <button type="button" class="btn btn-primary js-inserttask">Insert Occurences</button>
-                        </div>
-                    </div>
-                </div>          
-            </div>            
+        <div id="insertedOcc" class="tab-pane fade in active">
+            <br />
+            <table id="occurrencesList" class="table table-striped table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Start Date</th>
+                        <th>Company</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-    }
-
+    </div>
+    
+    <br/>
+   
     <div class="container">
         <div class="form-group" style="display:block;">
             <div class="col-sm-12">
@@ -244,7 +254,17 @@
 
             var taskId = @Html.Raw(Json.Encode(Model.TaskId));
 
-            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker1').datetimepicker({
+                format: "DD/MM/YYYY HH:mm:ss"
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                format: "DD/MM/YYYY HH:mm:ss"
+            });
+
+            $('#datetimepicker3').datetimepicker({
+                format: "DD/MM/YYYY HH:mm:ss"
+            });
 
             var table = $("#subTasks").DataTable({
                 "paging": false,
@@ -312,21 +332,66 @@
                 });
             });
 
-            $("#occurrences").on("click", ".js-inserttask", function () {
+            $("#setOccurrences").on("click", ".js-inserttask", function () {
                 var button = $(this);
 
                 bootbox.confirm("Are you sure you want to generate these occurrences?", function (result) {
+                    var myform = document.getElementById("Tasks");
+                    var fd = new FormData(myform);
                     if (result) {
                         $.ajax({
                             url: "/api/tasks/" + taskId,
-                            method: "POST",
+                            data: fd,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            type: 'POST',                            
                             success: function () {
-                                
+                                toastr.success("Occurrences successfully posted.")
+                                datatable_Occurrences()
+                            },
+                            error: function () {
+                                toastr.error("Something went wrong.");
                             }
                         });
                     }
                 });
             });
+
+            function datatable_Occurrences() {
+                var subtable = $('#occurrencesList').DataTable({
+                    paging: false,
+                    ordering: false,
+                    info: false,
+                    searching: false,
+
+                    ajax: {
+                        url: "/api/tasks/" + taskId + "/ancestor",
+                        dataSrc: ""
+                    },
+
+                    columns: [
+                        {
+                            data: "DateCreated",
+                            render: function (data) {
+                                return moment(data).format("DD MMM YYYY");
+                            }
+                        },
+                        {
+                            data: "Company.CompanyName",
+                            width: "20%"
+                        },
+                        {
+                            data: "TaskName",
+                            width: "40%"
+                        },
+                        {
+                            data: "TaskStatus.TaskStatusName"
+                            
+                        }                       
+                    ]
+                });
+            }
         });
     </script>
 }

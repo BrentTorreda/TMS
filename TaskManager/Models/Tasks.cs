@@ -83,5 +83,7 @@ namespace TaskManager.Models
         public Members Members { get; set; }
 
         public bool IsTemplate { get; set; }
+
+        public int AncestorTaskId { get; set; }
     }
 }

@@ -44,5 +44,7 @@ namespace TaskManager.Dtos
         public DateTime DateDue { get; set; }
 
         public bool IsTemplate { get; set; }
+
+        public int AncestorTaskId { get; set; }
     }
 }
