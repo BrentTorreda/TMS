@@ -23,7 +23,7 @@ namespace TaskManager.App_Start
             Mapper.CreateMap<Prices, PriceDto>();
             Mapper.CreateMap<TaskProcedures, TaskProcedureDto>();
             Mapper.CreateMap<SubTasksLevel1, SubtaskLevel1Dto>();
-
+            Mapper.CreateMap<Notes, NoteDto>();
         }
     }
 }

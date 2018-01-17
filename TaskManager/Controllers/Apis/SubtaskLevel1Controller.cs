@@ -43,7 +43,6 @@ namespace TaskManager.Controllers.Apis
                .Include(s => s.Tasks)
                .Include(s => s.TaskStatuses);
 
-
             if (getBy == "status")
                 subTasksQuery = subTasksQuery.Where(t => t.TaskStatusId == id);
             else if (getBy == "member")

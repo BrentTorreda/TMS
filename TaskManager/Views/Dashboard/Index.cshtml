@@ -138,21 +138,34 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse1" class="btn btn-default">Notes</a>
+                <a data-toggle="collapse" href="#noteInbox" class="btn btn-default">Notes</a>
             </h4>
         </div>
-        <div id="collapse1" class="panel-collapse collapse">
-            <div class="panel-body">Panel Body</div>
+        <div id="noteInbox" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table id="myNotes" class="table table-bordered table-hover" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Date Created</th>
+                            <th>From</th>
+                            <th>Subject</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
             <div class="panel-footer">Panel Footer</div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse2" class="btn btn-default">Emails</a>
+                <a data-toggle="collapse" href="#emailInbox" class="btn btn-default">Emails</a>
             </h4>
         </div>
-        <div id="collapse2" class="panel-collapse collapse">
+        <div id="emailInbox" class="panel-collapse collapse">
             <div class="panel-body">Panel Body</div>
             <div class="panel-footer">Panel Footer</div>
         </div>
@@ -243,6 +256,45 @@
                             return '<input disabled readonly data-val="true" type="checkbox"' + (data ? 'checked' : '') + ' />';
                         }
                     }
+                ]
+            });
+
+            var table3 = $("#myNotes").DataTable({
+                ajax: {
+                    url: "/api/notes/" + memberId + "/member",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "DateCreated",
+                        width: "10%",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YYYY");
+                        }
+                    },
+                    {
+                        data: "MembersMadeBy.FullName",
+                        width: "30%"  
+                    },
+                    {
+                        data: "Subject",
+                        width: "40%"
+                    },
+                    {
+                        data: "NoteId",
+                        width: "10%",
+                        render: function (data) {
+                            return "<button class='js-taskFromNote btn btn-primary btn-xs' data-subtask-id=" + data + ">Create Task</button>";
+                        }
+                    },
+                    {
+                        data: "NoteId",
+                        width: "10%",
+                        render: function (data) {
+                            return "<button class='js-deleteNote btn btn-primary btn-xs' data-subtask-id=" + data + ">Delete</button>";
+                        }
+                    }                  
                 ]
             });
 

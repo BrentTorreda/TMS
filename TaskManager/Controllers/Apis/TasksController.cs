@@ -98,6 +98,27 @@ namespace TaskManager.Controllers.Apis
             return Ok();
         }
 
+        // DELETE /api/tasks/ancestorId/createdBy
+        [HttpDelete]
+        [Route("api/tasks/{ancestorId}/{createdBy}")]
+        public IHttpActionResult DeleteTask(int ancestorId, string createdBy)
+        {
+            var tasksInDb = _context.Tasks.Where(t => t.AncestorTaskId == ancestorId && t.CreatedByAction == createdBy).ToList();
+            if (tasksInDb != null)
+            {
+                foreach (var task in tasksInDb)
+                {
+                    _context.Tasks.Remove(task);
+                }
+            }
+            else
+                return NotFound();
+
+            int rval = _context.SaveChanges();
+
+            return Ok();
+        }
+
         // POST /api/tasks
         [HttpPost]
         public IHttpActionResult PostTasks(int id)
@@ -122,14 +143,22 @@ namespace TaskManager.Controllers.Apis
             if (HttpContext.Current.Request.Params["daylistSaturday"] == "on")
                 days[6] = 1;
 
-            //get number of dates to insert
+            //get other needed data
             var dates = HttpContext.Current.Request.Params["NumberOfDates"];
 
             var startDate = HttpContext.Current.Request.Params["StartDate"];
 
-            var sqlTrans = new InsertTaskOccurences();
+            var endDate = HttpContext.Current.Request.Params["EndDate"];            
 
-            sqlTrans.InsertTasks(id, Convert.ToInt32(pattern), days, Convert.ToInt32(dates), DateTime.ParseExact(startDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture));
+            var repeatEvery = HttpContext.Current.Request.Params["RepeatEvery"];
+
+            var sqlTrans = new InsertTaskOccurences();
+            sqlTrans.InsertTasks(id, 
+                Convert.ToInt32(pattern), 
+                Convert.ToInt32(repeatEvery), days, 
+                Convert.ToInt32(dates), 
+                DateTime.ParseExact(startDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture),
+                DateTime.ParseExact(endDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture));
 
             return Ok();
         }

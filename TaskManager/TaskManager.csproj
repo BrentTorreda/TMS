@@ -210,6 +210,7 @@
     <Compile Include="Controllers\Apis\CompaniesController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
+    <Compile Include="Controllers\Apis\NotesController.cs" />
     <Compile Include="Controllers\Apis\PricesController.cs" />
     <Compile Include="Controllers\Apis\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\Apis\TaskCategoriesController.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Dtos\NoteDto.cs" />
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.cs" />
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.Designer.cs">
       <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
@@ -267,6 +269,10 @@
     <Compile Include="Migrations\201801150057344_AddedAncestorTaskIdInTasks.cs" />
     <Compile Include="Migrations\201801150057344_AddedAncestorTaskIdInTasks.Designer.cs">
       <DependentUpon>201801150057344_AddedAncestorTaskIdInTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs" />
+    <Compile Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.Designer.cs">
+      <DependentUpon>201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Notes.cs" />
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
@@ -426,6 +432,7 @@
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\MembersFormViewModel.cs" />
     <Compile Include="ViewModels\NoteFormViewModel.cs" />
+    <Compile Include="ViewModels\NoteViewModel.cs" />
     <Compile Include="ViewModels\SubtaskLevel1ViewModel.cs" />
     <Compile Include="ViewModels\TaskProcedureViewModel.cs" />
     <Compile Include="ViewModels\TasksFormViewModel.cs" />
@@ -879,6 +886,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801150057344_AddedAncestorTaskIdInTasks.resx">
       <DependentUpon>201801150057344_AddedAncestorTaskIdInTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.resx">
+      <DependentUpon>201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

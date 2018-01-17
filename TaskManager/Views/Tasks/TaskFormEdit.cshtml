@@ -120,11 +120,9 @@
                                     <select class="form-control" id="RenewalPattern" name="RenewalPattern">
                                         <option value="0" selected="selected">Weekly</option>
                                         <option value="1">Every Weekday</option>
-                                        <option value="2">Every MondayWednesdayFriday</option>
-                                        <option value="3">Every TuesdayThursday</option>
-                                        <option value="4">Every Daily</option>
-                                        <option value="5">Every Monthly</option>
-                                        <option value="6">Every Yearly</option>
+                                        <option value="2">Every Daily</option>
+                                        <option value="3">Every Monthly</option>
+                                        <option value="4">Every Yearly</option>
                                     </select>
                                 </div>
                             </div>
@@ -167,7 +165,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div id="daysOfWeek" class="col-sm-4">
                             <ul style="list-style-type:none">
                                 <li><div style="display:flex"><div style="width:30%;float:left">Sunday</div><div style="width:30%"><input id="daylistSunday" name="daylistSunday" type="checkbox" /></div></div></li>
                                 <li><div style="display:flex"><div style="width:30%;float:left">Monday</div><div style="width:30%"><input id="daylistMonday" name="daylistMonday" type="checkbox" /></div></div></li>
@@ -182,8 +180,8 @@
 
                     <div class="col-sm-12">
                         <div class="btn-group pull-right">
-                            <button id="DeleteOccur" type="button" class="btn btn-default">Delete Occurences</button>
-                            <button type="button" class="btn btn-primary js-inserttask">Insert Occurences</button>
+                            <button id="deleteOccurrences" type="button" class="btn btn-default js-deletetasks">Delete All Occurences</button>
+                            <button id="insertOccurrences" type="button" class="btn btn-primary js-inserttasks">Insert Occurences</button>
                         </div>
                     </div>
                 </div>
@@ -215,9 +213,9 @@
                 <tbody></tbody>
             </table>
         </div>
-        <div id="insertedOcc" class="tab-pane fade in active">
+        <div id="insertedOcc" class="tab-pane fade">
             <br />
-            <table id="occurrencesList" class="table table-striped table-hover" style="width:100%">
+            <table id="occurrencesList" class="table table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
                         <th>Start Date</th>
@@ -244,7 +242,6 @@
         </div>
     </div>
 }
-
 
 @section scripts
 {
@@ -316,6 +313,37 @@
                 ]
             });
 
+            var table2 = $('#occurrencesList').DataTable({
+                paging: false,
+                ordering: false,
+                info: false,
+                searching: false,
+                ajax: {
+                    url: "/api/tasks/" + taskId + "/ancestor",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "DateCreated",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YYYY");
+                        }
+                    },
+                    {
+                        data: "Company.CompanyName",
+                        width: "20%"
+                    },
+                    {
+                        data: "TaskName",
+                        width: "40%"
+                    },
+                    {
+                        data: "TaskStatus.TaskStatusName"
+
+                    }
+                ]
+            });
+
             $("#subTasks").on("click", ".js-delete", function () {
                 var button = $(this);
 
@@ -332,9 +360,7 @@
                 });
             });
 
-            $("#setOccurrences").on("click", ".js-inserttask", function () {
-                var button = $(this);
-
+            $("#insertOccurrences").click(function () {
                 bootbox.confirm("Are you sure you want to generate these occurrences?", function (result) {
                     var myform = document.getElementById("Tasks");
                     var fd = new FormData(myform);
@@ -348,7 +374,7 @@
                             type: 'POST',                            
                             success: function () {
                                 toastr.success("Occurrences successfully posted.")
-                                datatable_Occurrences()
+                                table2.ajax.reload();                          
                             },
                             error: function () {
                                 toastr.error("Something went wrong.");
@@ -358,40 +384,31 @@
                 });
             });
 
-            function datatable_Occurrences() {
-                var subtable = $('#occurrencesList').DataTable({
-                    paging: false,
-                    ordering: false,
-                    info: false,
-                    searching: false,
-
-                    ajax: {
-                        url: "/api/tasks/" + taskId + "/ancestor",
-                        dataSrc: ""
-                    },
-
-                    columns: [
-                        {
-                            data: "DateCreated",
-                            render: function (data) {
-                                return moment(data).format("DD MMM YYYY");
+            $("#deleteOccurrences").click(function () {
+                bootbox.confirm("Are you sure you want to delete these occurrences?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/tasks/" + taskId + "/occurrence",
+                            type: "DELETE",
+                            success: function () {
+                                toastr.success("Occurrences successfully deleted.");
+                                table2.ajax.reload();                      
+                            },
+                            error: function () {
+                                toastr.error("Something went wrong.");
                             }
-                        },
-                        {
-                            data: "Company.CompanyName",
-                            width: "20%"
-                        },
-                        {
-                            data: "TaskName",
-                            width: "40%"
-                        },
-                        {
-                            data: "TaskStatus.TaskStatusName"
-                            
-                        }                       
-                    ]
+                        });
+                    }
                 });
-            }
+            });
+
+            $('#RenewalPattern').on('change', function () {
+                if (this.value != 0) {
+                    $("#daysOfWeek").hide();
+                } else {
+                    $("#daysOfWeek").show();
+                }
+            })       
         });
     </script>
 }

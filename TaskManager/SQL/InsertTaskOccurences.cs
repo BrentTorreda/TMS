@@ -79,7 +79,8 @@ namespace TaskManager.SQL
             return daysInWords;
         }
 
-        public DateTime[] GetOccurrenceDates(int repetition, int[] weekDays, DateTime startDate)
+        // WEEKLY
+        public DateTime[] GetWeeklyOccurrenceDates(int repetition, int repeatEvery, int[] weekDays, DateTime startDate, DateTime endDate)
         {
             if (repetition < 1)            
                 return null;                      
@@ -91,27 +92,33 @@ namespace TaskManager.SQL
 
             int i = 0;
             DateTime tempDate = startDate;
-            foreach( DayOfWeek day in daysRepeated)
+            do
             {
-                do
+                foreach (DayOfWeek day in daysRepeated)
                 {
                     if (tempDate.DayOfWeek == day)
                     {
-                        insertDates[i++] = tempDate;
-                        break;
-                    }
-                    else
-                    {
-                        tempDate = tempDate.AddDays(1);
-                    }
+                        if (i < repetition) //1/17/18 - BTo - make sure it doesn't exceed array size
+                        {
+                            insertDates[i++] = tempDate;
+                        }
+                    }  
                 }
-                while (tempDate != tempDate.AddDays(365)); //must not exceed year
+                if (tempDate.DayOfWeek == DayOfWeek.Sunday) //if sunday check how many weeks have to be skipped
+                {
+                    for (int r = 1; r < repeatEvery; r++) //1 since it already repeats every week
+                    {
+                        tempDate = tempDate.AddDays(7); 
+                    }                   
+                }
+                tempDate = tempDate.AddDays(1);                            
             }
-
+            while (tempDate <= endDate); //must not exceed end date specified            
             return insertDates;
         }
 
-        public bool InsertTasks(int taskId, int insertType, int[] weekDays, int repetition, DateTime startDate)
+        // MONTHLY
+        public bool InsertTasks(int taskId, int insertType, int repeatEvery, int[] weekDays, int repetition, DateTime startDate, DateTime endDate)
         {
             if (repetition < 1)
                 return false;
@@ -121,11 +128,12 @@ namespace TaskManager.SQL
             {
                 DateTime[] insertDates = new DateTime[repetition];
 
-                insertDates = GetOccurrenceDates(repetition, weekDays, startDate);
+                insertDates = GetWeeklyOccurrenceDates(repetition, repeatEvery, weekDays, startDate, endDate);
 
                 for (var i = 1; i <= repetition; i++)
                 {
-                    InsertOccurrence(taskId, insertDates[i-1]);
+                    if (insertDates[i-1] != null ) //date might be null if enddate set could not accommodate the max number of repetitions
+                        InsertOccurrence(taskId, insertDates[i-1]);
                 }
             }
 

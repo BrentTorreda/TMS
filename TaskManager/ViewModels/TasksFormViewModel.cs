@@ -91,6 +91,8 @@ namespace TaskManager.ViewModels
 
         public int AncestorTaskId { get; set; }
 
+        public string CreatedByAction { get; set; }
+
         public TasksFormViewModel()
         {
             TaskId = 0;
@@ -111,6 +113,7 @@ namespace TaskManager.ViewModels
             TaskStatusId = task.TaskStatusId;
             IsTemplate = task.IsTemplate;
             AncestorTaskId = task.AncestorTaskId;
+            CreatedByAction = task.CreatedByAction;
         }
     }
 }

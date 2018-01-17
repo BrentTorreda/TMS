@@ -85,5 +85,7 @@ namespace TaskManager.Models
         public bool IsTemplate { get; set; }
 
         public int AncestorTaskId { get; set; }
+
+        public string CreatedByAction { get; set; } //works together with AncestorTaskId to determine where the Task came from
     }
 }
