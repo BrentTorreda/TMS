@@ -117,26 +117,56 @@ namespace TaskManager.SQL
             return insertDates;
         }
 
-        // MONTHLY
+        // DAILY, MONTHLY & YEARLY
+        public DateTime[] GetDayMonthYearOccurrenceDates(int repetition, int repeatEvery, DateTime startDate, DateTime endDate, string repeatType)
+        {
+            DateTime[] insertDates = new DateTime[repetition];
+            int i = 0;
+            DateTime tempDate = startDate;
+
+            do
+            {
+                if (i < repetition) //1/17/18 - BTo - make sure it doesn't exceed array size
+                {
+                    insertDates[i++] = tempDate;
+                }
+                if (repeatType == "monthly")
+                    tempDate = tempDate.AddMonths(repeatEvery);
+                else if (repeatType == "daily")
+                    tempDate = tempDate.AddDays(repeatEvery);
+                else
+                    tempDate = tempDate.AddYears(repeatEvery);
+
+            } while (tempDate < endDate);
+
+            return insertDates;
+        }
+
+        // MAIN
         public bool InsertTasks(int taskId, int insertType, int repeatEvery, int[] weekDays, int repetition, DateTime startDate, DateTime endDate)
         {
             if (repetition < 1)
                 return false;
 
+            DateTime[] insertDates = new DateTime[repetition];
             //weekly
             if (insertType == 0)
-            {
-                DateTime[] insertDates = new DateTime[repetition];
-
                 insertDates = GetWeeklyOccurrenceDates(repetition, repeatEvery, weekDays, startDate, endDate);
+            //daily
+            else if (insertType == 1)
+                insertDates = GetDayMonthYearOccurrenceDates(repetition, repeatEvery, startDate, endDate, "daily");
+            //monthly
+            else if (insertType == 2)
+                insertDates = GetDayMonthYearOccurrenceDates(repetition, repeatEvery, startDate, endDate, "monthly");
+            //yearly
+            else if (insertType == 3)
+                insertDates = GetDayMonthYearOccurrenceDates(repetition, repeatEvery, startDate, endDate, "yearly");
 
-                for (var i = 1; i <= repetition; i++)
-                {
-                    if (insertDates[i-1] != null ) //date might be null if enddate set could not accommodate the max number of repetitions
-                        InsertOccurrence(taskId, insertDates[i-1]);
-                }
+            for (var i = 1; i <= repetition; i++)
+            {
+                if (insertDates[i - 1] != null) //date might be null if enddate selected could not accommodate the max number of repetitions
+                    InsertOccurrence(taskId, insertDates[i - 1]);
             }
-
             return true;
         }
     }

@@ -3,27 +3,36 @@
 }
 
 <div class="jumbotron">
-    <h1 style="color:#e98055;">BinaCoreGroup<small> <br />Task Management System </small></h1>
+    <h1 style="color:#f88d42;">BinaCoreGroup </h1>
+    <h3>Task Management System </h3>
     @*<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>*@
-    <p><a href="https://basnmore.com.au/about/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    @if (Request.IsAuthenticated)
+    {
+        <p>Welcome, @(ViewBag.UserName)!</p>
+    }
+    @*else
+    {
+        <p><a href="@Url.Action("SignIn", "Home", null, Request.Url.Scheme)" class="btn btn-primary btn-lg">Click here to login</a></p>
+    }*@
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Define</h2>
         <p>
-            Taskmaster gives you the tools you need to take your firm’s knowledge capital and put it to work. Your processes and procedures are integrated with your tasks, making your firm efficient, scalable and profitable.
+            TaskMaester gives you the tools you need to take your firm’s knowledge capital and put it to work. Your processes and procedures are integrated with your tasks, making your firm efficient, scalable and profitable.
         </p>
         <p><a class="btn btn-default" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Organize</h2>
-        <p>With Taskmaster, you’re confident that client work won’t slip through the cracks. One-time projects, recurring tasks, client emergencies — even email – are all seamlessly integrated into one list, so you and your staff have a clear view of what needs to get done today.</p>
+        <p>With TaskMaester, you’re confident that client work won’t slip through the cracks. One-time projects, recurring tasks, client emergencies — even email – are all seamlessly integrated into one list, so you and your staff have a clear view of what needs to get done today.</p>
         <p><a class="btn btn-default" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Track</h2>
-        <p>With Taskmaster, you have a clear overview of all client work: what’s done, what’s in progress and what’s about to be overdue. Aero’s integrated time tracking allows you to spot scope creep while it’s happening. Aero’s management reports help you to manage your practice with insights into metrics like staff performance and project job costing.</p>
+        <p>With TaskMaester, you have a clear overview of all client work: what’s done, what’s in progress and what’s about to be overdue. TaskMaester’s integrated time tracking allows you to spot scope creep while it’s happening. TaskMaester’s management reports help you to manage your practice with insights into metrics like staff performance and project job costing.</p>
         <p><a class="btn btn-default" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Learn more &raquo;</a></p>
     </div>
 </div>

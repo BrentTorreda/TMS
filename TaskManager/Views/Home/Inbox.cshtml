@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Microsoft.Graph.Message>
+
+@{
+    ViewBag.Title = "Inbox";
+}
+
+<h2>Inbox</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Subject
+        </th>
+        <th>
+            Received
+        </th>
+        <th>
+            From
+        </th>
+        <th>
+            Has Attachments
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivedDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;
+        </td>
+    </tr>
+    }
+
+</table>

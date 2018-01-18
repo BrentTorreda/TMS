@@ -10,6 +10,7 @@ namespace TaskManager.Controllers
     public class SubtaskLevel1Controller : Controller
     {
         private ApplicationDbContext _context;
+        private int TaskCompleted = 4; //TO DO: Find a better way for this 
 
         public SubtaskLevel1Controller()
         {
@@ -58,7 +59,7 @@ namespace TaskManager.Controllers
             //if there is a subtask, check it's status
             if (prevSubTask != null)
             {
-                if (prevSubTask.TaskStatusId != 4) //4 means it's completed
+                if (prevSubTask.TaskStatusId != TaskCompleted) 
                     viewModel.PrevTaskDone = false;
                 else
                     viewModel.PrevTaskDone = true;
@@ -138,7 +139,7 @@ namespace TaskManager.Controllers
                 {
                     var updateMainTask = new CheckIfTaskIsDone();
                     updateMainTask.UpdateParentTask(subTask.TaskId); //check if all subtasks are done
-                    subTaskInDb.TaskStatusId = 4;
+                    subTaskInDb.TaskStatusId = TaskCompleted;
                 }
                 else
                 {

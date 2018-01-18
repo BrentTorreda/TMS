@@ -54,6 +54,7 @@
     <thead>
         <tr>
             <th> </th>
+            <th> </th>
             <th>Name</th>
             <th>Description</th>
             <th>Created</th>
@@ -96,7 +97,7 @@
 
         $(document).delegate("#modalAccept", "click", function (event) {
             var v = $("#taskTemplates").val();
-            if (v == "select") { /*BTo - No value selected. Weird*/
+            if (v == "select") { /*BTo - For no value selected. Weird*/
                 toastr.error("Please select a template.")
             } else {
                 window.open("/Tasks/NewFromTemplate/" + v, "_self");
@@ -182,10 +183,13 @@
                     }
                 },
                 {
-                    data: "TaskName",
-                    render: function (data, type, task) {
-                        return "<a href='/tasks/edit/" + task.TaskId + "'>" + task.TaskName +"</a>";
+                    data: "TaskId",
+                    render: function (data, type, subtask) {
+                        return "<a class='btn btn-primary btn-xs' href='/tasks/edit/" + data + "'>View</a>";
                     }
+                },
+                {
+                    data: "TaskName"
                 },
                 {
                     data: "TaskDescription",

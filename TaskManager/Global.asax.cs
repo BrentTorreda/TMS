@@ -8,6 +8,8 @@ using System.Web.Routing;
 using System.Web.Http;
 using AutoMapper;
 using TaskManager.App_Start;
+using System.Web.Helpers;
+using System.IdentityModel.Claims;
 
 namespace TaskManager
 {
@@ -21,6 +23,7 @@ namespace TaskManager
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }
