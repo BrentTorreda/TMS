@@ -246,6 +246,7 @@
     <Compile Include="Controllers\Apis\MembersController.cs" />
     <Compile Include="Controllers\Apis\NotesController.cs" />
     <Compile Include="Controllers\Apis\PricesController.cs" />
+    <Compile Include="Controllers\Apis\SubTaskDeferralController.cs" />
     <Compile Include="Controllers\Apis\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\Apis\TaskCategoriesController.cs" />
     <Compile Include="Controllers\Apis\TaskProceduresController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
     <Compile Include="Dtos\NoteDto.cs" />
+    <Compile Include="Dtos\SubTaskDeferralDetail.cs" />
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.cs" />
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.Designer.cs">
       <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
@@ -308,7 +310,20 @@
     <Compile Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.Designer.cs">
       <DependentUpon>201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801190021573_AddedTableSubTasksDeferralDetails.cs" />
+    <Compile Include="Migrations\201801190021573_AddedTableSubTasksDeferralDetails.Designer.cs">
+      <DependentUpon>201801190021573_AddedTableSubTasksDeferralDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.cs" />
+    <Compile Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.Designer.cs">
+      <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.cs" />
+    <Compile Include="Migrations\201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.Designer.cs">
+      <DependentUpon>201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Notes.cs" />
+    <Compile Include="Models\SubTasksDeferralDetails.cs" />
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
     <Compile Include="SQL\InsertTaskOccurences.cs" />
     <Compile Include="SQL\PrepareTemplate.cs" />
@@ -926,6 +941,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.resx">
       <DependentUpon>201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801190021573_AddedTableSubTasksDeferralDetails.resx">
+      <DependentUpon>201801190021573_AddedTableSubTasksDeferralDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.resx">
+      <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.resx">
+      <DependentUpon>201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

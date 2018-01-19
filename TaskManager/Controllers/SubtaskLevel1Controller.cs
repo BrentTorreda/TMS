@@ -53,7 +53,8 @@ namespace TaskManager.Controllers
             {
                 Prices = _context.Prices.ToList(),
                 Members = _context.Members.ToList(),
-                Tasks = _context.Tasks.ToList()
+                Tasks = _context.Tasks.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList()               
             };
 
             //if there is a subtask, check it's status

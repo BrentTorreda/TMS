@@ -24,6 +24,7 @@ namespace TaskManager.App_Start
             Mapper.CreateMap<TaskProcedures, TaskProcedureDto>();
             Mapper.CreateMap<SubTasksLevel1, SubtaskLevel1Dto>();
             Mapper.CreateMap<Notes, NoteDto>();
+            Mapper.CreateMap<SubTaskDeferralDetail, SubTaskDeferralDetail>();
         }
     }
 }

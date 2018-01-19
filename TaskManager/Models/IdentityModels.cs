@@ -36,6 +36,7 @@ namespace TaskManager.Models
         public DbSet<Companies> Companies { get; set; }
         public DbSet<TaskPool> TaskPool { get; set; }
         public DbSet<Notes> Notes { get; set; }
+        public DbSet<SubTasksDeferralDetails> SubTaskDeferralDetails { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

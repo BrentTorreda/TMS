@@ -38,7 +38,6 @@ namespace TaskManager.Controllers.Apis
         }              
 
         // GET /api/tasks
-
         public IHttpActionResult GetTask(int id)
         {
             var tasksQuery = _context.Tasks
@@ -49,7 +48,7 @@ namespace TaskManager.Controllers.Apis
                    .Include(t => t.Price);
 
             if (id != 0)
-                tasksQuery = tasksQuery.Where(t => t.CompanyId == id);
+                tasksQuery = tasksQuery.Where(t => t.TaskId == id);
 
             var taskDtos = tasksQuery
                    .ToList()

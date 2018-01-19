@@ -85,26 +85,26 @@ namespace TaskManager
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
-            //app.UseOpenIdConnectAuthentication(
-            //  new OpenIdConnectAuthenticationOptions
-            //  {
-            //      ClientId = appId,
-            //      Authority = "https://login.microsoftonline.com/common/v2.0",
-            //      Scope = "openid offline_access profile email " + string.Join(" ", scopes),
-            //      RedirectUri = redirectUri,
-            //      PostLogoutRedirectUri = "/",
-            //      TokenValidationParameters = new TokenValidationParameters
-            //      {
-            //          // For demo purposes only, see below
-            //          ValidateIssuer = false
-            //      },
-            //      Notifications = new OpenIdConnectAuthenticationNotifications
-            //      {
-            //          AuthenticationFailed = OnAuthenticationFailed,
-            //          AuthorizationCodeReceived = OnAuthorizationCodeReceived
-            //      }
-            //  }
-            //);
+            app.UseOpenIdConnectAuthentication(
+              new OpenIdConnectAuthenticationOptions
+              {
+                  ClientId = appId,
+                  Authority = "https://login.microsoftonline.com/common/v2.0",
+                  Scope = "openid offline_access profile email " + string.Join(" ", scopes),
+                  RedirectUri = redirectUri,
+                  PostLogoutRedirectUri = "/",
+                  TokenValidationParameters = new TokenValidationParameters
+                  {
+                      // For demo purposes only, see below
+                      ValidateIssuer = false
+                  },
+                  Notifications = new OpenIdConnectAuthenticationNotifications
+                  {
+                      AuthenticationFailed = OnAuthenticationFailed,
+                      AuthorizationCodeReceived = OnAuthorizationCodeReceived
+                  }
+              }
+            );
         }
         
         private Task OnAuthenticationFailed(AuthenticationFailedNotification<OpenIdConnectMessage,

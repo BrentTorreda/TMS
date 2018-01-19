@@ -6,10 +6,42 @@
 
 <h2>Log Work Form</h2>
 <h4>@Model.SubTaskName</h4>
-
 <hr />
-
-<h4>Procedure</h4>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#taskMap" class="btn btn-default">Reference</a>
+        </h4>
+    </div>
+    <div id="taskMap" class="panel-collapse collapse">
+        <div class="panel-body">
+            <table id="parentTask" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Description</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="row" style="padding-left:30px;">
+                <table id="subtaskList" class="table table-striped" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Subtask Name</th>
+                            <th>Started On</th>
+                            <th>Hours</th>
+                            <th>Assigned To</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<h5>Procedure</h5>
 
 <table id="taskSteps" class="table table-striped table-hover">
     <thead>
@@ -17,6 +49,7 @@
             <th> </th>
             <th>Name</th>
             <th>Procedure</th>
+            <th></th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -26,28 +59,81 @@
 
 @if (Model.PrevTaskDone)
 {
-    using (Html.BeginForm("Save", "SubtaskLevel1", FormMethod.Post, new { @class = "form-horizontal", @style="border=1;" }))
+    using (Html.BeginForm("Save", "SubtaskLevel1", FormMethod.Post, new { @class = "form-horizontal", @id = "SubtaskLogWork" }))
     {
-        @Html.ValidationSummary(true, "Please fix the following errors.")
-        <div class="form-group">
-            @Html.TextBoxFor(t => t.TimeWorked, new { @class = "timer", @name = "timer", @readonly = "readonly" })
-            <br />
-            <br />
-            <div name="sw_controls" class="sw_controls" id="sw_controls">
-                <input type="button" value="Start" class="sw_start btn btn-sm btn-success" id="sw_start">
-                <input type="button" value="Stop" class="sw_stop btn btn-sm btn-danger" id="sw_stop">
-                <input type="button" value="Resume" class="sw_resume btn btn-sm btn-default" id="sw_resume">
+        @Html.ValidationSummary(true, "Please fix the following errors.")        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    @Html.TextBoxFor(t => t.TimeWorked, new { @class = "well", @id = "timer", @readonly = "readonly", @style = "width:100px;" })
+                </div>
             </div>
+        </div>   
+        if (Model.IsCompleted == false) /*COMPLETED*/
+        {
+            <div class="row" style="display:block;">
+                <div class="col-sm-12">
+                    <div class="btn-group pull-right">
+                        <input type="button" value="Defer" id="defer" name="defer" class="btn btn-default btn-sm">
+                        <input type="button" value="Pause" class="sw_stop btn btn-sm btn-danger" id="sw_stop">
+                        <input type="button" value="Resume" class="sw_resume btn btn-sm btn-success" id="sw_resume">
+                    </div>
+                </div>
+            </div>
+        }
+
+        //~~~ Deferral details
+        <div id="deferDetails" class="container" style="display:none;">
+            <div class="col-sm-12">
+                <label class="control-label col-sm-3" for="DeferredTo">Defer To</label>
+                <div class="col-sm-8" style="margin-bottom:5px;">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input id="DeferredTo" name="DeferredTo" type="text" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <label class="control-label col-sm-3" for="DeferredFor">Defer For</label>
+                <div class="col-sm-8" style="margin-bottom:5px;">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input id="DeferredFor" name="DeferredFor" type="text" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <label class="control-label col-sm-3" for="MemberId">Assign To</label>
+                <div class="col-sm-8" style="margin-bottom:5px;">
+                    @Html.DropDownListFor(t => t.MemberId, new SelectList(Model.Members, "MemberId", "FullName"), "", new { @class = "form-control" })
+                </div>
+                <label class="control-label col-sm-3" for="Reason">Deferred Reason</label>
+                <div class="col-sm-8" style="margin-bottom:5px;">
+                    <input type="text" id="Reason" name="Reason" class="form-control">
+                </div>
+                <div class="form-group" style="display:block;">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-8">
+                        <div class="btn-group pull-right">
+                            <button id="cancelDefer" type="button" class="btn btn-default">Cancel</button>
+                            <button id="saveDefer" type="button" class="btn btn-primary">Defer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>                
         </div>
+
         <div class="form-group">
-            <label class="control-label" for="Notes">Notes:</label>            
-            <textarea rows ="8" style="width:100%" cols="40" id="Notes" name="Notes"></textarea>
-            @Html.ValidationMessageFor(s => s.Notes)                     
+            <label class="control-label" for="Notes">Notes:</label>
+            <textarea rows="8" style="width:100%" cols="40" id="Notes" name="Notes"></textarea>
+            @Html.ValidationMessageFor(s => s.Notes)
         </div>
         <div class="form-group">
             <div class="checkbox">
                 @Html.CheckBoxFor(t => t.IsCompleted) <label class="control-label" for="Notes">Completed</label>
-            </div>            
+            </div>
         </div>
 
         @Html.HiddenFor(t => t.SubTaskOrder)
@@ -60,11 +146,11 @@
         @Html.HiddenFor(t => t.TaskId)
         @Html.AntiForgeryToken()
 
-        <div class="form-group" style="display:block;"> 
+        <div class="form-group" style="display:block;">
             <div class="col-sm-12">
-                <div class="btn-group pull-right">                    
+                <div class="btn-group pull-right">
                     <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
-                    <button type="submit" id="save" name="save" class="btn btn-primary">Save</button>               
+                    <button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -80,7 +166,7 @@ else
     </div>
     <div class="form-group">
         <label for="Notes">Notes</label>
-        @Html.TextAreaFor(s => s.Notes, new { @class = "form-control min-width: 100%", @readonly = "readonly"})
+        @Html.TextAreaFor(s => s.Notes, new { @class = "form-control min-width: 100%", @readonly = "readonly" })
     </div>
     <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
 }
@@ -91,8 +177,19 @@ else
     <script>
         $(document).ready(function () {
 
+            var subtaskName = @Html.Raw(Json.Encode(Model.SubTaskName));
             var subtaskId = @Html.Raw(Json.Encode(Model.SubTaskId));
+            var taskId = @Html.Raw(Json.Encode(Model.TaskId));
             var time = @Html.Raw(Json.Encode(Model.TimeWorked));
+            var taskStatus = @Html.Raw(Json.Encode(Model.IsCompleted));
+
+            $('#datetimepicker1').datetimepicker({
+                format: "DD/MM/YYYY HH:mm:ss"
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                format: "LT"
+            });
 
             var table = $("#taskSteps").DataTable({
                 "paging": false,
@@ -122,22 +219,115 @@ else
                 ]
             });
 
-            $('#sw_controls').on('click', '.sw_start', function () {
-                $('.timer').countimer({
+            var table2 = $("#parentTask").DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "order": false,
+
+                ajax: {
+                    url: "/api/tasks/" + taskId,
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskName"
+                    },
+                    {
+                        data: "TaskDescription"
+                    },
+                    {
+                        data: "DateCreated"
+                    }
+                ]
+            });
+
+            var table3 = $("#subtaskList").DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "order": false,
+
+                ajax: {
+                    url: "/api/subtasklevel1/" + taskId,
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "SubTaskName"
+                    },
+                    {
+                        data: "DateCreated"
+                    },
+                    {
+                        data: "Hours"
+                    },
+                    {
+                        data: "Members.FullName"
+                    }
+                ],
+
+                createdRow: function (row, data, index) {
+                    if (data.SubTaskName == subtaskName) {
+                        $('td', row).eq(0).addClass('highlight');
+                    }
+                }
+            });
+
+            if (taskStatus == false) {
+                $('#timer').countimer({
                     initHours: time.Hours,
                     initMinutes: time.Minutes,
                     initSeconds: time.Seconds
                 });
+            }
+
+            $("#saveDefer").click(function () {
+                bootbox.confirm("Are you sure you want to defer this task?", function (result) {
+                    var myform = document.getElementById("SubtaskLogWork");
+                    var fd = new FormData(myform);
+                    if (result) {
+                        $.ajax({
+                            url: "/api/subtaskdeferral/" + subtaskId,
+                            data: fd,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            type: 'POST',
+                            success: function () {
+                                toastr.success("Task successfully deferred.")
+                            },
+                            error: function () {
+                                toastr.error("Something went wrong.");
+                            }
+                        });
+                    }
+                });
             });
 
-            $('#sw_controls').on('click', '.sw_stop', function () {
-                $('.timer').countimer('stop');
+            $("#sw_stop").click(function () {
+                $('#timer').countimer('stop');
             });
 
-            $('#sw_controls').on('click', '.sw_resume', function () {
-                $('.timer').countimer('resume');
+            $("#sw_resume").click(function () {
+                $('#timer').countimer('resume');
             });
 
+            $('#defer').on('click', function () {
+                $("#deferDetails").show();
+            })
+
+            $('#cancelDefer').on('click', function () {
+                $("#deferDetails").hide();
+            })
+
+            $('#saveDefer').on('click', function () {
+                $("#deferDetails").hide();
+            })
         });
     </script>
 }

@@ -135,7 +135,11 @@
                         data: "TaskId",
                         width: "5%",
                         render: function (data, type, subtask) {
-                            return "<a class='btn btn-primary btn-xs' href='/subtasklevel1/logwork/" + subtask.SubTaskId + "'> View </a>";
+                            var markup = "<a class='btn btn-primary btn-xs' href='/subtasklevel1/logwork/" + subtask.SubTaskId + "'> Start </a>";
+                            if (subtask.TaskStatuses.TaskStatusName == "Completed") { /*To Do: Change this Magic String!*/
+                                markup = "<a class='btn btn-primary btn-xs' href='/subtasklevel1/logwork/" + subtask.SubTaskId + "'> View </a>";;
+                            }
+                            return markup;
                         }
                     },
                     {
