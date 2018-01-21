@@ -18,5 +18,8 @@ namespace TaskManager.ViewModels
         public IEnumerable<SubTasksLevel1> SubTasksLevel1 { get; set; }
 
         public int MemberId { get; set; }
+
+        public IEnumerable<Microsoft.Graph.Message> EmailDetails { get; set; }
+        
     }
 }

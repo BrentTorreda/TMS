@@ -318,9 +318,9 @@
     <Compile Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.Designer.cs">
       <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.cs" />
-    <Compile Include="Migrations\201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.Designer.cs">
-      <DependentUpon>201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.cs</DependentUpon>
+    <Compile Include="Migrations\c.cs" />
+    <Compile Include="Migrations\c.Designer.cs">
+      <DependentUpon>c.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Notes.cs" />
     <Compile Include="Models\SubTasksDeferralDetails.cs" />
@@ -948,8 +948,8 @@
     <EmbeddedResource Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.resx">
       <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.resx">
-      <DependentUpon>201801190040124_AddedSubtaskIdInSubTasksDeferralDetails.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\c.resx">
+      <DependentUpon>c.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
