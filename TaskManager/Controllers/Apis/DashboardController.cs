@@ -17,7 +17,7 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
-        // GET /api/Dashboard
+        // GET /api/dashboard
         public IHttpActionResult GetDashboard()
         {
             var tasksQuery = _context.Tasks

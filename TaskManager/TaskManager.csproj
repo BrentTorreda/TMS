@@ -786,7 +786,7 @@
     <Content Include="Views\TaskProcedures\TaskProceduresForm.cshtml" />
     <Content Include="Views\SubtaskLevel1\SubtaskLevel1FormNew.cshtml" />
     <Content Include="Views\SubtaskLevel1\SubTaskLevel1FormEdit.cshtml" />
-    <Content Include="Views\Tasks\TaskFormNew.cshtml" />
+    <Content Include="Views\Shared\TaskFormNew.cshtml" />
     <Content Include="Views\SubtaskLevel1\SubTaskLevel1LogWork.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Companies\CompanyForm.cshtml" />

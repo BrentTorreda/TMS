@@ -24,7 +24,7 @@ namespace TaskManager.Controllers
             var viewModel = new TasksFormViewModel();
 
             if (id == 0)
-                viewModel.FilterBy = "Task Index";                
+                viewModel.FilterBy = "Task Index";
             else
             {
                 var company = new Companies();
@@ -34,7 +34,6 @@ namespace TaskManager.Controllers
                 viewModel.FilterBy = company.CompanyName;
                 viewModel.FilterId = id;
             }
-
             return View(viewModel);            
         }
         
@@ -138,7 +137,6 @@ namespace TaskManager.Controllers
                 taskInDb.PriceId = task.PriceId;
                 taskInDb.MemberId = task.MemberId;
             }
-
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Tasks", new { id = 0 });

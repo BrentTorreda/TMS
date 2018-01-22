@@ -17,6 +17,13 @@ namespace TaskManager.Controllers
 {
     public class DashboardController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public DashboardController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         // GET: Dashboard
         public async Task<ActionResult> Index()
         {
@@ -28,17 +35,32 @@ namespace TaskManager.Controllers
             viewModel.Companies = _context.Companies.ToList();
             viewModel.SubTasksLevel1 = _context.SubTasksLevel1.ToList();
 
-            var userName = User.Identity.GetUserName();
+            string userName = "";
+            //OWIN or cookie auth
+            if (Request.IsAuthenticated)
+            {
+                userName = await GetUserEmail();
+            }
+            else
+            {
+                userName = User.Identity.GetUserName();
+            }
 
-            var member = _context.Members.Single(m => m.Email == userName);
+            var member = _context.Members.SingleOrDefault(m => m.Email == userName);
 
-            viewModel.MemberId = member.MemberId;
+            if (member == null)
+            {
+                return View("Index", viewModel);
+            }
+            else
+            {
+                viewModel.MemberId = member.MemberId;
 
-            //GET MAIL
-            IEnumerable<Microsoft.Graph.Message> Mails = await Inbox();
+                //GET MAIL
+                IEnumerable<Microsoft.Graph.Message> Mails = await Inbox();
 
-            viewModel.EmailDetails = Mails;
-
+                viewModel.EmailDetails = Mails;
+            }
             return View("Index", viewModel);
         }
 
@@ -126,6 +148,26 @@ namespace TaskManager.Controllers
             {
                 return string.Format("#ERROR#: Could not get user's email address. {0}", ex.Message);
             }
+        }
+
+        [Route("Dashboard/TaskFromNote/{taskName}/{taskDesc}")]
+        public ActionResult TaskFromNote(string taskName, string taskDesc)
+        {
+            var viewModel = new TasksFormViewModel()
+            {
+                TaskTypes = _context.TaskTypes.ToList(),
+                TaskCategories = _context.TaskCategories.ToList(),
+                Prices = _context.Prices.ToList(),
+                Companies = _context.Companies.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList(),
+                Members = _context.Members.ToList(),
+                //pre-fill based on Note
+                CreatedByAction = "note",
+                TaskName = taskName,
+                TaskDescription = taskDesc
+            };
+            
+            return View("TaskFormNew", viewModel);
         }
     }
 }

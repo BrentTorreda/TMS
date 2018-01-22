@@ -150,7 +150,6 @@
                             <th>From</th>
                             <th>Subject</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -179,7 +178,7 @@
                         <td>@Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;</td>
                         <td>@Html.DisplayFor(modelItem => item.Subject)</td>
                         <td>@Html.DisplayFor(modelItem => item.ReceivedDateTime)</td>
-                        <td><button class="btn btn-primary btn-xs">Make Task</button></td>
+                        <td><button class="btn btn-primary btn-xs">Create Task</button></td>
                     </tr>
                     }
                 </table>
@@ -299,17 +298,10 @@
                     {
                         data: "NoteId",
                         width: "10%",
-                        render: function (data) {
-                            return "<button class='js-taskFromNote btn btn-primary btn-xs' data-subtask-id=" + data + ">Create Task</button>";
+                        render: function (data, type, row) {
+                            return '<a href="/Dashboard/TaskFromNote/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
                         }
-                    },
-                    {
-                        data: "NoteId",
-                        width: "10%",
-                        render: function (data) {
-                            return "<button class='js-deleteNote btn btn-primary btn-xs' data-subtask-id=" + data + ">Delete</button>";
-                        }
-                    }                  
+                    }             
                 ]
             });
 
