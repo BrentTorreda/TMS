@@ -12,6 +12,7 @@ using TaskManager.TokenStorage;
 using System.Configuration;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace TaskManager.Controllers
 {
@@ -122,7 +123,7 @@ namespace TaskManager.Controllers
                 var mailResults = await client.Me.MailFolders.Inbox.Messages.Request()
                                     .OrderBy("receivedDateTime DESC")
                                     .Select("subject,receivedDateTime,from,body,attachments")
-                                    .Top(10)
+                                    .Top(20)
                                     .GetAsync();
             return mailResults.CurrentPage;
         }
@@ -150,9 +151,13 @@ namespace TaskManager.Controllers
             }
         }
 
-        [Route("Dashboard/TaskFromNote/{taskName}/{taskDesc}")]
-        public ActionResult TaskFromNote(string taskName, string taskDesc)
+        [ValidateInput(false)]
+        [Route("Dashboard/TaskFromExternal/{taskName}/{taskDesc}/{type}/{id}")]
+        public ActionResult TaskFromNote(string taskName, string taskDesc, string type, int id)
         {
+            var step1 = Regex.Replace(taskDesc, @"<[^>]+>|&nbsp;", "").Trim();
+            var step2 = Regex.Replace(step1, @"\s{2,}", " ");
+
             var viewModel = new TasksFormViewModel()
             {
                 TaskTypes = _context.TaskTypes.ToList(),
@@ -162,12 +167,13 @@ namespace TaskManager.Controllers
                 TaskStatuses = _context.TaskStatuses.ToList(),
                 Members = _context.Members.ToList(),
                 //pre-fill based on Note
-                CreatedByAction = "note",
+                CreatedByAction = type,
                 TaskName = taskName,
-                TaskDescription = taskDesc
+                TaskDescription = step2,
+                AncestorTaskId = id
             };
             
             return View("TaskFormNew", viewModel);
-        }
+        }        
     }
 }

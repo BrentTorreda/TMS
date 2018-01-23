@@ -31,14 +31,14 @@
                                 <tr>
                                     <td>
                                         @Html.ActionLink(
-                                                       company.CompanyName,
-                                                       "Index",
-                                                       "Tasks",
-                                                       new
-                                                       {
-                                                           id = company.CompanyId
-                                                       },
-                                                       null)
+company.CompanyName,
+"Index",
+"Tasks",
+new
+{
+    id = company.CompanyId
+},
+null)
                                     </td>
                                     @{
                                         int totalTasks = 0;
@@ -82,7 +82,7 @@
                                         <td>@percentComplete.ToString("P")</td>
                                     }
                                 </tr>
-                            }
+                                        }
                         </tbody>
                     </table>
                 </div>
@@ -167,20 +167,24 @@
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <th>From</th>
-                        <th>Subject</th>
-                        <th>Received</th>
-                        <th>Has Attachments</th>
+                        <th style="width:15%">From</th>
+                        <th style="width:60%">Subject</th>
+                        <th style="width:15%">Received</th>
+                        <th style="width:10%"></th>
                     </tr>
-                    @foreach (var item in Model.EmailDetails)
-                    {
+                @{
+                    var ctr = 0;
+                }                     
+                @foreach (var item in Model.EmailDetails)
+                { 
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;</td>
                         <td>@Html.DisplayFor(modelItem => item.Subject)</td>
                         <td>@Html.DisplayFor(modelItem => item.ReceivedDateTime)</td>
-                        <td><button class="btn btn-primary btn-xs">Create Task</button></td>
+                        <td><a href="/Dashboard/TaskFromNote/?taskName=EmailFrom_@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=@ctr" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + ' class="btn btn-primary btn-xs">Create Task</a></td>
                     </tr>
-                    }
+                    ctr++;
+                }   
                 </table>
             </div>
         </div>
@@ -296,10 +300,10 @@
                         width: "40%"
                     },
                     {
-                        data: "NoteId",
+                        data: "id",
                         width: "10%",
                         render: function (data, type, row) {
-                            return '<a href="/Dashboard/TaskFromNote/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
+                            return '<a href="/Dashboard/TaskFromNote/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + data + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
                         }
                     }             
                 ]

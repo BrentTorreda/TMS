@@ -261,6 +261,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
@@ -801,6 +802,7 @@
     <Content Include="Views\TaskProcedures\TaskProceduresFormView.cshtml" />
     <Content Include="Views\Notes\NoteForm.cshtml" />
     <Content Include="Views\Home\Inbox.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
