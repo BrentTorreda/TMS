@@ -12,7 +12,6 @@ using TaskManager.TokenStorage;
 using System.Configuration;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace TaskManager.Controllers
 {
@@ -123,7 +122,7 @@ namespace TaskManager.Controllers
                 var mailResults = await client.Me.MailFolders.Inbox.Messages.Request()
                                     .OrderBy("receivedDateTime DESC")
                                     .Select("subject,receivedDateTime,from,body,attachments")
-                                    .Top(20)
+                                    .Top(10)
                                     .GetAsync();
             return mailResults.CurrentPage;
         }
@@ -152,12 +151,9 @@ namespace TaskManager.Controllers
         }
 
         [ValidateInput(false)]
-        [Route("Dashboard/TaskFromExternal/{taskName}/{taskDesc}/{type}/{id}")]
-        public ActionResult TaskFromNote(string taskName, string taskDesc, string type, int id)
+        [Route("Dashboard/TaskFromNote/{taskName}/{taskDesc}/{type}/{id}")]
+        public ActionResult TaskFromExternal(string taskName, string taskDesc, string type, int id)
         {
-            var step1 = Regex.Replace(taskDesc, @"<[^>]+>|&nbsp;", "").Trim();
-            var step2 = Regex.Replace(step1, @"\s{2,}", " ");
-
             var viewModel = new TasksFormViewModel()
             {
                 TaskTypes = _context.TaskTypes.ToList(),
@@ -168,12 +164,14 @@ namespace TaskManager.Controllers
                 Members = _context.Members.ToList(),
                 //pre-fill based on Note
                 CreatedByAction = type,
+                AncestorTaskId = id,
                 TaskName = taskName,
-                TaskDescription = step2,
-                AncestorTaskId = id
+                TaskDescription = taskDesc,
+                TaskStatusId = 1, //KLUDGE - NotStarted
+                DateCreated = DateTime.Today
             };
             
             return View("TaskFormNew", viewModel);
-        }        
+        }
     }
 }

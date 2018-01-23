@@ -8,6 +8,27 @@
 <h2>My Dashboard</h2>
 <hr />
 
+@*Modal for Body Contents for Notes/Emails*@
+<div id="modalShowBody" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Body</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent" style="display:none;">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="container .row.row-eq-height">
     <div class="row" style="display:flex;">
         <div class="col-sm-6" style="display:flex; width:100%;">
@@ -31,14 +52,14 @@
                                 <tr>
                                     <td>
                                         @Html.ActionLink(
-company.CompanyName,
-"Index",
-"Tasks",
-new
-{
-    id = company.CompanyId
-},
-null)
+                                                       company.CompanyName,
+                                                       "Index",
+                                                       "Tasks",
+                                                       new
+                                                       {
+                                                           id = company.CompanyId
+                                                       },
+                                                       null)
                                     </td>
                                     @{
                                         int totalTasks = 0;
@@ -82,7 +103,7 @@ null)
                                         <td>@percentComplete.ToString("P")</td>
                                     }
                                 </tr>
-                                        }
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -149,6 +170,7 @@ null)
                             <th>Date Created</th>
                             <th>From</th>
                             <th>Subject</th>
+                            <th>Body</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -168,23 +190,19 @@ null)
                 <table class="table">
                     <tr>
                         <th style="width:15%">From</th>
-                        <th style="width:60%">Subject</th>
-                        <th style="width:15%">Received</th>
-                        <th style="width:10%"></th>
+                        <th style="width:40%">Subject</th>
+                        <th style="width:20%">Received</th>
+                        <th style="width:15%"></th>
                     </tr>
-                @{
-                    var ctr = 0;
-                }                     
-                @foreach (var item in Model.EmailDetails)
-                { 
+                    @foreach (var item in Model.EmailDetails)
+                    {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;</td>
                         <td>@Html.DisplayFor(modelItem => item.Subject)</td>
                         <td>@Html.DisplayFor(modelItem => item.ReceivedDateTime)</td>
-                        <td><a href="/Dashboard/TaskFromNote/?taskName=EmailFrom_@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=@ctr" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + ' class="btn btn-primary btn-xs">Create Task</a></td>
+                        <td><a href="/Dashboard/TaskFromExternal/?taskName=@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=0" class="btn btn-primary btn-xs">Create Task</a></td>
                     </tr>
-                    ctr++;
-                }   
+                    }
                 </table>
             </div>
         </div>
@@ -293,17 +311,24 @@ null)
                     },
                     {
                         data: "MembersMadeBy.FullName",
-                        width: "30%"  
+                        width: "20%"  
                     },
                     {
                         data: "Subject",
                         width: "40%"
                     },
                     {
-                        data: "id",
+                        data: "Body",
                         width: "10%",
                         render: function (data, type, row) {
-                            return '<a href="/Dashboard/TaskFromNote/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + data + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
+                            return '<a class="btn btn-primary btn-xs"> View </a>';
+                        }
+                    },
+                    {
+                        data: "NoteId",
+                        width: "10%",
+                        render: function (data, type, row) {
+                            return '<a href="/Dashboard/TaskFromExternal/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + row.id + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
                         }
                     }             
                 ]
