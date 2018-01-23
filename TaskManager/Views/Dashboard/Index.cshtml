@@ -8,16 +8,16 @@
 <h2>My Dashboard</h2>
 <hr />
 
-@*Modal for Body Contents for Notes/Emails*@
-<div id="modalShowBody" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+@*Modal for Body Contents of Notes/Emails*@
+<div id="showContent" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:1250px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Body</h4>
             </div>
             <div class="modal-body">
-                <div id="modalContent" style="display:none;">
+                <div id="modalContent">
                     
                 </div>
             </div>
@@ -189,10 +189,11 @@
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <th style="width:15%">From</th>
+                        <th style="width:25%">From</th>
                         <th style="width:40%">Subject</th>
                         <th style="width:20%">Received</th>
-                        <th style="width:15%"></th>
+                        <th style="width:10%"></th>
+                        <th style="width:10%"></th>
                     </tr>
                     @foreach (var item in Model.EmailDetails)
                     {
@@ -200,6 +201,7 @@
                         <td>@Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;</td>
                         <td>@Html.DisplayFor(modelItem => item.Subject)</td>
                         <td>@Html.DisplayFor(modelItem => item.ReceivedDateTime)</td>
+                        <td><a data-toggle="modal" data-id="@item.Body.Content" title="Add this item" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent">View Body</a></td>
                         <td><a href="/Dashboard/TaskFromExternal/?taskName=@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=0" class="btn btn-primary btn-xs">Create Task</a></td>
                     </tr>
                     }
@@ -211,7 +213,7 @@
 
 @section scripts
 {
-    <script>
+<script>
     $(document).ready(function () {
             var memberId = @Html.Raw(Json.Encode(Model.MemberId));
 
@@ -257,7 +259,7 @@
                     dataSrc: ""
                 },
 
-                columns: [                    
+                columns: [
                     {
                         data: "Tasks.TaskName",
                         width: "30%",
@@ -311,7 +313,7 @@
                     },
                     {
                         data: "MembersMadeBy.FullName",
-                        width: "20%"  
+                        width: "20%"
                     },
                     {
                         data: "Subject",
@@ -321,7 +323,7 @@
                         data: "Body",
                         width: "10%",
                         render: function (data, type, row) {
-                            return '<a class="btn btn-primary btn-xs"> View </a>';
+                            return '<a data-toggle="modal" data-id="' + data + '" title="Add this item" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent"> View </a>';
                         }
                     },
                     {
@@ -330,7 +332,7 @@
                         render: function (data, type, row) {
                             return '<a href="/Dashboard/TaskFromExternal/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + row.id + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
                         }
-                    }             
+                    }
                 ]
             });
 
@@ -351,8 +353,13 @@
                 });
             });
 
+            $(document).on("click", ".open-ShowDetails", function () {
+                var contentParam = $(this).data('id');
+                $(".modal-body #modalContent").html(contentParam);
+            });
+
         });
-    </script>
+</script>
 }
 
 
