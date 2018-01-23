@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reports</h2>
+<hr />
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Team Members</a></li>
+    <li><a data-toggle="tab" href="#menu1">Tasks</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <div class="container">
+            <div class="col-sm-6">
+                <h4>Tasks Completed</h4>
+                <a href="#" class="btn btn-primary btn-sm">Generate</a>
+            </div>
+            <div class="col-sm-6">
+                <h4>Actual Vs. Estimated Time</h4>
+                <a href="#" class="btn btn-primary btn-sm">Generate</a>
+            </div>
+        </div>
+    </div>
+    <div id="menu1" class="tab-pane fade in">
+        <div class="container">
+            <div class="col-sm-6">
+                <h4>Task List by Team Members</h4>
+                <a href="#" class="btn btn-primary btn-sm">Generate</a>
+            </div>
+            <div class="col-sm-6">
+                <h4>Task List by Company</h4>
+                <a href="#" class="btn btn-primary btn-sm">Generate</a>
+            </div>
+        </div>
+    </div>
+</div>
+

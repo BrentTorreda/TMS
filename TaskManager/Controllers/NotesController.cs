@@ -27,8 +27,18 @@ namespace TaskManager.Controllers
         public ActionResult New()
         {
             var viewModel = new NoteFormViewModel();
+            
+            string userName = "";
+            //OWIN or cookie auth
+            if (Request.IsAuthenticated)
+            {
+                userName = "brent.torreda@binacoregroup.com.au"; //TEMP!
+            }
+            else
+            {
+                userName = User.Identity.GetUserName();
+            }
 
-            var userName = User.Identity.GetUserName();
             var member = _context.Members.Single(m => m.Email == userName);
             viewModel.MadeBy = member.MemberId;
 
@@ -61,5 +71,6 @@ namespace TaskManager.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        
     }
 }

@@ -89,6 +89,9 @@
     <Reference Include="NetSpell.SpellChecker">
       <HintPath>..\packages\RichTextEditor.8.2.0.4\lib\NetSpell.SpellChecker.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -256,11 +259,13 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DownloadFileController.cs" />
+    <Compile Include="Controllers\EmailTemplatesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
@@ -318,10 +323,28 @@
     <Compile Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.Designer.cs">
       <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801230406338_AddedIsReadIsMadeToTaskInNotes.cs" />
+    <Compile Include="Migrations\201801230406338_AddedIsReadIsMadeToTaskInNotes.Designer.cs">
+      <DependentUpon>201801230406338_AddedIsReadIsMadeToTaskInNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801230417173_AddedTablesEmailTemplatesEmailTemplateAttachments.cs" />
+    <Compile Include="Migrations\201801230417173_AddedTablesEmailTemplatesEmailTemplateAttachments.Designer.cs">
+      <DependentUpon>201801230417173_AddedTablesEmailTemplatesEmailTemplateAttachments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801230420017_AddedTablesEmailTemplatesEmailTemplateAttachments1.cs" />
+    <Compile Include="Migrations\201801230420017_AddedTablesEmailTemplatesEmailTemplateAttachments1.Designer.cs">
+      <DependentUpon>201801230420017_AddedTablesEmailTemplatesEmailTemplateAttachments1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801230434154_AddedMadeByDateCreateInEmailTemplates.cs" />
+    <Compile Include="Migrations\201801230434154_AddedMadeByDateCreateInEmailTemplates.Designer.cs">
+      <DependentUpon>201801230434154_AddedMadeByDateCreateInEmailTemplates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
       <DependentUpon>c.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailTemplateAttachments.cs" />
+    <Compile Include="Models\EmailTemplates.cs" />
     <Compile Include="Models\Notes.cs" />
     <Compile Include="Models\SubTasksDeferralDetails.cs" />
     <Compile Include="SQL\CheckIfTaskIsDone.cs" />
@@ -801,11 +824,15 @@
     <Content Include="Views\TaskProcedures\TaskProceduresFormView.cshtml" />
     <Content Include="Views\Notes\NoteForm.cshtml" />
     <Content Include="Views\Home\Inbox.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\EmailTemplates\EmailTemplateForm.cshtml" />
+    <Content Include="Views\EmailTemplates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Content\Videos\" />
+    <Folder Include="EmailTemplates\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\DownloadFile\" />
   </ItemGroup>
@@ -947,6 +974,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.resx">
       <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801230406338_AddedIsReadIsMadeToTaskInNotes.resx">
+      <DependentUpon>201801230406338_AddedIsReadIsMadeToTaskInNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801230417173_AddedTablesEmailTemplatesEmailTemplateAttachments.resx">
+      <DependentUpon>201801230417173_AddedTablesEmailTemplatesEmailTemplateAttachments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801230420017_AddedTablesEmailTemplatesEmailTemplateAttachments1.resx">
+      <DependentUpon>201801230420017_AddedTablesEmailTemplatesEmailTemplateAttachments1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801230434154_AddedMadeByDateCreateInEmailTemplates.resx">
+      <DependentUpon>201801230434154_AddedMadeByDateCreateInEmailTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

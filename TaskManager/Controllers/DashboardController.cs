@@ -150,8 +150,9 @@ namespace TaskManager.Controllers
             }
         }
 
-        [Route("Dashboard/TaskFromNote/{taskName}/{taskDesc}")]
-        public ActionResult TaskFromNote(string taskName, string taskDesc)
+        [ValidateInput(false)]
+        [Route("Dashboard/TaskFromNote/{taskName}/{taskDesc}/{type}/{id}")]
+        public ActionResult TaskFromExternal(string taskName, string taskDesc, string type, int id)
         {
             var viewModel = new TasksFormViewModel()
             {
@@ -162,9 +163,12 @@ namespace TaskManager.Controllers
                 TaskStatuses = _context.TaskStatuses.ToList(),
                 Members = _context.Members.ToList(),
                 //pre-fill based on Note
-                CreatedByAction = "note",
+                CreatedByAction = type,
+                AncestorTaskId = id,
                 TaskName = taskName,
-                TaskDescription = taskDesc
+                TaskDescription = taskDesc,
+                TaskStatusId = 1, //KLUDGE - NotStarted
+                DateCreated = DateTime.Today
             };
             
             return View("TaskFormNew", viewModel);

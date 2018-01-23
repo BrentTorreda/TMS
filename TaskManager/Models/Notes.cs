@@ -31,5 +31,9 @@ namespace TaskManager.Models
         [AllowHtml]
         [StringLength(2000)]
         public string Body { get; set; }
+
+        public bool IsRead { get; set; }
+
+        public bool IsMadeToTask { get; set; }
     }
 }
