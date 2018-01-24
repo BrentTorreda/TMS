@@ -13,6 +13,12 @@ namespace TaskManager.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
+        public ViewResult Index()
+        {
+
+            return View();
+        }
         
         public ViewResult New(int taskId, int subtaskId)
         {

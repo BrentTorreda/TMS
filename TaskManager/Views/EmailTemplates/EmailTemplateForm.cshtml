@@ -1,6 +1,8 @@
-﻿@model TaskManager.Models.EmailTemplates
+﻿@model TaskManager.ViewModels.EmailTemplateViewModel
 
 @{
+    /**/
+
     ViewBag.Title = "Email Template";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,12 +10,36 @@
 <h2>Add Email Template</h2>
 <hr />
 <br />
-
 @using (Html.BeginForm("Save", "EmailTemplates",
             FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
     @Html.AntiForgeryToken()
+
+    @*Modal for Attachments*@
+    <div id="attachFile" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Attachment File</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modalAttachments">
+                        <div class="container border-primary">                            
+                            <input id="fileAttach1" class="form-control-file" name="file" type="file" />
+                            <input class="hidden" name="procId" value="@Model.MailTemplateId" />
+                            <input class="hidden" name="fileType" value="file1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="attachBtn" type="button" class="btn btn-primary" data-dismiss="modal">Attach</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="Subject">Subject</label>
@@ -22,7 +48,7 @@
             @Html.ValidationMessageFor(t => t.Subject)
         </div>
     </div>
-
+    
     <div class="form-group">
         <label class="control-label col-sm-2" for="Body">Body</label>
         <div class="col-sm-10">
@@ -34,21 +60,32 @@
     <hr />
     <h4>Attachments</h4>
     <hr />
+    <a data-toggle="modal" title="Add this item" class="btn btn-primary" href="#attachFile">Add File</a>
+    <table id="attachmentList" class="table-striped">
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 
     @Html.HiddenFor(t => t.MailTemplateId)
     @Html.HiddenFor(t => t.Body)
     @Html.HiddenFor(t => t.DateCreated)
     @Html.HiddenFor(t => t.MadeBy)
 
-    <div class="form-group" style="display:block;">
-        <div class="col-sm-12">
-            <div class="btn-group pull-right">
-                <a href='@("/Home/Index")' class="btn btn-default">Close</a>
-                <button type="submit" class="btn btn-primary">Save</button>
+    <div class="container">
+        <div class="form-group" style="display:block;">
+            <div class="col-sm-12">
+                <div class="btn-group pull-right">
+                    <a href='@("/Home/Index")' class="btn btn-default">Close</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
     </div>
 }
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
@@ -57,6 +94,17 @@
             $('#Body').summernote({
                 height: 300
             });
+
+            $('#attachBtn').click(function () {
+                if ($('#fileAttach1').val() != '') {
+                    var rowCount = $('#attachmentList tr').length;
+                    var fullPath = $('#fileAttach1').val();
+                    var fileName = fullPath.replace(/^.*?([^\\\/]*)$/, '$1');
+
+                    $('#attachmentList tr:last').after('<tr><td><div class="form-group"><input class="from-control"' +
+                        ' disabled id="fileName' + rowCount++ + '" type="text" value="' + fileName + '" /></div></td></tr>');
+                }
+            })
         });
     </script>
 }

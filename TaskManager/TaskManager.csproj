@@ -503,6 +503,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="TokenStorage\SessionTokenCache.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\EmailTemplateViewModel.cs" />
     <Compile Include="ViewModels\MembersFormViewModel.cs" />
     <Compile Include="ViewModels\NoteFormViewModel.cs" />
     <Compile Include="ViewModels\NoteViewModel.cs" />
@@ -827,6 +828,7 @@
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\EmailTemplates\EmailTemplateForm.cshtml" />
     <Content Include="Views\EmailTemplates\Index.cshtml" />
+    <Content Include="Views\TaskProcedures\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

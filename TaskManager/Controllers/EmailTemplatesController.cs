@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TaskManager.Models;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Controllers
 {
@@ -24,7 +25,9 @@ namespace TaskManager.Controllers
 
         public ActionResult New()
         {
-            return View("EmailTemplateForm");
+            var viewModel = new EmailTemplateViewModel();
+
+            return View("EmailTemplateForm", viewModel);
         }
 
         [HttpPost]
@@ -33,16 +36,21 @@ namespace TaskManager.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("NoteForm");
+                var viewModel = new EmailTemplateViewModel() { };
+
+                return View("EmailTemplateForm", viewModel);
             }
 
             if (emailtemplate.MailTemplateId == 0)
             {
+                emailtemplate.DateCreated = DateTime.Today;
+                emailtemplate.MadeBy = "";
+
                 _context.EmailTemplates.Add(emailtemplate);
             }
             else
             {
-                return View("NoteForm");
+                return View("EmailTemplateForm");
             }
 
             _context.SaveChanges();
