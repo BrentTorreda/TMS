@@ -19,36 +19,46 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
-        //public bool UploadFile(HttpContext httpRequest)
-        //{
-        //    var httpRequest = HttpContext.Current.Request;
-        //    var procId = httpRequest.Form["procId"]; //Only 1 proc for all files
-        //    var fileType = httpRequest.Form["fileType"];
-        //    string fileName = procId;
+        // POST
+        // Email Attachments - overloaded with dummy string
+        [Route("api/UploadFile/{source}")]
+        public IHttpActionResult Post(string source)
+        {
+            var httpRequest = HttpContext.Current.Request;            
+            var fileName = "";
+            if (httpRequest.Files.Count > 0)
+            {
+                var docfiles = new List<string>();
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    fileName = postedFile.FileName;
+                    if (fileName != "")
+                    {
+                        var filePath = HttpContext.Current.Server.MapPath("~/UploadedFiles/Attachments/" + fileName);
+                        postedFile.SaveAs(filePath);
+                        docfiles.Add(filePath);
+                    }
+                    else
+                        break;
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
 
-        //    if (httpRequest.Files.Count > 0)
-        //    {
-        //        var docfiles = new List<string>();
-        //        foreach (string file in httpRequest.Files)
-        //        {
-        //            var postedFile = httpRequest.Files[file];
-        //            fileName = procId + "_" + postedFile.FileName;
-        //            var filePath = HttpContext.Current.Server.MapPath("~/UploadedFiles/" + fileName);
-        //            postedFile.SaveAs(filePath);
+            return Ok();
+        }
 
-        //            docfiles.Add(filePath);
-        //        }
-        //    }
-
-        //    return true;
-        //}
-
+        // POST 
+        // Task Procedure Files
         public IHttpActionResult Post()
         {
             var httpRequest = HttpContext.Current.Request;
             var procId = httpRequest.Form["procId"]; //Only 1 proc for all files
             var fileType = httpRequest.Form["fileType"];
-            string fileName = procId;
+            string fileName = "";
 
             if (httpRequest.Files.Count > 0)
             {
@@ -56,7 +66,7 @@ namespace TaskManager.Controllers.Apis
                 foreach (string file in httpRequest.Files)
                 {                    
                     var postedFile = httpRequest.Files[file];
-                    fileName = procId + "_" + postedFile.FileName;
+                    fileName = "TP_" + procId + "_" + postedFile.FileName;
                     var filePath = HttpContext.Current.Server.MapPath("~/UploadedFiles/" + fileName);
                     postedFile.SaveAs(filePath);
 

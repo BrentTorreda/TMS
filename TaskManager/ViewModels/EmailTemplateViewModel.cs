@@ -20,5 +20,24 @@ namespace TaskManager.ViewModels
         public DateTime DateCreated { get; set; }
 
         public EmailTemplateAttachments EmailTemplateAttachments { get; set; }
+
+        public int NumberOfAttachments { get; set; }
+
+        public string FileNames { get; set; }
+
+        public EmailTemplateViewModel()
+        {
+
+        }
+        
+        public EmailTemplateViewModel(EmailTemplates template)
+        {
+            Subject = template.Subject;
+            Body = template.Body;
+            MadeBy = template.MadeBy;
+            DateCreated = template.DateCreated;
+            NumberOfAttachments = template.NumberOfAttachments;
+            FileNames = template.FileNames;
+        }
     }
 }

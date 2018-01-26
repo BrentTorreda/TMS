@@ -151,7 +151,7 @@ namespace TaskManager.Controllers
         }
 
         [ValidateInput(false)]
-        [Route("Dashboard/TaskFromNote/{taskName}/{taskDesc}/{type}/{id}")]
+        [Route("Dashboard/TaskFromExternal/{taskName}/{taskDesc}/{type}/{id}")]
         public ActionResult TaskFromExternal(string taskName, string taskDesc, string type, int id)
         {
             var viewModel = new TasksFormViewModel()

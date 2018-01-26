@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace TaskManager.Models
+namespace TaskManager.Dtos
 {
-    public class EmailTemplates
+    public class EmailTemplateDto
     {
-        [Key]
         public int MailTemplateId { get; set; }
-
-        [StringLength(1000)]
+        
         public string Subject { get; set; }
-
-        [AllowHtml]
-        [StringLength(2000)]
+        
         public string Body { get; set; }
 
         public string MadeBy { get; set; }
@@ -25,8 +18,7 @@ namespace TaskManager.Models
         public DateTime DateCreated { get; set; }
 
         public int NumberOfAttachments { get; set; }
-
-        [StringLength(2000)]
+        
         public string FileNames { get; set; }
     }
 }

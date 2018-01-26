@@ -4,5 +4,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Email Templates</h2>
+
+<hr />
+
+<table id="emailTemplates" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Subject</th>
+            <th>Date Created</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#emailTemplates").DataTable({
+                ajax: {
+                    url: "/api/emailtemplates",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "MailTemplateId",
+                        render: function (data, type, row) {
+                            return "<a class='btn btn-primary btn-xs' href='/emailtemplates/edit/" + row.MailTemplateId + "'>Edit</a>";
+                        }
+                    },
+                    {
+                        data: "Subject"
+                    },
+                    {
+                        data: "DateCreated"
+                    },
+                    {
+                        data: "MailTemplateId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-template-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#emailTemplates").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this template?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/emailtemplates/" + button.attr("data-category-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
 

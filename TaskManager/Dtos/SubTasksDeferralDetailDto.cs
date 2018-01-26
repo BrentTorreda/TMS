@@ -3,7 +3,7 @@ using TaskManager.Models;
 
 namespace TaskManager.Dtos
 {
-    public class SubTaskDeferralDetail
+    public class SubTasksDeferralDetailDto
     {
         public int DeferId { get; set; }
 

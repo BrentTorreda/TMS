@@ -11,7 +11,7 @@
 <hr />
 <br />
 @using (Html.BeginForm("Save", "EmailTemplates",
-            FormMethod.Post, new { @class = "form-horizontal" }))
+            FormMethod.Post, new { @id = "EmailTemplates", @class = "form-horizontal", @onsubmit = "DoSubmit();" }))
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
     @Html.AntiForgeryToken()
@@ -26,9 +26,9 @@
                 </div>
                 <div class="modal-body">
                     <div id="modalAttachments">
-                        <div class="container border-primary">                            
+                        <div class="container border-primary">
                             <input id="fileAttach1" class="form-control-file" name="file" type="file" />
-                            <input class="hidden" name="procId" value="@Model.MailTemplateId" />
+                            <input class="hidden" name="mailTemplateId" value="@Model.MailTemplateId" />
                             <input class="hidden" name="fileType" value="file1" />
                         </div>
                     </div>
@@ -48,7 +48,7 @@
             @Html.ValidationMessageFor(t => t.Subject)
         </div>
     </div>
-    
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="Body">Body</label>
         <div class="col-sm-10">
@@ -56,23 +56,36 @@
             @Html.ValidationMessageFor(t => t.Body)
         </div>
     </div>
-
+    
     <hr />
     <h4>Attachments</h4>
     <hr />
-    <a data-toggle="modal" title="Add this item" class="btn btn-primary" href="#attachFile">Add File</a>
-    <table id="attachmentList" class="table-striped">
-        <tbody>
-            <tr>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+    <br />
+    
+    <div class="container">
+        <div class="row" style="height:auto;"> 
+            <ul style="list-style-type:none" id="attachmentList">
+                @{
+            string[] files = Model.FileNames.Split(';');
+
+            for (byte i = 0; i < files.Length; i++)
+            {
+                <li>@files[i]</li>
+            }
+                }
+            </ul>
+        </div>
+        <br />
+        <a title="Add this item" data-toggle="modal" class="btn btn-primary btn-sm" href="#attachFile">Add File</a>
+    </div>
 
     @Html.HiddenFor(t => t.MailTemplateId)
     @Html.HiddenFor(t => t.Body)
     @Html.HiddenFor(t => t.DateCreated)
     @Html.HiddenFor(t => t.MadeBy)
+    @Html.HiddenFor(t => t.NumberOfAttachments)
+    @Html.HiddenFor(t => t.FileNames)
+
 
     <div class="container">
         <div class="form-group" style="display:block;">
@@ -90,6 +103,8 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+        var attachments = 0;
+
         $(document).ready(function () {
             $('#Body').summernote({
                 height: 300
@@ -97,14 +112,68 @@
 
             $('#attachBtn').click(function () {
                 if ($('#fileAttach1').val() != '') {
-                    var rowCount = $('#attachmentList tr').length;
-                    var fullPath = $('#fileAttach1').val();
-                    var fileName = fullPath.replace(/^.*?([^\\\/]*)$/, '$1');
-
-                    $('#attachmentList tr:last').after('<tr><td><div class="form-group"><input class="from-control"' +
-                        ' disabled id="fileName' + rowCount++ + '" type="text" value="' + fileName + '" /></div></td></tr>');
+                    uploadFile();
                 }
             })
         });
+
+        function uploadFile() {
+            var myform = document.getElementById("EmailTemplates");
+            var fd = new FormData(myform);
+
+            $.ajax({
+                // Your server script to process the upload
+                url: '/api/UploadFile/email',
+                type: 'POST',
+
+                // Form data
+                data: fd,
+
+                // Tell jQuery not to process data or worry about content-type
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                // Custom XMLHttpRequest
+                xhr: function () {
+                    var myXhr = $.ajaxSettings.xhr();
+                    if (myXhr.upload) {
+                        // For handling the progress of the upload
+                        myXhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                $('progress').attr({
+                                    value: e.loaded,
+                                    max: e.total,
+                                });
+                            }
+                        }, false);
+                    }
+                    return myXhr;
+                },
+            })
+                .done(function () {
+                    var fullPath = $('#fileAttach1').val();
+                    var fileName = fullPath.replace(/^.*?([^\\\/]*)$/, '$1');
+                    attachments++;
+                    var tempFileName = $('input[name="FileNames"]').val();
+                    if (tempFileName != "") {
+                        tempFileName += ";"
+                    }
+                    $('input[name="FileNames"]').val(tempFileName + fileName);
+
+                    $('#attachmentList li:last').after('<li><div class="col-sm-10"><input style="border:none;display:inline;background-color#ffffff;width:800px"' +
+                        ' disabled id="fileName' + attachments + '" type="text" value="' + fileName + '" /></div></li>');
+
+                    toastr.success("Upload successful.");
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });;
+        }
+
+        function DoSubmit() {
+            $('input[name="NumberOfAttachments"]').val(attachments);
+            return true;
+        }
     </script>
 }

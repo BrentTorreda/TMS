@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Apis\CompaniesController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
+    <Compile Include="Controllers\Apis\EmailTemplatesController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
     <Compile Include="Controllers\Apis\NotesController.cs" />
     <Compile Include="Controllers\Apis\PricesController.cs" />
@@ -269,8 +270,9 @@
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Dtos\EmailTemplateDto.cs" />
     <Compile Include="Dtos\NoteDto.cs" />
-    <Compile Include="Dtos\SubTaskDeferralDetail.cs" />
+    <Compile Include="Dtos\SubTasksDeferralDetailDto.cs" />
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.cs" />
     <Compile Include="Migrations\201801040249517_AddedIsCompletedInSubTasksLevel1.Designer.cs">
       <DependentUpon>201801040249517_AddedIsCompletedInSubTasksLevel1.cs</DependentUpon>
@@ -338,6 +340,10 @@
     <Compile Include="Migrations\201801230434154_AddedMadeByDateCreateInEmailTemplates.cs" />
     <Compile Include="Migrations\201801230434154_AddedMadeByDateCreateInEmailTemplates.Designer.cs">
       <DependentUpon>201801230434154_AddedMadeByDateCreateInEmailTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.cs" />
+    <Compile Include="Migrations\201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.Designer.cs">
+      <DependentUpon>201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
@@ -827,15 +833,14 @@
     <Content Include="Views\Home\Inbox.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\EmailTemplates\EmailTemplateForm.cshtml" />
-    <Content Include="Views\EmailTemplates\Index.cshtml" />
     <Content Include="Views\TaskProcedures\Index.cshtml" />
+    <Content Include="Views\EmailTemplates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Content\Videos\" />
-    <Folder Include="EmailTemplates\" />
-    <Folder Include="UploadedFiles\" />
+    <Folder Include="UploadedFiles\Attachments\" />
     <Folder Include="Views\DownloadFile\" />
   </ItemGroup>
   <ItemGroup>
@@ -988,6 +993,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801230434154_AddedMadeByDateCreateInEmailTemplates.resx">
       <DependentUpon>201801230434154_AddedMadeByDateCreateInEmailTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.resx">
+      <DependentUpon>201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>
