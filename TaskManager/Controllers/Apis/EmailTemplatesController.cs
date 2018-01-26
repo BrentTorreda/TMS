@@ -18,12 +18,24 @@ namespace TaskManager.Controllers.Apis
         // GET /api/emailtemplates
         public IHttpActionResult GetEmailTemplates()
         {
-            var typeDtos = _context.EmailTemplates
+            var emailTemplateDTos = _context.EmailTemplates
                 .ToList()
                 .Select(Mapper.Map<EmailTemplates, EmailTemplateDto>);
 
-            return Ok(typeDtos);
+            return Ok(emailTemplateDTos);
         }
+
+        // GET /api/emailtemplates/id
+        public IHttpActionResult GetEmailTemplates(int id)
+        {
+            var emailTemplateDTos = _context.EmailTemplates
+                .Where(t => t.MailTemplateId == id)
+                .ToList()
+                .Select(Mapper.Map<EmailTemplates, EmailTemplateDto>);
+
+            return Ok(emailTemplateDTos);
+        }
+
 
         // DELETE /api/emailtemplates
         [HttpDelete]

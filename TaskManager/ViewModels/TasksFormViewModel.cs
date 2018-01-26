@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using TaskManager.Models;
+using System.Web.Mvc;
 
 namespace TaskManager.ViewModels
 {
@@ -92,6 +90,17 @@ namespace TaskManager.ViewModels
         public int AncestorTaskId { get; set; }
 
         public string CreatedByAction { get; set; }
+        
+        [StringLength(1500)]
+        public string Notes { get; set; }
+
+        [AllowHtml]
+        [StringLength(5000)]
+        public string EmailBody { get; set; }
+
+        [StringLength(1000)]
+        public string EmailSubject { get; set; }
+
 
         public TasksFormViewModel()
         {

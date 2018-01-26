@@ -267,6 +267,7 @@
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SendEmailsController.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
@@ -344,6 +345,10 @@
     <Compile Include="Migrations\201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.cs" />
     <Compile Include="Migrations\201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.Designer.cs">
       <DependentUpon>201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801260737202_AddedNotesIsCompletedToTasks.cs" />
+    <Compile Include="Migrations\201801260737202_AddedNotesIsCompletedToTasks.Designer.cs">
+      <DependentUpon>201801260737202_AddedNotesIsCompletedToTasks.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
@@ -835,6 +840,7 @@
     <Content Include="Views\EmailTemplates\EmailTemplateForm.cshtml" />
     <Content Include="Views\TaskProcedures\Index.cshtml" />
     <Content Include="Views\EmailTemplates\Index.cshtml" />
+    <Content Include="Views\SendEmails\SendEmailForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -996,6 +1002,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.resx">
       <DependentUpon>201801260333567_AddedNumberOfAttachmentsFileNamesInEmailTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801260737202_AddedNotesIsCompletedToTasks.resx">
+      <DependentUpon>201801260737202_AddedNotesIsCompletedToTasks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

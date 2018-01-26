@@ -87,5 +87,10 @@ namespace TaskManager.Models
         public int AncestorTaskId { get; set; }
 
         public string CreatedByAction { get; set; } //works together with AncestorTaskId to determine where the Task came from
+
+        [StringLength(1500)]
+        public string Notes { get; set; }
+
+        public bool IsCompleted { get; set; }
     }
 }

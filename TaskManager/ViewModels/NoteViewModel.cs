@@ -1,9 +1,6 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using TaskManager.Models;
-using TaskManager.ViewModels;
-using TaskManager.Dtos;
 
 namespace TaskManager.ViewModels
 {
