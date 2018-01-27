@@ -1,5 +1,5 @@
 ﻿@model TaskManager.ViewModels.TasksFormViewModel
-    
+
 @{
     ViewBag.Title = "SendEmailForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,9 +11,9 @@
 <br />
 
 @using (Html.BeginForm("Save", "SendEmails",
-            FormMethod.Post, new { @class = "form-horizontal" }))
+            FormMethod.Post, new { @class = "form-horizontal", @id = "SendEmails" }))
 {
-    @Html.ValidationSummary(true, "Please fix the following errors.")
+    @Html.ValidationSummary(true, "")
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="Subject">Template</label>
@@ -22,8 +22,8 @@
                 <select class="form-control" id="emailTemplates">
                     <option value="select"></option>
                 </select>
-                <span class="input-group-addon" style="cursor:pointer">
-                    <span id="loadTemplate" class="glyphicon glyphicon-check"></span>
+                <span id="loadTemplate" class="input-group-addon" style="cursor:pointer">
+                    <span class="glyphicon glyphicon-check"></span>
                 </span>
             </div>
         </div>
@@ -32,7 +32,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="AssignedTo">Send To</label>
         <div class="col-sm-10">
-            @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Companies, "CompanyId", "Email"), "", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Companies, "CompanyId", "Email"), "", new { @class = "form-control", @id = "sendTo" })
         </div>
     </div>
 
@@ -47,7 +47,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="Body">Body</label>
         <div class="col-sm-10">
-            <textarea id="mailBody" name="Body"></textarea>
+            @Html.TextAreaFor(m => m.EmailBody, new { @class = "form-control", @id = "mailBody" })
         </div>
     </div>
 
@@ -75,9 +75,11 @@
         </div>
     </div>
 
-    @Html.HiddenFor(t => t.TaskId)
-    @Html.HiddenFor(t => t.DateCreated)
-    @Html.HiddenFor(t => t.MemberId)
+    @Html.HiddenFor(m => m.TaskId)
+    @Html.HiddenFor(m => m.DateCreated)
+    @Html.HiddenFor(m => m.MemberId)
+    @Html.HiddenFor(m => m.EmailSendee)
+    @Html.HiddenFor(m => m.FileNames)
 
     @Html.AntiForgeryToken()
 
@@ -96,6 +98,15 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
+            var prevMailStatus = @Html.Raw(Json.Encode(Model.PrevMailStatus));
+            //reset form
+            if (prevMailStatus) {
+                toastr.success("Mail successfully sent.");
+                $('#SendEmails').trigger("reset");
+                $('#SendEmails').find("input[type=text], input[type=hidden], textarea, select").val("");
+                $("#mailBody").summernote("code", "");
+            };
+
             $('#mailBody').summernote({
                 height: 300
             });
@@ -119,17 +130,25 @@
             $('#loadTemplate').click(function () {
                 var bodyVal = $("#emailTemplates option").filter(":selected").val();
                 var files = $("#emailTemplates option").filter(":selected").data("attachments");
+                $('#FileNames').val(files);
                 $('#mailBody').summernote('code', bodyVal);
-                
+
                 //remove all list items first
                 $('.subList').remove();
 
+                //split filenames into array and add to LI
                 var arr = files.split(';');
                 $.each(arr, function (i) {
                     $('#attachmentList li:last').after('<li class="subList">' + arr[i] + '</li>');
                 });
-                
+
             });
+
+            $("#SendEmails").submit(function () {
+                $("#EmailSendee").val($('#sendTo').find(":selected").text());
+            });
+
+
         });
     </script>
 }

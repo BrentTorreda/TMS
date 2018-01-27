@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>   
-        if (Model.IsCompleted == false) /*COMPLETED*/
+        if (Model.IsCompleted == false) /*TASK COMPLETED*/
         {
             <div class="row" style="display:block;">
                 <div class="col-sm-12">
@@ -95,14 +95,19 @@
                     </div>
                 </div>
                 <br />
-                <label class="control-label col-sm-3" for="DeferredFor">Defer For</label>
-                <div class="col-sm-8" style="margin-bottom:5px;">
-                    <div class='input-group date' id='datetimepicker2'>
-                        <input id="DeferredFor" name="DeferredFor" type="text" class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-time"></span>
-                        </span>
-                    </div>
+                <label class="control-label col-sm-3" for="DeferredFor">Time to Complete</label>
+                <div class="col-sm-8" style="margin-bottom:5px;">                        
+                    <select id="DeferredFor" name="DeferredFor" class="form-control">  
+                        @{ 
+                            TimeSpan minCounter = new TimeSpan(0,0,0,0);
+                            TimeSpan span1 = TimeSpan.FromMinutes(30);
+                            for (int i = 0; i < 49; i++)
+                            {
+                                <option value="@minCounter">@minCounter</option>
+                                minCounter = minCounter.Add(span1);
+                            }
+                            }
+                    </select>
                 </div>
                 <br />
                 <label class="control-label col-sm-3" for="MemberId">Assign To</label>

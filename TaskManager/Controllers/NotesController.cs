@@ -32,7 +32,7 @@ namespace TaskManager.Controllers
             //OWIN or cookie auth
             if (Request.IsAuthenticated)
             {
-                userName = "brent.torreda@binacoregroup.com.au"; //TEMP!
+                userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
             }
             else
             {

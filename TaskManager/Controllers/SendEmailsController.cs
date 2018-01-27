@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 using System.Net.Mail;
+using Microsoft.AspNet.Identity;
 
 namespace TaskManager.Controllers
 {
@@ -33,7 +34,8 @@ namespace TaskManager.Controllers
                 Prices = _context.Prices.ToList(),
                 Companies = _context.Companies.ToList(),
                 TaskStatuses = _context.TaskStatuses.ToList(),
-                Members = _context.Members.ToList()
+                Members = _context.Members.ToList(),
+                PrevMailStatus = false
             };
 
             return View("SendEmailForm", viewModel);
@@ -43,14 +45,35 @@ namespace TaskManager.Controllers
         {
             MailMessage msg = new MailMessage();
             msg.Body = taskViewModel.EmailBody;
-            msg.Subject = taskViewModel.EmailSubject;
+            msg.Subject = taskViewModel.TaskName;
+            msg.To.Add(new MailAddress(taskViewModel.EmailSendee));
+
+            //get attachments
+            string[] stringSeparators = new string[] { ";" };
+            string[] result = taskViewModel.FileNames.Split(stringSeparators, StringSplitOptions.None);
+            foreach( string file in result)
+            {
+                if (file != "")
+                {
+                    Attachment attach = new Attachment(Server.MapPath("~/UploadedFiles/Attachments/" + file));
+                    msg.Attachments.Add(attach);
+                }
+            }   
+            
             SendMail(msg);
 
             //save to Task  
             var task = new Tasks();
+
+            //KLUDGE - temp code
+            task.PriceId = 2;
+            task.TaskCategoryId = 1;
+            task.TaskTypeId = 9;
+            task.TaskStatusId = 4;
+
             task.TaskName = taskViewModel.TaskName;
             task.TimeWorked = taskViewModel.TimeWorked;
-
+            task.CompanyId = taskViewModel.CompanyId;
             task.DateCreated = DateTime.Today;
             task.DateDue = DateTime.Today;
             task.DateWorkStarted = DateTime.Today;
@@ -60,17 +83,26 @@ namespace TaskManager.Controllers
 
             _context.SaveChanges();
 
-            return View("SendEmailForm");
+            var newVM = new TasksFormViewModel()
+            {
+                TaskTypes = _context.TaskTypes.ToList(),
+                TaskCategories = _context.TaskCategories.ToList(),
+                Prices = _context.Prices.ToList(),
+                Companies = _context.Companies.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList(),
+                Members = _context.Members.ToList(),
+                PrevMailStatus = true
+            };
+            return View("SendEmailForm", newVM);
         }
 
         public bool SendMail(MailMessage msg)
         {
-            String userName = "brent.torreda@binacoregroup.com.au";
-            String password = "12.Mooroolbark.34";
-            msg.To.Add(new MailAddress("torreda.brent@gmail.com"));
+            //temp code
+            string userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
             msg.From = new MailAddress(userName);
-            msg.Subject = "Test Office 365 Account";
-            msg.Body = "Testing email using Office 365 account.";
+            String password = "12.Mooroolbark.34";
+
             msg.IsBodyHtml = true;
             SmtpClient client = new SmtpClient();
             client.Host = "smtp.office365.com";

@@ -101,6 +101,11 @@ namespace TaskManager.ViewModels
         [StringLength(1000)]
         public string EmailSubject { get; set; }
 
+        public bool PrevMailStatus { get; set; }
+
+        public string EmailSendee { get; set; }
+
+        public string FileNames { get; set; }
 
         public TasksFormViewModel()
         {
