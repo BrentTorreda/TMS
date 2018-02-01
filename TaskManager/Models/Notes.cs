@@ -35,5 +35,7 @@ namespace TaskManager.Models
         public bool IsRead { get; set; }
 
         public bool IsMadeToTask { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 }

@@ -122,7 +122,7 @@ namespace TaskManager.Controllers
                 var mailResults = await client.Me.MailFolders.Inbox.Messages.Request()
                                     .OrderBy("receivedDateTime DESC")
                                     .Select("subject,receivedDateTime,from,body,attachments")
-                                    .Top(10)
+                                    .Top(100)
                                     .GetAsync();
             return mailResults.CurrentPage;
         }

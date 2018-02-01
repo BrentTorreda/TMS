@@ -22,6 +22,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <ul style="list-style-type:none"> 
+                    <li></li>
+                </ul>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -137,6 +140,7 @@
                 <a data-toggle="collapse" href="#currentTasks" class="btn btn-default">My Tasks</a>
             </h4>
         </div>
+        @*My Tasks*@
         <div id="currentTasks" class="panel-collapse collapse">
             <div class="panel-body">
                 <table id="myTasks" class="table table-bordered table-hover" style="width:100%;">
@@ -156,6 +160,7 @@
             <div class="panel-footer"></div>
         </div>
     </div>
+    @*Notes*@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -169,10 +174,10 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="pull-right">
-                        <input id="viewAllNotes" type="radio" name="viewOpts" value="all" checked="checked" /> All
-                        <input id="viewArchivedNotes" type="radio" name="viewOpts" value="archived" /> Archived
-                        <input id="viewNewNotes" type="radio" name="viewOpts" value="new" /> New
+                        <input id="viewAllNotes" type="radio" name="viewOptsNotes" value="all" checked="checked" /> All
+                        <input id="viewNewNotes" type="radio" name="viewOptsNotes" value="archived" /> New
                     </div>
+
                 </div>
                 <hr />
                 <table id="myNotes" class="table table-bordered table-hover" style="width:100%;">
@@ -190,6 +195,7 @@
             </div>
         </div>
     </div>
+    @*Email*@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -203,9 +209,9 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="pull-right">
-                        <input type="radio" name="viewOpts" value="all" checked="checked" /> All
-                        <input type="radio" name="viewOpts" value="archived" /> Archived
-                        <input type="radio" name="viewOpts" value="new" /> New
+                        <input type="radio" name="viewOptsMails" value="all" checked="checked" /> All
+                        <input type="radio" name="viewOptsMails" value="archived" /> Archived
+                        <input type="radio" name="viewOptsMails" value="new" /> New
                     </div>
                 </div>
                 <hr />
@@ -360,6 +366,14 @@
                 ]
             });
 
+            $("#viewAllNotes").click(function () {
+                table3.Select("IsArchived = 0 OR IsArchived = 1").CopyToDataTable();
+            });
+            
+            $("#viewNewNotes").click(function () {
+                table3.Select("IsArchived = 0").CopyToDataTable();
+            });
+            
             $("#workpool").on("click", ".js-takeTask", function () {
                 var button = $(this);
 

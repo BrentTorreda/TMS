@@ -244,6 +244,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Apis\CompaniesController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
     <Compile Include="Controllers\Apis\EmailTemplatesController.cs" />
@@ -350,10 +351,19 @@
     <Compile Include="Migrations\201801260737202_AddedNotesIsCompletedToTasks.Designer.cs">
       <DependentUpon>201801260737202_AddedNotesIsCompletedToTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801280541199_AddedEmailsTableAddedIsArchivedInNotes.cs" />
+    <Compile Include="Migrations\201801280541199_AddedEmailsTableAddedIsArchivedInNotes.Designer.cs">
+      <DependentUpon>201801280541199_AddedEmailsTableAddedIsArchivedInNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.cs" />
+    <Compile Include="Migrations\201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.Designer.cs">
+      <DependentUpon>201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
       <DependentUpon>c.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Emails.cs" />
     <Compile Include="Models\EmailTemplateAttachments.cs" />
     <Compile Include="Models\EmailTemplates.cs" />
     <Compile Include="Models\Notes.cs" />
@@ -513,6 +523,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TokenStorage\SessionTokenCache.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\EmailTemplateViewModel.cs" />
     <Compile Include="ViewModels\MembersFormViewModel.cs" />
@@ -841,6 +852,7 @@
     <Content Include="Views\TaskProcedures\Index.cshtml" />
     <Content Include="Views\EmailTemplates\Index.cshtml" />
     <Content Include="Views\SendEmails\SendEmailForm.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1005,6 +1017,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801260737202_AddedNotesIsCompletedToTasks.resx">
       <DependentUpon>201801260737202_AddedNotesIsCompletedToTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801280541199_AddedEmailsTableAddedIsArchivedInNotes.resx">
+      <DependentUpon>201801280541199_AddedEmailsTableAddedIsArchivedInNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.resx">
+      <DependentUpon>201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

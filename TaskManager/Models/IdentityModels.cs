@@ -39,6 +39,7 @@ namespace TaskManager.Models
         public DbSet<SubTasksDeferralDetails> SubTaskDeferralDetails { get; set; }
         public DbSet<EmailTemplates> EmailTemplates { get; set; }
         public DbSet<EmailTemplateAttachments> EmailTemplateAttachments { get; set; }
+        public DbSet<Emails> Emails { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

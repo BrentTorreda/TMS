@@ -7,10 +7,15 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @if (User.Identity.GetUserName() != null)
-            {
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            }
+            @if (User.Identity.GetUserName() != null) //Cookie
+    {
+        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+}
+else //OWIN
+{
+        @Html.ActionLink("Hello " + System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+}
+
         </li>
         @if (Request.IsAuthenticated)
         {
