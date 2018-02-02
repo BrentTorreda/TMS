@@ -19,5 +19,9 @@ namespace TaskManager.Dtos
         public string Subject { get; set; }
 
         public string Body { get; set; }
+
+        public bool IsMadeToTask { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 }

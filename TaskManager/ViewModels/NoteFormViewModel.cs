@@ -25,5 +25,9 @@ namespace TaskManager.ViewModels
         public string Body { get; set; }
 
         public DateTime CurrentDate { get; set; }
+
+        public bool IsMadeToTask { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 }

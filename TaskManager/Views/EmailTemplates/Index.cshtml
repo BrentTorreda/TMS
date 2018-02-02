@@ -8,6 +8,10 @@
 
 <hr />
 
+<p>
+    @Html.ActionLink("New Template", "New", "EmailTemplates", null, new { @class = "btn btn-primary" })
+</p>
+
 <table id="emailTemplates" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -58,7 +62,7 @@
                 bootbox.confirm("Are you sure you want to delete this template?", function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/emailtemplates/" + button.attr("data-category-id"),
+                            url: "/api/emailtemplates/" + button.attr("data-template-id"),
                             method: "DELETE",
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();

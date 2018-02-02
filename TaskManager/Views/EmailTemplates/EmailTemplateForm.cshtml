@@ -56,23 +56,26 @@
             @Html.ValidationMessageFor(t => t.Body)
         </div>
     </div>
-    
+
     <hr />
     <h4>Attachments</h4>
     <hr />
     <br />
-    
+
     <div class="container">
         <div class="row" style="height:auto;"> 
             <ul style="list-style-type:none" id="attachmentList">
                 @{
-            string[] files = Model.FileNames.Split(';');
+                    if (Model.FileNames != null)
+                    {
+                        string[] files = Model.FileNames.Split(';');
 
-            for (byte i = 0; i < files.Length; i++)
-            {
-                <li>@files[i]</li>
-            }
-                }
+                        for (byte i = 0; i < files.Length; i++)
+                        {
+                            <li>@files[i]</li>
+                        }
+                    }
+                  }
             </ul>
         </div>
         <br />
