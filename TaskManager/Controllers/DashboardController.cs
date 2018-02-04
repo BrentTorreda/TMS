@@ -12,6 +12,7 @@ using TaskManager.TokenStorage;
 using System.Configuration;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace TaskManager.Controllers
 {
@@ -34,6 +35,7 @@ namespace TaskManager.Controllers
             viewModel.Tasks = _context.Tasks.ToList();
             viewModel.Companies = _context.Companies.ToList();
             viewModel.SubTasksLevel1 = _context.SubTasksLevel1.ToList();
+            viewModel.Emails = _context.Emails.ToList();
 
             string userName = "";
             //OWIN or cookie auth
@@ -124,6 +126,9 @@ namespace TaskManager.Controllers
                                     .Select("subject,receivedDateTime,from,body,attachments")
                                     .Top(100)
                                     .GetAsync();
+
+            SaveMailsToDb(mailResults);
+
             return mailResults.CurrentPage;
         }
 
@@ -147,6 +152,28 @@ namespace TaskManager.Controllers
             catch (ServiceException ex)
             {
                 return string.Format("#ERROR#: Could not get user's email address. {0}", ex.Message);
+            }
+        }
+
+        //Save mails to DB
+        public void SaveMailsToDb(IEnumerable<Microsoft.Graph.Message> mailResults)
+        {
+            var emailInDb = new Emails();
+            var emails = new Emails();
+
+            foreach (var mail in mailResults)
+            {
+                //check if mail has already been saved
+                emailInDb = _context.Emails.SingleOrDefault(e => e.Id == mail.Id);
+
+                if (emailInDb == null)
+                {
+                    emails.DateReceived = Convert.ToDateTime( mail.ReceivedDateTime.ToString());
+                    emails.Id = mail.Id;
+                    emails.Subject = mail.Subject;
+                    _context.Emails.Add(emails);
+                    _context.SaveChanges();
+                }
             }
         }
 

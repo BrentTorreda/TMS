@@ -206,7 +206,7 @@
         <div id="emailInbox" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="col-sm-2">
-                    <button class="btn btn-primary btn-xs">Archive</button>
+                    <a class="btn btn-primary btn-xs" href="#">Archive</a> 
                 </div>
                 <div class="col-sm-10">
                     <div class="pull-right">
@@ -216,26 +216,34 @@
                     </div>
                 </div>
                 <hr />
-                <table class="table table-striped" style="table-layout:fixed">
+                <table id="emailTable" class="table table-striped" style="table-layout:fixed">
                     <tr>
-                        <th class="col-md-1"></th>
-                        <th class="col-md-3">From</th>
-                        <th class="col-md-4">Subject</th>
-                        <th class="col-md-2">Received</th>
-                        <th class="col-md-1"></th>
-                        <th class="col-md-1"></th>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-3">From</th>
+                        <th class="col-sm-4">Subject</th>
+                        <th class="col-sm-2">Received</th>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-1"></th>
                     </tr>
                     @foreach (var item in Model.EmailDetails)
-        {
-            <tr>
-                <td class="col-md-1"><input type="checkbox" name="archive" value="" /></td>
-                <td class="col-md-3">@Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;</td>
-                <td class="col-md-4">@Html.DisplayFor(modelItem => item.Subject)</td>
-                <td class="col-md-2">@Html.DisplayFor(modelItem => item.ReceivedDateTime)</td>
-                <td class="col-md-1"><a data-toggle="modal" data-id="@item.Body.Content" title="Add this item" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent">View Body</a></td>
-                <td class="col-md-1"><a href="/Dashboard/TaskFromExternal/?taskName=@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=0" class="btn btn-primary btn-xs">Create Task</a></td>
-            </tr>
-}
+                    {
+                        <tr>
+                            <td class="col-sm-1">
+                                @foreach( var mail in Model.Emails)
+                                {
+                                    if( mail.Id == item.Id)
+                                    {
+                                        <input type="checkbox" @(mail.IsArchived == true ? "checked" : "")/>
+                                    }
+                                }
+                            </td>
+                            <td class="col-sm-3">@Html.DisplayFor(modelItem => item.From.EmailAddress.Name) &lt;@Html.DisplayFor(modelItem => item.From.EmailAddress.Address)&gt;</td>
+                            <td class="col-sm-4">@Html.DisplayFor(modelItem => item.Subject)</td>
+                            <td class="col-sm-2">@Html.DisplayFor(modelItem => item.ReceivedDateTime)</td>
+                            <td class="col-sm-1"><a data-toggle="modal" data-id="@item.Body.Content" title="Add this item" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent">View Body</a></td>
+                            <td class="col-sm-1"><a href="/Dashboard/TaskFromExternal/?taskName=@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=0" class="btn btn-primary btn-xs">Create Task</a></td>
+                        </tr>
+                    }
                 </table>
             </div>
         </div>
@@ -247,6 +255,8 @@
 <script>
     $(document).ready(function () {
             var memberId = @Html.Raw(Json.Encode(Model.MemberId));
+
+            getNotes("all");
 
             var table = $("#workpool").DataTable({
                 ajax: {
@@ -328,67 +338,62 @@
                 ]
             });
 
-            var table3 = $("#myNotes").DataTable({
-                ajax: {
-                    url: "/api/notes/" + memberId + "/member",
-                    dataSrc: ""
-                },
-
-                columns: [
-                    {
-                        data: "IsArchived",
-                        width: "5%"
+            function getNotes(statusFilter) {
+                if ($.fn.dataTable.isDataTable('#myNotes')) { //workaround to cannot reinitialise datatable
+                    var table3 = $("#myNotes").DataTable();
+                    table3.destroy();
+                }               
+                
+                var table3 = $("#myNotes").DataTable({
+                    ajax: {
+                        url: "/api/notes/" + memberId + "/member/" + statusFilter,
+                        dataSrc: ""
                     },
-                    {
-                        data: "DateCreated",
-                        width: "10%",
-                        render: function (data) {
-                            return moment(data).format("DD MMM YYYY");
+
+                    columns: [
+                        {
+                            data: "IsArchived",
+                            width: "5%"
+                        },
+                        {
+                            data: "DateCreated",
+                            width: "10%",
+                            render: function (data) {
+                                return moment(data).format("DD MMM YYYY");
+                            }
+                        },
+                        {
+                            data: "MembersMadeBy.FullName",
+                            width: "25%"
+                        },
+                        {
+                            data: "Subject",
+                            width: "30%"
+                        },
+                        {
+                            data: "Body",
+                            width: "10%",
+                            render: function (data, type, row) {
+                                return '<a data-toggle="modal" data-id="' + data + '" title="Add this item" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent"> View </a>';
+                            }
+                        },
+                        {
+                            data: "NoteId",
+                            width: "10%",
+                            render: function (data, type, row) {
+                                return '<a href="/Dashboard/TaskFromExternal/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + row.id + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
+                            }
                         }
-                    },
-                    {
-                        data: "MembersMadeBy.FullName",
-                        width: "25%"
-                    },
-                    {
-                        data: "Subject",
-                        width: "30%"
-                    },
-                    {
-                        data: "Body",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return '<a data-toggle="modal" data-id="' + data + '" title="Add this item" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent"> View </a>';
-                        }
-                    },
-                    {
-                        data: "NoteId",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return '<a href="/Dashboard/TaskFromExternal/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + row.id + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
-                        }
-                    }
-                ]
-            });
-
-            $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
-                    var archived = data[0]; // use data for the archived column
-                    var statusFilter = $('#viewAllNotes').val();
-
-                    if (archived == statusFilter) {
-                        return true;
-                    }
-                    return false;
-                }
-            );
-
+                    ]
+                });
+            }
+                    
             $("#viewAllNotes").click(function () {
-                table3.draw();
+                getNotes("all");
             });
             
             $("#viewNewNotes").click(function () { 
-                table3.draw();
+                getNotes("new");
             });
             
             $("#workpool").on("click", ".js-takeTask", function () {
@@ -411,6 +416,30 @@
             $(document).on("click", ".open-ShowDetails", function () {
                 var contentParam = $(this).data('id');
                 $(".modal-body #modalContent").html(contentParam);
+            });
+
+
+            function filterEmails() {
+                table = document.getElementById("emailTable");
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > true) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            $("#archiveNotes").click(function () {
+                ajax: {
+                    url: "/api/notes/" + memberId + "/member/" + statusFilter,
+                        dataSrc: ""
+                },
             });
         });
 </script>

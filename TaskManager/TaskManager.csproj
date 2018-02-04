@@ -359,6 +359,10 @@
     <Compile Include="Migrations\201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.Designer.cs">
       <DependentUpon>201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802040604545_ChangedLengthOfIdInEmailsTo1000.cs" />
+    <Compile Include="Migrations\201802040604545_ChangedLengthOfIdInEmailsTo1000.Designer.cs">
+      <DependentUpon>201802040604545_ChangedLengthOfIdInEmailsTo1000.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
       <DependentUpon>c.cs</DependentUpon>
@@ -1023,6 +1027,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.resx">
       <DependentUpon>201801280542546_AddedEmailsTableAddedIsArchivedInNotes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802040604545_ChangedLengthOfIdInEmailsTo1000.resx">
+      <DependentUpon>201802040604545_ChangedLengthOfIdInEmailsTo1000.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

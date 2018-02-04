@@ -20,6 +20,7 @@ namespace TaskManager.ViewModels
         public int MemberId { get; set; }
 
         public IEnumerable<Microsoft.Graph.Message> EmailDetails { get; set; }
-        
+
+        public IEnumerable<Emails> Emails { get; set; }
     }
 }
