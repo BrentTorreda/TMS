@@ -17,13 +17,27 @@
             @Html.TextBoxFor(t => t.CategoryName, new { @class = "form-control" })
             @Html.ValidationMessageFor(t => t.CategoryName)
         </div>
-        @Html.HiddenFor( t => t.TaskCategoryId)
+        @Html.HiddenFor(t => t.TaskCategoryId)
     </div>
-    
+
     @Html.AntiForgeryToken()
     <a href='@("/TaskCategories/Index")' class="btn btn-default">Close</a>
     <button type="submit" class="btn btn-primary">Save</button>
 }
+
+
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> // jQuery
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> // bootstrap
+<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script> // dataTables
+<script src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script> // dataTables.buttons
+<script src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.min.js"></script> // dataTables.select
+<script src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script> // dataTables.responsive
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> // bootstrap
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" /> // dataTables
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css" /> // dataTables.buttons
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.1.2/css/select.dataTables.min.css" /> // dataTables.select
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css" /> // dataTables.responsive
 
 @section scripts
 {
