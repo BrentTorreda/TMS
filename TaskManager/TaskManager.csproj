@@ -538,6 +538,7 @@
     <Compile Include="ViewModels\TasksFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bg-main.jpg" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
@@ -696,6 +697,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\details_close.png" />
+    <Content Include="images\details_open.png" />
+    <Content Include="images\images59NSPFUB.jpg" />
+    <Content Include="images\imagesP08ZF16E.jpg" />
+    <Content Include="images\untitled.png" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -708,8 +714,28 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\SomeeProfile.pubxml" />
+    <Content Include="Scripts\Countimer\.editorconfig" />
+    <Content Include="Scripts\Countimer\.gitignore" />
+    <Content Include="Scripts\Countimer\.jshintrc" />
+    <Content Include="Scripts\Countimer\.travis.yml" />
+    <Content Include="Scripts\Countimer\bower.json" />
+    <Content Include="Scripts\Countimer\changelog.md" />
+    <Content Include="Scripts\Countimer\contributing.md" />
+    <Content Include="Scripts\Countimer\package.json" />
+    <Content Include="Scripts\Countimer\readme.md" />
+    <Content Include="Scripts\Countimer\src\.jshintrc" />
+    <Content Include="Scripts\Countimer\test\.jshintrc" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Countimer\dist\ez.countimer.js" />
+    <Content Include="Scripts\Countimer\dist\ez.countimer.min.js" />
+    <Content Include="Scripts\Countimer\Gruntfile.js" />
+    <Content Include="Scripts\Countimer\index.html" />
+    <Content Include="Scripts\Countimer\src\countimer.js" />
+    <Content Include="Scripts\Countimer\test\countimer.html" />
+    <Content Include="Scripts\Countimer\test\countimer_test.js" />
+    <Content Include="Scripts\dataTables.altEditor.free.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.foundation.js" />
@@ -792,9 +818,12 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\summernote.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -862,6 +891,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Content\Videos\" />
+    <Folder Include="EmailTemplates\" />
     <Folder Include="UploadedFiles\Attachments\" />
     <Folder Include="Views\DownloadFile\" />
   </ItemGroup>

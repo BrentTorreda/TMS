@@ -13,13 +13,17 @@ namespace TaskManager
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/respond.js",
-                        "~/Scripts/datatables/jquery.datatables.js",
-                        "~/Scripts/datatables/datatables.bootstrap.js",
+
+                        "~/Scripts/datatables/jquery.dataTables.min.js",
+                        "~/Scripts/datatables/dataTables.buttons.min.js",
+                        "~/Scripts/datatables/dataTables.select.min.js",
+                        "~/Scripts/datatables/dataTables.responsive.min.js",
+                        "~/Scripts/dataTables.altEditor.free.js",
+
                         "~/Scripts/Countimer/dist/ez.countimer.js",
                         "~/Scripts/moment.js",
                         "~/Scripts/bootstrap-datetimepicker.min.js",
-                        "~/Scripts/summernote.js",
-                        "~/Scripts/dataTables.altEditor.free.js",
+                        "~/Scripts/summernote.js",                        
                         "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -31,13 +35,18 @@ namespace TaskManager
                         "~/Scripts/modernizr-*"));            
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/toastr.css",
-                      "~/Content/bootstrap-datetimepicker.css",
-                      "~/Content/summernote.css",
-                      "~/Content/font-awesome-4.7.0/css/font-awesome.css",
-                      "~/Content/datatables/css/datatables.bootstrap4.css"));
+                    "~/Content/bootstrap.css",
+                    "~/Content/site.css",
+                    "~/Content/toastr.css",
+                    "~/Content/bootstrap-datetimepicker.css",
+                    "~/Content/summernote.css",
+                    "~/Content/font-awesome-4.7.0/css/font-awesome.css",
+
+                    "~/Content/datatables/css/datatables.bootstrap4.css",
+                    "~/Content/datatables/css/jquery.dataTables.min.css",
+                    "~/Content/datatables/css/buttons.dataTables.min.css",  
+                    "~/Content/datatables/css/select.dataTables.min.css",
+                    "~/Content/datatables/css/responsive.dataTables.min.css"));
         }
     }
 }
