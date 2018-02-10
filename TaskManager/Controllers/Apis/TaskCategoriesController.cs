@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using System.Web;
 using TaskManager.Dtos;
 using TaskManager.Models;
+using TaskManager.SQL;
+using System;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -38,6 +42,29 @@ namespace TaskManager.Controllers.Apis
             _context.SaveChanges();
 
             return Ok();
-        }    
+        }
+
+        // POST /api/taskscategories
+        [HttpPost]
+        public IHttpActionResult PostTaskCategories(int id)
+        {
+            var taskCatInDb = _context.TaskCategories.SingleOrDefault(t => t.TaskCategoryId == id);
+
+            if (taskCatInDb != null)
+            {
+                taskCatInDb.CategoryName = HttpContext.Current.Request.Params["CategoryName"];
+            }
+            else
+            {
+                var taskCategories = new Models.TaskCategories();
+
+                taskCategories.CategoryName = HttpContext.Current.Request.Params["CategoryName"];
+
+                _context.TaskCategories.Add(taskCategories);
+            }
+
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }

@@ -49,7 +49,6 @@
     'use strict';
     var DataTable = $.fn.dataTable;
 
-
     var _instance = 0;
 
     /** 
@@ -175,7 +174,6 @@
                     e.stopPropagation();
                     that._editRowData();
                 });
-
             }
 
             // add Delete Button
@@ -246,11 +244,16 @@
 
             var data = "";
 
-            data += "<form name='altEditor-form' role='form'>";
+            data += "<form id='altEditor-form' name='altEditor-form' role='form' >";
 
-            var ctr = 0;
-            for (var j = 0; j < adata.length; j++) {
-                data += "<div class='form-group'><div class='col-sm-3 col-md-3 col-lg-3 text-right' style='padding-top:7px;'><label for='" + columnDefs[j].title + "'>" + columnDefs[j].title + ":</label></div><div class='col-sm-9 col-md-9 col-lg-9'><input type='text'  id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' style='overflow:hidden'  class='form-control  form-control-sm' value='" + adata[j][columnDefs[j].title] + "'></div><div style='clear:both;'></div></div>";
+            //Only one row at a time.
+            for (var j = 0; j <= adata.length; j++) { /*Assume 0 is the ID*/
+                if (j === 0) {
+                    data += "<input type='hidden' id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' value='" + adata[0][columnDefs[j].title] + "' />";
+                }
+                else {
+                    data += "<div class='form-group'><div class='col-sm-3 col-md-3 col-lg-3 text-right' style='padding-top:7px;'><label for='" + columnDefs[j].title + "'>" + columnDefs[j].title + ":</label></div><div class='col-sm-9 col-md-9 col-lg-9'><input type='text'  id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' style='overflow:hidden'  class='form-control  form-control-sm' value='" + adata[0][columnDefs[j].title] + "'></div><div style='clear:both;'></div></div>";
+                }
             }
             data += "</form>";
 
@@ -277,6 +280,11 @@
                 data.push($(this).val());
             });
 
+            var api = $('#apiName').val();
+            var rowId = data[0]; //Assume element 0 is the ID
+
+            updateDb("altEditor-form", api, rowId, dt, "POST");
+
             $('#altEditor-modal .modal-body .alert').remove();
 
             var message = '<div class="alert alert-success" role="alert">\
@@ -284,8 +292,6 @@
            </div>';
 
             $('#altEditor-modal .modal-body').append(message);
-
-            dt.row({ selected: true }).data(data);
         },
 
 
@@ -304,17 +310,20 @@
                 columnDefs.push({ title: dt.context[0].aoColumns[i].sTitle })
             }
 
-            var adata = dt.rows({
-                selected: true
-            });
+            var adata = dt.rows({ selected: true }).data(); //BTo - Added .data() since it seems to return undefined otherwise.
 
             var data = "";
 
-            data += "<form name='altEditor-form' role='form'>";
-            for (i in columnDefs) {
+            data += "<form id='altEditor-form' name='altEditor-form' role='form'>";
 
-                data += "<div class='form-group'><label for='" + columnDefs[i].title + "'>" + columnDefs[i].title + " : </label><input  type='hidden'  id='" + columnDefs[i].title + "' name='" + columnDefs[i].title + "' placeholder='" + columnDefs[i].title + "' style='overflow:hidden'  class='form-control' value='" + adata.data()[0][i] + "' >" + adata.data()[0][columnDefs[i].title] + "</input></div>";
-
+            //BTo - Assume element 0 is ID. Only 1 row at a time, no multi row deletes.
+            for (var j = 0; j <= adata.length; j++) {
+                if (j === 0) {
+                    data += "<input type='hidden' id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' value='" + adata[0][columnDefs[j].title] + "' />";
+                }
+                else {
+                    data += "<div class='form-group'><div class='col-sm-3 col-md-3 col-lg-3 text-right' style='padding-top:7px;'><label for='" + columnDefs[j].title + "'>" + columnDefs[j].title + ":</label></div><div class='col-sm-9 col-md-9 col-lg-9'><input type='text'  id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' style='overflow:hidden'  class='form-control  form-control-sm' value='" + adata[0][columnDefs[j].title] + "'></div><div style='clear:both;'></div></div>";
+                }
             }
             data += "</form>";
 
@@ -334,6 +343,17 @@
             var that = this;
             var dt = this.s.dt;
 
+            var data = [];
+
+            $('form[name="altEditor-form"] input').each(function (i) {
+                data.push($(this).val());
+            });
+
+            var api = $('#apiName').val();
+            var rowId = data[0]; //BTo - Assume element 0 is the ID
+
+            updateDb("altEditor-form", api, rowId, dt, "DELETE");
+
             $('#altEditor-modal .modal-body .alert').remove();
 
             var message = '<div class="alert alert-success" role="alert">\
@@ -341,12 +361,7 @@
          </div>';
 
             $('#altEditor-modal .modal-body').append(message);
-
-            dt.row({ selected: true }).remove();
-
-            dt.draw();
         },
-
 
         /**
          * Open Add Modal for selected row
@@ -363,17 +378,19 @@
                 columnDefs.push({ title: dt.context[0].aoColumns[i].sTitle })
             }
 
-
             var data = "";
 
-            data += "<form name='altEditor-form' role='form'>";
+            data += "<form id='altEditor-form' name='altEditor-form' role='form'>";
 
-            for (var j in columnDefs) {
-                data += "<div class='form-group'><div class='col-sm-3 col-md-3 col-lg-3 text-right' style='padding-top:7px;'><label for='" + columnDefs[j].title + "'>" + columnDefs[j].title + ":</label></div><div class='col-sm-9 col-md-9 col-lg-9'><input type='text'  id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' style='overflow:hidden'  class='form-control  form-control-sm' value=''></div><div style='clear:both;'></div></div>";
-
+            for (var j = 0; j < dt.context[0].aoColumns.length; j++) {
+                if (j === 0) {
+                    data += "<input type='hidden' id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' />";
+                }
+                else {
+                    data += "<div class='form-group'><div class='col-sm-3 col-md-3 col-lg-3 text-right' style='padding-top:7px;'><label for='" + columnDefs[j].title + "'>" + columnDefs[j].title + ":</label></div><div class='col-sm-9 col-md-9 col-lg-9'><input type='text'  id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' style='overflow:hidden'  class='form-control  form-control-sm' value=''></div><div style='clear:both;'></div></div>";
+                }                
             }
             data += "</form>";
-
 
             $('#altEditor-modal').on('show.bs.modal', function () {
                 $('#altEditor-modal').find('.modal-title').html('Add Record');
@@ -397,16 +414,18 @@
                 data.push($(this).val());
             });
 
+            var api = $('#apiName').val();
+            var rowId = 0;
+
+            updateDb("altEditor-form", api, rowId, dt, "POST");
+
             $('#altEditor-modal .modal-body .alert').remove();
 
             var message = '<div class="alert alert-success" role="alert">\
-           <strong>Success!</strong> This record has been added.\
-         </div>';
+            <strong>Success!</strong> This record has been added.\
+            </div>';
 
             $('#altEditor-modal .modal-body').append(message);
-
-            dt.row.add(data).draw(false);
-
         },
 
         _getExecutionLocationFolder: function () {
@@ -424,6 +443,39 @@
         }
     });
 
+    //BTo - 10/02/18 - For add, edit and delete
+    function updateDb (formName, table, recId, dt, apiType) {
+        var myform = document.getElementById(formName);
+        var fd = new FormData(myform);
+
+        $.ajax({
+            url: "/api/" + table + "/" + recId,
+            data: fd,
+            cache: false,
+            processData: false,
+            contentType: false,
+            type: apiType,
+            success: function () {
+                toastr.success("Changes successful.");
+
+                //BTo - refetch the ajax data
+                dt.ajax.reload();
+                dt.draw();
+
+                //BTo - disable the add/edit/delete button
+                if (apiType === "POST" && recId === 0) {
+                    $("#addRowBtn").prop('disabled', true);
+                } else if (apiType === "POST" && recId > 0) {
+                    $("#editRowBtn").prop('disabled', true);
+                } else {
+                    $("#deleteRowBtn").prop('disabled', true);
+                }            
+            },
+            error: function () {
+                toastr.error("Something went wrong.");
+            }
+        });            
+    };
 
 
     /**
