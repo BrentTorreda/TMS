@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web.Http;
 using TaskManager.Dtos;
 using TaskManager.Models;
+using System.Web;
+using System.Globalization;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -39,6 +41,31 @@ namespace TaskManager.Controllers.Apis
             _context.Prices.Remove(priceInDb);
             _context.SaveChanges();
 
+            return Ok();
+        }
+
+        // POST /api/prices
+        [HttpPost]
+        public IHttpActionResult PostPrices(int id)
+        {
+            var priceInDb = _context.Prices.SingleOrDefault(t => t.PriceId == id);
+
+            if (priceInDb != null)
+            {
+                priceInDb.Amount = float.Parse(HttpContext.Current.Request.Params["Amount"], CultureInfo.InvariantCulture.NumberFormat);
+                priceInDb.PriceDescription = HttpContext.Current.Request.Params["PriceDescription"];
+            }
+            else
+            {
+                var prices = new Models.Prices();
+
+                prices.Amount = float.Parse( HttpContext.Current.Request.Params["Amount"], CultureInfo.InvariantCulture.NumberFormat);
+                prices.PriceDescription = HttpContext.Current.Request.Params["PriceDescription"];
+
+                _context.Prices.Add(prices);
+            }
+
+            _context.SaveChanges();
             return Ok();
         }
     }

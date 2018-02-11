@@ -20,11 +20,27 @@ namespace TaskManager.Controllers.Apis
         // GET /api/taskProcedures
         public IHttpActionResult GetTaskProcedures(int id)
         {
-            var taskProcQuery = _context.TaskProcedures;
+            var taskQuery = _context.TaskProcedures
+                .Include(t => t.Tasks)
+                .Include(t => t.SubTasksLevel1);
 
-            var taskProcDto = taskProcQuery
+            var taskProcDto = taskQuery
                 .ToList()
-                .Where(t => t.SubtaskId == id);
+                .Where(t => t.TaskProcedureId == id)
+                .Select(Mapper.Map<TaskProcedures, TaskProcedureDto>);
+
+            return Ok(taskProcDto);
+        }
+
+        public IHttpActionResult GetTaskProcedures()
+        {
+            var taskQuery = _context.TaskProcedures
+                .Include(t => t.Tasks)
+                .Include(t => t.SubTasksLevel1);
+
+            var taskProcDto = taskQuery
+                .ToList()
+                .Select(Mapper.Map<TaskProcedures, TaskProcedureDto>);
 
             return Ok(taskProcDto);
         }

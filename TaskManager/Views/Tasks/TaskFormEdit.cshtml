@@ -234,7 +234,7 @@
         <div class="form-group" style="display:block;">
             <div class="col-sm-12">
                 <div class="btn-group pull-right">
-                    <a href="/Tasks/Index/0" class="btn btn-default">Close</a>
+                    <a id="cancelTrans" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
@@ -407,7 +407,15 @@
                 } else {
                     $("#daysOfWeek").show();
                 }
-            })       
+            })     
+
+            $('#cancelTrans').click(function () {
+                goBack();
+            });
+
+            function goBack() {
+                window.history.back();
+            }
         });
     </script>
 }

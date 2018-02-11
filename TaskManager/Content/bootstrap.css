@@ -4969,7 +4969,7 @@ a.list-group-item.active > .badge,
     /*background-color: #eeeeee;
     background-repeat: no-repeat;
     background-position: center center;*/
-    background-image: url("../bg-main.jpg");
+    background-image: url("../images/bg-main.jpg");
 }
 
 .jumbotron h1 {

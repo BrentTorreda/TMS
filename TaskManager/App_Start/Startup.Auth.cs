@@ -106,7 +106,7 @@ namespace TaskManager
               }
             );
         }
-        
+
         private Task OnAuthenticationFailed(AuthenticationFailedNotification<OpenIdConnectMessage,
           OpenIdConnectAuthenticationOptions> notification)
         {
@@ -119,7 +119,7 @@ namespace TaskManager
             notification.Response.Redirect(redirect);
             return Task.FromResult(0);
         }
-        
+
         private async Task OnAuthorizationCodeReceived(AuthorizationCodeReceivedNotification notification)
         {
             // Get the signed in user's id and create a token cache

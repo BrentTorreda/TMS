@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using TaskManager.Dtos;
 using TaskManager.Models;
+using System.Web;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -37,6 +38,33 @@ namespace TaskManager.Controllers.Apis
             _context.Companies.Remove(companyInDb);
             _context.SaveChanges();
 
+            return Ok();
+        }
+
+        // POST /api/companies
+        [HttpPost]
+        public IHttpActionResult PostCompanies(int id)
+        {
+            var compInDb = _context.Companies.SingleOrDefault(t => t.CompanyId == id);
+
+            if (compInDb != null)
+            {
+                compInDb.CompanyName = HttpContext.Current.Request.Params["CompanyName"];
+                compInDb.Email = HttpContext.Current.Request.Params["Email"];
+                compInDb.Phone = HttpContext.Current.Request.Params["Phone"];
+            }
+            else
+            {
+                var companies = new Models.Companies();
+
+                companies.CompanyName = HttpContext.Current.Request.Params["CompanyName"];
+                companies.Email = HttpContext.Current.Request.Params["Email"];
+                companies.Phone = HttpContext.Current.Request.Params["Phone"];
+
+                _context.Companies.Add(companies);
+            }
+
+            _context.SaveChanges();
             return Ok();
         }
     }

@@ -219,7 +219,7 @@
     <div class="form-group" style="display:block;">
         <div class="row col-sm-12">
             <div class="btn-group pull-right">
-                <a name="cancelTrans" id="cancelTrans" class="btn btn-default">Close</a>
+                <a name="cancelTrans" id="cancelTrans" class="btn btn-default">Cancel</a>
                 <button id="commit" name="commit" type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
@@ -346,6 +346,14 @@
             });
 
             $('#datetimepicker1').datetimepicker();
+
+            $('#cancelTrans').click(function () {
+                goBack();
+            });
+
+            function goBack() {
+                window.history.back();
+            }
         });
     </script>
 }

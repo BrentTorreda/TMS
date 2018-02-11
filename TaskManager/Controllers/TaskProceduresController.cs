@@ -16,7 +16,6 @@ namespace TaskManager.Controllers
 
         public ViewResult Index()
         {
-
             return View();
         }
         

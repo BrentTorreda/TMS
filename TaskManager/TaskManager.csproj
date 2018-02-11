@@ -363,6 +363,10 @@
     <Compile Include="Migrations\201802040604545_ChangedLengthOfIdInEmailsTo1000.Designer.cs">
       <DependentUpon>201802040604545_ChangedLengthOfIdInEmailsTo1000.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802110408178_AddedSubTaskLevel1InTaskProceduresTable.cs" />
+    <Compile Include="Migrations\201802110408178_AddedSubTaskLevel1InTaskProceduresTable.Designer.cs">
+      <DependentUpon>201802110408178_AddedSubTaskLevel1InTaskProceduresTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
       <DependentUpon>c.cs</DependentUpon>
@@ -538,7 +542,7 @@
     <Compile Include="ViewModels\TasksFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bg-main.jpg" />
+    <Content Include="images\bg-main.jpg" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1060,6 +1064,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802040604545_ChangedLengthOfIdInEmailsTo1000.resx">
       <DependentUpon>201802040604545_ChangedLengthOfIdInEmailsTo1000.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802110408178_AddedSubTaskLevel1InTaskProceduresTable.resx">
+      <DependentUpon>201802110408178_AddedSubTaskLevel1InTaskProceduresTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

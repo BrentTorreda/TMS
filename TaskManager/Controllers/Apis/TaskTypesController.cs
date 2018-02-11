@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using TaskManager.Dtos;
 using TaskManager.Models;
+using System.Web;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -39,5 +40,28 @@ namespace TaskManager.Controllers.Apis
 
             return Ok();
         }
+        // POST /api/tasktypes
+        [HttpPost]
+        public IHttpActionResult PostTaskTypes(int id)
+        {
+            var taskTypeInDb = _context.TaskTypes.SingleOrDefault(t => t.TaskTypeId == id);
+
+            if (taskTypeInDb != null)
+            {
+                taskTypeInDb.TaskName = HttpContext.Current.Request.Params["TaskName"];
+            }
+            else
+            {
+                var taskTypes = new Models.TaskTypes();
+
+                taskTypes.TaskName = HttpContext.Current.Request.Params["TaskName"];
+
+                _context.TaskTypes.Add(taskTypes);
+            }
+
+            _context.SaveChanges();
+            return Ok();
+        }
+
     }
 }

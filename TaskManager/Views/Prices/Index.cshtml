@@ -7,68 +7,62 @@
 
 <h2>Prices Index</h2>
 <hr />
-<p>
-    @Html.ActionLink("New Price", "New", "Prices", null, new { @class = "btn btn-primary" })
-</p>
 
-<table id="prices" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<div class="container">
+    <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered" id="example"></table>
+</div>
+<input type="hidden" id="apiName" value="Prices" /> @*Used by DataTable free editor!*@
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            var table = $("#prices").DataTable({
+
+            var myTable;
+
+            myTable = $('#example').DataTable({
+
                 ajax: {
                     url: "/api/prices",
                     dataSrc: ""
                 },
 
-                columns: [    
+                columns: [
                     {
+                        title: "PriceId",
                         data: "PriceId",
-                        render: function (data, type, price) {
-                            return "<a class='btn btn-primary btn-xs' href='/prices/edit/" + price.PriceId + "'> Edit </a>";
-                        }
+                        visible: false,
+                        searchable: false
                     },
                     {
-                        data: "Amount"                        
+                        title: "Amount",
+                        data: "Amount"
                     },
                     {
+                        title: "PriceDescription",
                         data: "PriceDescription"
-                    },                  
-                    {
-                        data: "PriceId",
-                        render: function (data) {
-                            return "<button class='js-delete btn btn-primary btn-xs' data-price-id=" + data + ">Delete</button>";
-                        }
                     }
-                ]
-            });
+                ],
 
-            $("#prices").on("click", ".js-delete", function () {
-                var button = $(this);
-
-                bootbox.confirm("Are you sure you want to delete this price?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/api/prices/" + button.attr("data-price-id"),
-                            method: "DELETE",
-                            success: function () {
-                                table.row(button.parents("tr")).remove().draw();
-                            }
-                        });
-                    }
-                });
+                dom: 'Bfrtip',        // Needs button container
+                select: 'single',
+                responsive: true,
+                altEditor: true,     // Enable altEditor
+                buttons: [{
+                    text: 'Add',
+                    name: 'add',        // do not change name
+                    id: 'addRecord'
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Edit',
+                    name: 'edit'        // do not change name
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Delete',
+                    name: 'delete'      // do not change name
+                }]
             });
         });
     </script>

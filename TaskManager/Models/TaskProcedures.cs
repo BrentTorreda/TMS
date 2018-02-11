@@ -42,6 +42,9 @@ namespace TaskManager.Models
         [Required]
         public int SubtaskId { get; set; }
 
+        [ForeignKey("SubtaskId")]
+        public SubTasksLevel1 SubTasksLevel1 { get; set; }
+
         public bool IsStepDone { get; set; }
 
         public string Image1 { get; set; }

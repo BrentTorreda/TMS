@@ -7,28 +7,20 @@
 
 <h2>Companies Index</h2>
 <hr />
-<p>
-    @Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-primary" })
-</p>
 
-<table id="companies" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th></th>   
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<div class="container">
+    <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered" id="example"></table>
+</div>
+<input type="hidden" id="apiName" value="Companies" /> @*Used by DataTable free editor!*@
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            var table = $("#companies").DataTable({
+            var myTable;
+
+            myTable = $('#example').DataTable({
+
                 ajax: {
                     url: "/api/companies",
                     dataSrc: ""
@@ -36,44 +28,44 @@
 
                 columns: [
                     {
+                        title: "CompanyId",
                         data: "CompanyId",
-                        render: function (data, type, company) {
-                            return "<a class='btn btn-primary btn-xs' href='/companies/edit/" + company.CompanyId + "'>Edit</a>";
-                        }
+                        visible: false,
+                        searchable: false
                     },
                     {
+                        title: "CompanyName",
                         data: "CompanyName"
-                        
                     },
                     {
+                        title: "Email",
                         data: "Email"
                     },
                     {
+                        title: "Phone",
                         data: "Phone"
-                    },                   
-                    {
-                        data: "CompanyId",
-                        render: function (data) {
-                            return "<button class='js-delete btn btn-primary btn-xs' data-company-id=" + data + ">Delete</button>";
-                        }
                     }
-                ]
-            });
+                ],
 
-            $("#companies").on("click", ".js-delete", function () {
-                var button = $(this);
-
-                bootbox.confirm("Are you sure you want to delete this company?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/api/companies/" + button.attr("data-company-id"),
-                            method: "DELETE",
-                            success: function () {
-                                table.row(button.parents("tr")).remove().draw();
-                            }
-                        });
-                    }
-                });
+                dom: 'Bfrtip',        // Needs button container
+                select: 'single',
+                responsive: true,
+                altEditor: true,     // Enable altEditor
+                buttons: [{
+                    text: 'Add',
+                    name: 'add',        // do not change name
+                    id: 'addRecord'
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Edit',
+                    name: 'edit'        // do not change name
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Delete',
+                    name: 'delete'      // do not change name
+                }]
             });
         });
     </script>

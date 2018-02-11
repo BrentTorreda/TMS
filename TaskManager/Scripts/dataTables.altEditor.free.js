@@ -247,7 +247,7 @@
             data += "<form id='altEditor-form' name='altEditor-form' role='form' >";
 
             //Only one row at a time.
-            for (var j = 0; j <= adata.length; j++) { /*Assume 0 is the ID*/
+            for (var j = 0; j < dt.context[0].aoColumns.length; j++) { /*Assume 0 is the ID*/
                 if (j === 0) {
                     data += "<input type='hidden' id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' value='" + adata[0][columnDefs[j].title] + "' />";
                 }
@@ -317,7 +317,7 @@
             data += "<form id='altEditor-form' name='altEditor-form' role='form'>";
 
             //BTo - Assume element 0 is ID. Only 1 row at a time, no multi row deletes.
-            for (var j = 0; j <= adata.length; j++) {
+            for (var j = 0; j < dt.context[0].aoColumns.length; j++) {
                 if (j === 0) {
                     data += "<input type='hidden' id='" + columnDefs[j].title + "' name='" + columnDefs[j].title + "' placeholder='" + columnDefs[j].title + "' value='" + adata[0][columnDefs[j].title] + "' />";
                 }
@@ -357,8 +357,8 @@
             $('#altEditor-modal .modal-body .alert').remove();
 
             var message = '<div class="alert alert-success" role="alert">\
-           <strong>Success!</strong> This record has been deleted.\
-         </div>';
+            <strong>Success!</strong> This record has been deleted.\
+            </div>';
 
             $('#altEditor-modal .modal-body').append(message);
         },

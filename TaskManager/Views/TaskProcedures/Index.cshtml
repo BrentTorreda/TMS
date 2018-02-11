@@ -1,11 +1,57 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Task Procedures</h2>
 <hr />
-<br />
+
+<table id="taskProcedures" class="table table-hover">
+    <thead>
+        <tr>
+            <th>    </th>
+            <th>Task</th>
+            <th>SubTask</th>
+            <th>Procedure Name</th>
+            <th>Video</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#taskProcedures").DataTable({
+                ajax: {
+                    url: "/api/taskprocedures",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskProcedureId",
+                        render: function (data, type, taskproc) {
+                            return "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit/" + data + "'>View</a>";
+                        }
+                    },
+                    {
+                        data: "Tasks.TaskName"
+                    },
+                    {
+                        data: "SubTasksLevel1.SubTaskName"
+                    },
+                    {
+                        data: "TaskSteps"
+                    },
+                    {
+                        data: "TaskVideoFile"
+                    }
+                ]
+            });
+        });
+    </script>
+}
 
 
