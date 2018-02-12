@@ -217,16 +217,16 @@
                     </div>
                 </div>
                 <hr />
-                <table id="emailTable" class="table table-striped" style="table-layout:fixed">
-                    <tr>
+                <table id="emails" class="table table-hover" style="width:100%">
+                    @*<tr>
                         <th class="col-sm-1"></th>
                         <th class="col-sm-3">From</th>
                         <th class="col-sm-4">Subject</th>
                         <th class="col-sm-2">Received</th>
                         <th class="col-sm-1"></th>
                         <th class="col-sm-1"></th>
-                    </tr>
-                    @foreach (var item in Model.EmailDetails)
+                    </tr>*@
+                    @*@foreach (var item in Model.EmailDetails)
                     {
                     <tr>
                         <td class="col-sm-1">
@@ -244,7 +244,7 @@
                         <td class="col-sm-1"><a data-toggle="modal" data-id="@item.Body.Content" data-title="@item.Subject" title="View Body" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent">View Body</a></td>
                         <td class="col-sm-1"><a href="/Dashboard/TaskFromExternal/?taskName=@item.From.EmailAddress.Name&taskDesc=@item.Subject&type=email&id=0" class="btn btn-primary btn-xs">Create Task</a></td>
                     </tr>
-                    }
+                    }*@
                 </table>
             </div>
         </div>
@@ -253,9 +253,6 @@
 
 <br />  
 <br />
-<table id="example" class="table table-bordered table-hover" style="table-layout:fixed">
-   
-</table>
 
 @section scripts
 {
@@ -345,12 +342,12 @@
                 ]
             });
 
-            var emailObj = $(@Html.Raw(Json.Encode(Model.Emails))).toArray();
+            $("#emails").DataTable({
+                ajax: {
+                    url: "/api/emails",
+                    dataSrc: ""
+                },
 
-            var Obj = $(@Html.Raw(Json.Encode(Model.Emails)));
-
-            $("#example").DataTable({
-                data: emailObj,
                 columns: [
                     {
                         title: "Archive",
@@ -364,11 +361,14 @@
                     },
                     {
                         title: "Received",
-                        data: "DateReceived"
+                        data: "DateReceived",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YYYY");
+                        }
                     },                    
                     {
                         title: "Sent By",
-                        data: "From"
+                        data: "Sender"
                     },
                     {
                         title: "Subject",
@@ -376,7 +376,7 @@
                     },
                     {
                         title: "Body",
-                        data: "Body"
+                        data: "MailBody"
                     }
                 ]
             });

@@ -32,14 +32,14 @@ namespace TaskManager.Controllers
 
             var viewModel = new DashboardViewModel();
 
+            viewModel.Emails = _context.Emails.ToList();
             viewModel.Tasks = _context.Tasks.ToList();
             viewModel.Companies = _context.Companies.ToList();
             viewModel.SubTasksLevel1 = _context.SubTasksLevel1.ToList();
-            viewModel.Emails = _context.Emails.ToList();
 
             string userName = "";
             //OWIN or cookie auth
-            if (Request.IsAuthenticated)
+           if (Request.IsAuthenticated)
             {
                 userName = await GetUserEmail();
             }
@@ -171,6 +171,10 @@ namespace TaskManager.Controllers
                     emails.DateReceived = Convert.ToDateTime( mail.ReceivedDateTime.ToString());
                     emails.Id = mail.Id;
                     emails.Subject = mail.Subject;
+                    emails.MailBody = mail.Body.Content;
+                    emails.NumberOfAttachments = mail.Attachments.Count;
+                    emails.Sender = mail.From.EmailAddress.Name;
+
                     _context.Emails.Add(emails);
                     _context.SaveChanges();
                 }

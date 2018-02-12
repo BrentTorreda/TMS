@@ -26,6 +26,7 @@ namespace TaskManager.App_Start
             Mapper.CreateMap<Notes, NoteDto>();
             Mapper.CreateMap<SubTasksDeferralDetails, SubTasksDeferralDetailDto>();
             Mapper.CreateMap<EmailTemplates, EmailTemplateDto>();
+            Mapper.CreateMap<Emails, EmailDto>();
         }
     }
 }

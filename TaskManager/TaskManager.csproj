@@ -247,6 +247,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Apis\CompaniesController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
+    <Compile Include="Controllers\Apis\EmailsController.cs" />
     <Compile Include="Controllers\Apis\EmailTemplatesController.cs" />
     <Compile Include="Controllers\Apis\MembersController.cs" />
     <Compile Include="Controllers\Apis\NotesController.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Dtos\EmailDto.cs" />
     <Compile Include="Dtos\EmailTemplateDto.cs" />
     <Compile Include="Dtos\NoteDto.cs" />
     <Compile Include="Dtos\SubTasksDeferralDetailDto.cs" />
@@ -366,6 +368,14 @@
     <Compile Include="Migrations\201802110408178_AddedSubTaskLevel1InTaskProceduresTable.cs" />
     <Compile Include="Migrations\201802110408178_AddedSubTaskLevel1InTaskProceduresTable.Designer.cs">
       <DependentUpon>201802110408178_AddedSubTaskLevel1InTaskProceduresTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802120413539_AddedMailBodyToEmails.cs" />
+    <Compile Include="Migrations\201802120413539_AddedMailBodyToEmails.Designer.cs">
+      <DependentUpon>201802120413539_AddedMailBodyToEmails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802120532144_IncreasedMailBodyInEmailsTo500000.cs" />
+    <Compile Include="Migrations\201802120532144_IncreasedMailBodyInEmailsTo500000.Designer.cs">
+      <DependentUpon>201802120532144_IncreasedMailBodyInEmailsTo500000.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
@@ -718,7 +728,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IIS_local.pubxml" />
     <None Include="Properties\PublishProfiles\SomeeProfile.pubxml" />
     <Content Include="Scripts\Countimer\.editorconfig" />
     <Content Include="Scripts\Countimer\.gitignore" />
@@ -1067,6 +1077,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802110408178_AddedSubTaskLevel1InTaskProceduresTable.resx">
       <DependentUpon>201802110408178_AddedSubTaskLevel1InTaskProceduresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802120413539_AddedMailBodyToEmails.resx">
+      <DependentUpon>201802120413539_AddedMailBodyToEmails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802120532144_IncreasedMailBodyInEmailsTo500000.resx">
+      <DependentUpon>201802120532144_IncreasedMailBodyInEmailsTo500000.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>
