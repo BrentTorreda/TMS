@@ -5,6 +5,8 @@ using TaskManager.Dtos;
 using TaskManager.Models;
 using System.Data.Entity;
 using System.Net;
+using System.Web;
+using System;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -44,24 +46,22 @@ namespace TaskManager.Controllers.Apis
             return Ok(noteDtos);
         }
 
-        // UPDATE /api/notes
-        [HttpPut]
-        public IHttpActionResult UpdateNotes(int id, NoteDto noteDto)
+        // POST /api/notes
+        [HttpPost]
+        [Route("api/notes/{id}/{newVal}")]
+        public IHttpActionResult PostNotes(int id, bool newVal)
         {
-            if (!ModelState.IsValid)
+            var noteInDb = _context.Notes.SingleOrDefault(n => n.id == id);
+
+            if (noteInDb != null)
+            {
+                noteInDb.IsArchived = newVal;
+
+                _context.SaveChanges();
+                return Ok();
+            }
+            else
                 return BadRequest();
-
-            var movieInDb = _context.Notes.SingleOrDefault(m => m.id == id);
-
-            if (movieInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            Mapper.Map(noteDto, movieInDb);
-
-            _context.SaveChanges();
-
-            return Ok();
         }
-
     }
 }

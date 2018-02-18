@@ -75,7 +75,68 @@
     </div>
 }
 
+<hr />
+<h3>Member's Task List</h3>
+<table id="memberTasks">
+
+</table>
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        var id = @Html.Raw(Json.Encode(Model.MemberId));
+
+        var table = $("#memberTasks").DataTable({
+            ajax: {
+                url: "/api/subtasklevel1/" + id + "/member",
+                dataSrc: ""
+            },
+
+            columns: [
+                {
+                    title: "Task",
+                    data: "Tasks.TaskName",
+                    width: "30%",
+                },
+                {
+                    title: "Subtask",
+                    data: "SubTaskName",
+                    width: "25%",
+                    render: function (data, type, subTask) {
+                        return "<a href='/subtasklevel1/view/" + subTask.SubTaskId + "'>" + data + "</a>";
+                    }
+                },
+                {
+                    title: "Created On",
+                    data: "DateCreated",
+                    width: "20%",
+                    render: function (data) {
+                        return moment(data).format("DD MMM YYYY");
+                    }
+                },
+                {
+                    title: "Hrs to Complete",
+                    data: "Hours",
+                    width: "5%",
+                },
+                {
+                    title: "Hrs Worked",
+                    data: "TimeWorked",
+                    width: "10%",
+                    ordering: false
+                },
+                {
+                    title: "Complete?",
+                    data: "IsCompleted",
+                    width: "10%",
+                    render: function (data, type, full, meta) {
+                        return '<input disabled readonly data-val="true" type="checkbox"' + (data ? 'checked' : '') + ' />';
+                    }
+                }
+            ]
+        });
+    })
+</script>
 }

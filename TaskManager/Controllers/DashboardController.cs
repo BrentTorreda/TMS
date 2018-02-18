@@ -172,7 +172,7 @@ namespace TaskManager.Controllers
                     emails.Id = mail.Id;
                     emails.Subject = mail.Subject;
                     emails.MailBody = mail.Body.Content;
-                    emails.NumberOfAttachments = mail.Attachments.Count;
+                    emails.NumberOfAttachments = (mail.Attachments == null) ? 0 : mail.Attachments.Count;
                     emails.Sender = mail.From.EmailAddress.Name;
 
                     _context.Emails.Add(emails);

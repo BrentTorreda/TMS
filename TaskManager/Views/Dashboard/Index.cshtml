@@ -15,6 +15,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 id="modal-title" class="modal-title">Body</h4>
+                <h5 id="modal-subtitle" >Body</h5>
             </div>
             <div class="modal-body">
                 <div id="modalContent">
@@ -25,11 +26,10 @@
                 <ul style="list-style-type:none">
                     <li></li>
                 </ul>
-                <a href="SendEmails/New" class="btn btn-default" data-dismiss="modal">Reply</a>
+                <a id="replyMail" class="btn btn-primary" >Reply</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -175,7 +175,7 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="pull-right">
-                        <input id="viewAllNotes" type="radio" name="viewOptsNotes" value="all" /> All
+                        <input id="viewAllNotes" type="radio" name="viewOptsNotes" value="all"/> All
                         <input id="viewNewNotes" type="radio" name="viewOptsNotes" value="archived" checked="checked" /> New
                     </div>
 
@@ -207,13 +207,12 @@
         <div id="emailInbox" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="col-sm-2">
-                    <a class="btn btn-primary btn-xs" href="#">Archive</a>
+                    <a id="archiveEmails" class="btn btn-primary btn-xs" href="#">Archive</a>
                 </div>
                 <div class="col-sm-10">
                     <div class="pull-right">
-                        <input type="radio" name="viewOptsMails" value="all" checked="checked" /> All
-                        <input type="radio" name="viewOptsMails" value="archived" /> Archived
-                        <input type="radio" name="viewOptsMails" value="new" /> New
+                        <input type="radio" id="viewAllMails" name="viewOptsMails" value="all" /> All
+                        <input type="radio" id="viewNewMails" name="viewOptsMails" value="new" checked="checked" /> New
                     </div>
                 </div>
                 <hr />
@@ -260,7 +259,9 @@
     $(document).ready(function () {
             var memberId = @Html.Raw(Json.Encode(Model.MemberId));
 
-            getNotes("all");
+            getNotes("new");
+
+            getEmails("new");
 
             var table = $("#workpool").DataTable({
                 ajax: {
@@ -342,45 +343,7 @@
                 ]
             });
 
-            $("#emails").DataTable({
-                ajax: {
-                    url: "/api/emails",
-                    dataSrc: ""
-                },
-
-                columns: [
-                    {
-                        title: "Archive",
-                        data: "IsArchived",
-                        render: function (data, type, row) {
-                            if (data === 'true') {
-                                return '<input type="checkbox" class="editor-active" checked>';
-                            }
-                            return '<input type="checkbox" class="editor-active">';
-                        },
-                    },
-                    {
-                        title: "Received",
-                        data: "DateReceived",
-                        render: function (data) {
-                            return moment(data).format("DD MMM YYYY");
-                        }
-                    },                    
-                    {
-                        title: "Sent By",
-                        data: "Sender"
-                    },
-                    {
-                        title: "Subject",
-                        data: "Subject"
-                    },
-                    {
-                        title: "Body",
-                        data: "MailBody"
-                    }
-                ]
-            });
-
+            //Notes
             function getNotes(statusFilter) {
                 if ($.fn.dataTable.isDataTable('#myNotes')) { //workaround to cannot reinitialise datatable error
                     var table3 = $("#myNotes").DataTable();
@@ -396,7 +359,10 @@
                     columns: [
                         {
                             data: "IsArchived",
-                            width: "5%"
+                            width: "5%",
+                            render: function (data) {
+                                return (data ? "<input data-initial='" + data + "' class='archiveCheckbox' type='checkbox' checked />" : "<input data-initial='" + data +"' class='archiveCheckbox' type='checkbox' />");
+                            }
                         },
                         {
                             data: "DateCreated",
@@ -421,7 +387,7 @@
                             }
                         },
                         {
-                            data: "NoteId",
+                            data: "id",
                             width: "10%",
                             render: function (data, type, row) {
                                 return '<a href="/Dashboard/TaskFromExternal/?taskName=' + row.Subject + '&taskDesc=' + row.Body + '&type=note&id=' + row.id + '" class="js-taskFromNote btn btn-primary btn-xs" data-note-id=' + data + '> Create Task </a>';
@@ -431,12 +397,131 @@
                 });
             }
 
+            //Emails
+            function getEmails(statusFilter) {
+                if ($.fn.dataTable.isDataTable('#emails')) { //workaround to cannot reinitialise datatable error
+                    var table4 = $("#emails").DataTable();
+                    table4.destroy();
+                }
+
+                var table4 = $("#emails").DataTable({
+                    ajax: {
+                        url: "/api/emails/" + statusFilter,
+                        dataSrc: ""
+                    },
+
+                    columns: [
+                        {
+                            title: "Archive",
+                            data: "IsArchived",
+                            width: "5%",
+                            render: function (data) {
+                                return (data ? "<input data-initial='" + data + "' class='archiveCheckbox' type='checkbox' checked />" : "<input data-initial='" + data + "' class='archiveCheckbox' type='checkbox' />");
+                            }
+                        },
+                        {
+                            title: "Received",
+                            data: "DateReceived",
+                            render: function (data) {
+                                return moment(data).format("DD MMM YYYY");
+                            }
+                        },
+                        {
+                            title: "Sent By",
+                            data: "Sender"
+                        },
+                        {
+                            title: "Subject",
+                            data: "Subject"
+                        },
+                        {
+                            data: "MailBody",
+                            searchable: true,
+                            render: function (data, type, row) {
+                                return '<a data-title="' + row.Subject + '" data-sender="'+ row.Sender +'" data-toggle="modal" title="View Body" class="open-ShowDetails btn btn-primary btn-xs" href="#showContent">View Body</a>';
+                            }
+                        },
+                        {
+                            data: "MailId",
+                            searchable: false,
+                            render: function (data, type, row) {
+                                return '<a class="js-taskFromEmail btn btn-primary btn-xs" data-email-id="' + data + '" href="/Dashboard/TaskFromExternal/?taskName=' + row.Sender + '&taskDesc=' + row.Subject + '&type=email&id=0">Create Task</a>';
+                            }
+                        }
+                    ]
+                });
+            }
+            
             $("#viewAllNotes").click(function () {
                 getNotes("all");
             });
 
             $("#viewNewNotes").click(function () {
                 getNotes("new");
+            });
+
+            $("#viewAllMails").click(function () {
+                getEmails("all");
+            });
+
+            $("#viewNewMails").click(function () {
+                getEmails("new");
+            });
+
+            $("#archiveNotes").click(function () {
+                $("#myNotes tr").each(function () {
+                    var row = $(this);
+                    var cbVal = false;
+                    if (row.find('input[type="checkbox"]').is(':checked')) {
+                        cbVal = true;
+                    }
+                    var initial = row.find('input[type="checkbox"]').data("initial");
+                    var id = row.find('.js-taskFromNote').data("note-id");
+                    if (id != undefined) { //1st row is header
+                        if (cbVal != initial) {
+                            $.ajax({
+                                url: "api/notes/" + id + "/" + cbVal,
+                                method: "POST",
+                                success: function () {
+                                    toastr.success("Changes saved.");
+                                    getNotes("new");
+                                    $("#viewNewNotes").prop("checked", true);
+                                },
+                                error: function () {
+                                    toastr.error("Something went wrong.");
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+
+            $("#archiveEmails").click(function () {
+                $("#emails tr").each(function () {
+                    var row = $(this);
+                    var cbVal = false;
+                    if (row.find('input[type="checkbox"]').is(':checked')) {
+                        cbVal = true;
+                    }
+                    var initial = row.find('input[type="checkbox"]').data("initial");
+                    var id = row.find('.js-taskFromEmail').data("email-id");
+                    if (id != undefined) { //1st row is header
+                        if (cbVal != initial) {
+                            $.ajax({
+                                url: "api/emails/" + id + "/" + cbVal,
+                                method: "POST",
+                                success: function () {
+                                    toastr.success("Changes saved.");
+                                    getEmails("new");
+                                    $("#viewNewMails").prop("checked",true);
+                                },
+                                error: function () {
+                                    toastr.error("Something went wrong.");
+                                }
+                            });
+                        }
+                    }
+                });
             });
 
             $("#workpool").on("click", ".js-takeTask", function () {
@@ -456,14 +541,20 @@
                 });
             });
 
-            $(document).on("click", ".open-ShowDetails", function () {
-                var contentParam = $(this).data('id');
-                $(".modal-body #modalContent").html(contentParam);
-                $(".modal-header #modal-title").html($(this).data('title'));
+            $("#emails").on("click", ".open-ShowDetails", function () {              
+                var table4 = $("#emails").DataTable();
+                var title = $(this).data('title');
+                var sender = $(this).data('sender');
+                adata = table4.row($(this).closest("tr")).data();
+                
+                $(".modal-body #modalContent").html(adata.MailBody);
+                $(".modal-header #modal-title").html(title);
+                $(".modal-header #modal-subtitle").html(sender);
+                $("#replyMail").attr('href', '/SendEmails/New?"' + title + '"&&"' + sender + '"' );
             });
-
+        
             function filterEmails() {
-                table = document.getElementById("emailTable");
+                table = $("#emails");
                 tr = table.getElementsByTagName("tr");
 
                 for (i = 0; i < tr.length; i++) {
@@ -476,7 +567,7 @@
                         }
                     }
                 }
-            }
+            } 
 
 
         });

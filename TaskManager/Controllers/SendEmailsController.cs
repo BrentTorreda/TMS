@@ -25,7 +25,8 @@ namespace TaskManager.Controllers
             return View();
         }
 
-        public ActionResult New()
+        [Route("api/SendEmails/New/{subject}/{sendee}")]
+        public ActionResult New(string subject, string sendee)
         {
             var viewModel = new TasksFormViewModel()
             {
@@ -35,7 +36,9 @@ namespace TaskManager.Controllers
                 Companies = _context.Companies.ToList(),
                 TaskStatuses = _context.TaskStatuses.ToList(),
                 Members = _context.Members.ToList(),
-                PrevMailStatus = false
+                PrevMailStatus = false,
+                EmailSubject = subject,
+                EmailSendee = sendee
             };
 
             return View("SendEmailForm", viewModel);
