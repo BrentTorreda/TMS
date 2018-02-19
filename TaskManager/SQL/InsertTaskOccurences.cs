@@ -2,6 +2,7 @@
 using System.Linq;
 using TaskManager.Models;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace TaskManager.SQL
 {
@@ -124,7 +125,7 @@ namespace TaskManager.SQL
             int i = 0;
             DateTime tempDate = startDate;
 
-            do
+            while (tempDate < endDate)
             {
                 if (i < repetition) //1/17/18 - BTo - make sure it doesn't exceed array size
                 {
@@ -137,13 +138,45 @@ namespace TaskManager.SQL
                 else
                     tempDate = tempDate.AddYears(repeatEvery);
 
-            } while (tempDate < endDate);
+            }
+
+            return insertDates;
+        }
+
+        //BI-MONTHLY
+        public DateTime[] GetBiMonthlyOccurrenceDates(int repetition, DateTime startDate, DateTime endDate, int day1, int day2)
+        {
+            DateTime[] insertDates = new DateTime[repetition];
+            DateTime tempDate = startDate;
+            int i = 0;
+            int curYear = startDate.Year;
+            int curMonth = startDate.Month;
+
+            while (tempDate < endDate)
+            {                
+                tempDate = DateTime.Parse(day1.ToString() + "/" + curMonth.ToString() + "/" + curYear.ToString());
+                if (i < repetition)
+                {
+                    insertDates[i++] = tempDate;
+                }
+                tempDate = DateTime.Parse(day2.ToString() + "/" + curMonth.ToString() + "/" + curYear.ToString());
+                if (i < repetition)
+                {
+                    insertDates[i++] = tempDate;
+                }
+                curMonth++;
+                if (curMonth == 12)
+                {
+                    curYear++;
+                    curMonth = 1;
+                }
+            } 
 
             return insertDates;
         }
 
         // MAIN
-        public bool InsertTasks(int taskId, int insertType, int repeatEvery, int[] weekDays, int repetition, DateTime startDate, DateTime endDate)
+        public bool InsertTasks(int taskId, int insertType, int repeatEvery, int[] weekDays, int repetition, DateTime startDate, DateTime endDate, int dayInMonth, int BiMonthlyDa1, int BiMonthlyDay2)
         {
             if (repetition < 1)
                 return false;
@@ -152,14 +185,21 @@ namespace TaskManager.SQL
             //weekly
             if (insertType == 0)
                 insertDates = GetWeeklyOccurrenceDates(repetition, repeatEvery, weekDays, startDate, endDate);
+
             //daily
             else if (insertType == 1)
                 insertDates = GetDayMonthYearOccurrenceDates(repetition, repeatEvery, startDate, endDate, "daily");
+
             //monthly
             else if (insertType == 2)
                 insertDates = GetDayMonthYearOccurrenceDates(repetition, repeatEvery, startDate, endDate, "monthly");
-            //yearly
+
+            //bi-monthly
             else if (insertType == 3)
+                insertDates = GetBiMonthlyOccurrenceDates(repetition, startDate, endDate, BiMonthlyDa1, BiMonthlyDay2 );
+
+            //yearly
+            else if (insertType == 4)
                 insertDates = GetDayMonthYearOccurrenceDates(repetition, repeatEvery, startDate, endDate, "yearly");
 
             for (var i = 1; i <= repetition; i++)

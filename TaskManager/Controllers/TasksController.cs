@@ -75,8 +75,7 @@ namespace TaskManager.Controllers
 
             return View("TaskFormNewFromTemplate", viewModel);
         }
-
-
+        
         public ActionResult Edit(int id)
         {
             var _context = new ApplicationDbContext();

@@ -151,13 +151,24 @@ namespace TaskManager.Controllers.Apis
 
             var repeatEvery = HttpContext.Current.Request.Params["RepeatEvery"];
 
+            var dayInMonth = HttpContext.Current.Request.Params["DayInMonth"];
+
+            var biMonthlyDay1 = HttpContext.Current.Request.Params["BiMonthlyDay1"];
+
+            var biMonthlyDay2 = HttpContext.Current.Request.Params["BiMonthlyDay2"];
+
             var sqlTrans = new InsertTaskOccurences();
             sqlTrans.InsertTasks(id, 
                 Convert.ToInt32(pattern), 
-                Convert.ToInt32(repeatEvery), days, 
+                Convert.ToInt32(repeatEvery), 
+                days, 
                 Convert.ToInt32(dates), 
                 DateTime.ParseExact(startDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture),
-                DateTime.ParseExact(endDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture));
+                DateTime.ParseExact(endDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture),
+                Convert.ToInt32(dayInMonth),
+                Convert.ToInt32(biMonthlyDay1),
+                Convert.ToInt32(biMonthlyDay2)                
+                );
 
             return Ok();
         }
