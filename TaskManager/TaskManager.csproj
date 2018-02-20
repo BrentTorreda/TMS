@@ -386,9 +386,9 @@
     <Compile Include="Models\EmailTemplates.cs" />
     <Compile Include="Models\Notes.cs" />
     <Compile Include="Models\SubTasksDeferralDetails.cs" />
-    <Compile Include="SQL\CheckIfTaskIsDone.cs" />
-    <Compile Include="SQL\InsertTaskOccurences.cs" />
-    <Compile Include="SQL\PrepareTemplate.cs" />
+    <Compile Include="Controllers\SQL\CheckIfTaskIsDone.cs" />
+    <Compile Include="Controllers\SQL\InsertTaskOccurences.cs" />
+    <Compile Include="Controllers\SQL\PrepareTemplate.cs" />
     <Compile Include="Controllers\SubtaskLevel1Controller.cs" />
     <Compile Include="Controllers\TaskProceduresController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
