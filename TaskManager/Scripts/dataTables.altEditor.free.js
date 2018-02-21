@@ -456,7 +456,7 @@
             contentType: false,
             type: apiType,
             success: function () {
-                toastr.success("Changes successful.");
+                toastr.success("Changes successfully saved.");
 
                 //BTo - refetch the ajax data
                 dt.ajax.reload();

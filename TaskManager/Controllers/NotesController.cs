@@ -29,7 +29,7 @@ namespace TaskManager.Controllers
             var viewModel = new NoteFormViewModel();
             
             string userName = "";
-            //OWIN or cookie auth
+            //OAUTH or cookie auth
             if (Request.IsAuthenticated)
             {
                 userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;

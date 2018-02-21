@@ -28,7 +28,6 @@ namespace TaskManager.Controllers
         // GET: Dashboard
         public async Task<ActionResult> Index()
         {
-            var _context = new ApplicationDbContext();
 
             var viewModel = new DashboardViewModel();
 
@@ -46,7 +45,7 @@ namespace TaskManager.Controllers
             else
             {
                 userName = User.Identity.GetUserName();
-            }
+            }           
 
             var member = _context.Members.SingleOrDefault(m => m.Email == userName);
 

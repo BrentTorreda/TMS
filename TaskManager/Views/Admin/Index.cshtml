@@ -46,9 +46,9 @@ Roles
 @using (Html.BeginForm("Save", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="form-group">
-        <label class="control-label col-sm-2" for="Subject">Role Name</label>
+        <label class="control-label col-sm-2" for="Subject">User Name</label>
         <div class="col-sm-10">
-            <input type="text" name="roleName" value="" />
+            <input type="text" name="userName" value="" />
             @*@Html.TextBoxFor(n => n.Subject, new { @class = "form-control" })
                 @Html.ValidationMessageFor(n => n.Subject)*@
         </div>
