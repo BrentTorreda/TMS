@@ -74,7 +74,11 @@
             <div class="row" style="display:block;">
                 <div class="col-sm-12">
                     <div class="btn-group pull-right">
-                        <input type="button" value="Defer" id="defer" name="defer" class="btn btn-default btn-sm">
+                        @if(User.IsInRole("CanReassignTasks"))
+                        {
+                            <input type="button" value="Defer" id="defer" name="defer" class="btn btn-default btn-sm">
+                        }
+                        
                         <input type="button" value="Pause" class="sw_stop btn btn-sm btn-danger" id="sw_stop">
                         <input type="button" value="Resume" class="sw_resume btn btn-sm btn-success" id="sw_resume">
                     </div>

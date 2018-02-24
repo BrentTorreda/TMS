@@ -14,50 +14,43 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="LastName">Last Name</label>
         <div class="col-lg-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.LastName)
+            @Html.DisplayFor(m => m.LastName, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="FirstName">First Name</label>
         <div class="col-lg-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FirstName)
+            @Html.DisplayFor(m => m.FirstName, new { @class = "form-control" })
         </div>
     </div>    
     <div class="form-group">
         <label class="control-label col-sm-2" for="MemberGroupId">Groups</label>
         <div class="col-lg-10">
-            @Html.DropDownListFor(m => m.MemberGroupId, new SelectList(Model.MemberGroups, "MemberGroupId", "MemberGroupName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.MemberGroupId)
+            @Html.DropDownListFor(m => m.MemberGroupId, new SelectList(Model.MemberGroups, "MemberGroupId", "MemberGroupName"), "", new { @class = "form-control", @disabled="disabled" })
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="MemberPositionId">Position</label>
         <div class="col-lg-10">
-            @Html.DropDownListFor(m => m.MemberPositionId, new SelectList(Model.MemberPositions, "MemberPositionId", "PositionName"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.MemberPositionId)
+            @Html.DropDownListFor(m => m.MemberPositionId, new SelectList(Model.MemberPositions, "MemberPositionId", "PositionName"), "", new { @class = "form-control", @disabled="disabled" })
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="ApplicationUserId">Email</label>
         <div class="col-lg-10">
-            @Html.DropDownListFor(m => m.ApplicationUserId, new SelectList(Model.ApplicationUsers, "Id", "Email"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ApplicationUserId)
+            @Html.DropDownListFor(m => m.ApplicationUserId, new SelectList(Model.ApplicationUsers, "Id", "Email"), "", new { @class = "form-control", @disabled="disabled" })
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="Address">Address</label>
         <div class="col-lg-10">
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Address)
+            @Html.DisplayFor(m => m.Address, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="Phone">Phone</label>
         <div class="col-lg-10">
-            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Phone)
+            @Html.DisplayFor(m => m.Phone, new { @class = "form-control" })
         </div>
     </div>
 
@@ -69,7 +62,7 @@
         <div class="col-sm-12">
             <div class="btn-group pull-right">
                 <a onclick="GoBack()" class="btn btn-default">Cancel</a>
-                <button type="submit" class="btn btn-primary">Save</button>
+                @*<button type="submit" class="btn btn-primary">Save</button>*@
             </div>
         </div>
     </div>

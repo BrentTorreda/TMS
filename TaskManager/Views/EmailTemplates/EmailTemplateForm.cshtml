@@ -94,7 +94,7 @@
         <div class="form-group" style="display:block;">
             <div class="col-sm-12">
                 <div class="btn-group pull-right">
-                    <a href='@("/Home/Index")' class="btn btn-default">Close</a>
+                    <a onclick="GoBack()" class="btn btn-default">Close</a>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
@@ -177,6 +177,10 @@
         function DoSubmit() {
             $('input[name="NumberOfAttachments"]').val(attachments);
             return true;
+        }
+
+        function GoBack() {
+            window.history.back();
         }
     </script>
 }

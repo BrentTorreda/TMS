@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TaskManager.Models.Members>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Members Index</h2>
+<hr/>
+
+<table id="members" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Group</th>
+            <th>Position</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#members").DataTable({
+                ajax: {
+                    url: "/api/members",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "FullName",
+                        render: function (data, type, member) {
+                            return "<a href='/members/edit/" + member.MemberId + "'>" + member.FirstName + " " + member.LastName + "</a>";
+                        }
+                    },                  
+                    {
+                        data: "MemberGroup.MemberGroupName"
+                    },
+                    {
+                        data: "MemberPosition.PositionName"
+                    },
+                    {
+                        data: "ApplicationUser.Email"
+                    },
+                    {
+                        data: "Address"
+                    },
+                    {
+                        data: "Phone"
+                    }
+                ]
+            });
+        });
+    </script>
+}

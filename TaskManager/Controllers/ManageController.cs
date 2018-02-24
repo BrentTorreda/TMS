@@ -64,6 +64,12 @@ namespace TaskManager.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            if (userId == null)
+            {
+                userId = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

@@ -13,13 +13,14 @@ namespace TaskManager.Controllers
         {
             await AuthorizeUserInIdentity();
 
-            return View();
+            if (User.IsInRole("CanSendEmails")) //KLUDGE: Fix this soon
+                return View("Index");
+            else
+                return View("ReadOnlyIndex");
         }
         
         public ViewResult New()
         {  
-            var _context = new ApplicationDbContext();
-
             var viewModel = new MembersFormViewModel()
             {
                 MemberGroups = _context.MemberGroups.ToList(),
@@ -45,7 +46,10 @@ namespace TaskManager.Controllers
                 ApplicationUsers = _context.Users.ToList()
             };
 
-            return View("MemberForm", viewModel);
+            if (User.IsInRole("CanSendEmails")) //KLUDGE: Fix this soon
+                return View("MemberForm", viewModel);
+            else
+                return View("ReadOnlyMemberForm", viewModel);
         }
 
         [HttpPost]

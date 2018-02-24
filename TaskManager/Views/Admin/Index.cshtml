@@ -1,4 +1,4 @@
-﻿@model TaskManager.ViewModels.AdminViewModel
+﻿@model IEnumerable<TaskManager.ViewModels.AdminViewModel>
 @{
     /**/
 
@@ -9,49 +9,138 @@
 <h2>User Administration</h2>
 
 <hr />
-<hr />
 
-Roles
 @using (Html.BeginForm("Save", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <table id="taskByCompany" class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Can Add Tasks</th>
-                <th>Can Change Settings</th>
+                <th>Can Manage Tasks</th>
                 <th>Can Reassign Tasks</th>
-                <th>Can Send Emails</th>
+                <th>Can Manage Setup</th>
+                <th>Can Manage Members</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>brent@binacoregroup.com.au</td>
-                <td><input type="checkbox" checked="checked" disabled="disabled" /></td>
-                <td><input type="checkbox" checked="checked" disabled="disabled" /></td>
-                <td><input type="checkbox" checked="checked" disabled="disabled" /></td>
-                <td><input type="checkbox" checked="checked" disabled="disabled" /></td>
-            </tr>
-            <tr>
-                <td>bill@microsoft.com</td>
-                <td><input type="checkbox" checked="checked" disabled="disabled" /></td>
-                <td><input type="checkbox" checked="checked" disabled="disabled" /></td>
-                <td><input type="checkbox" disabled="disabled" /></td>
-                <td><input type="checkbox" disabled="disabled" /></td>
-            </tr>
+            @{
+                string IdsDisplayed = "";
+                foreach (var member in Model)
+                {
+                    int index = IdsDisplayed.IndexOf(member.Id);
+                    if (index == -1)
+                    {
+                        <tr>
+                            <td class="col-sm-1">
+                                <input type="text" name="member.UserName-@member.Id"  value="@member.UserName" readonly style="border: 0; background-color:transparent" />
+                                <input type="hidden" name="member.Id-@member.Id" id="member.Id-@member.Id" value="@member.Id" />
+                            </td>
+                            <td>
+                                @{
+                                    bool flag = false;
+                                    foreach (var right in Model)
+                                    {
+                                        if (right.Id == member.Id && right.Name == "CanAddTasks")
+                                        {
+                                            flag = true;
+                                        }
+                                    }
+                                    <input type="hidden" name="CanAddTasks-@member.Id" value="off"> @*so that unchecked won't return NULL*@
+
+                                    if (flag)
+                                    { <input name="CanAddTasks-@member.Id" id="CanAddTasks-@member.Id" type="checkbox" checked /> }
+                                    else
+                                    { <input name="CanAddTasks-@member.Id" id="CanAddTasks-@member.Id" type="checkbox" /> }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    flag = false;
+                                    foreach (var right in Model)
+                                    {
+                                        if (right.Id == member.Id && right.Name == "CanReassignTasks")
+                                        {
+                                            flag = true;
+                                        }
+                                    }
+                                    <input type="hidden" name="CanReassignTasks-@member.Id" value="off">
+
+                                    if (flag)
+                                    { <input name="CanReassignTasks-@member.Id" id="CanReassignTasks-@member.Id" type="checkbox" checked /> }
+                                    else
+                                    { <input name="CanReassignTasks-@member.Id" id="CanReassignTasks-@member.Id" type="checkbox" /> }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    flag = false;
+                                    foreach (var right in Model)
+                                    {
+                                        if (right.Id == member.Id && right.Name == "CanChangeSettings")
+                                        {
+                                            flag = true;
+                                        }
+                                    }
+                                    <input type="hidden" name="CanChangeSettings-@member.Id" value="off">
+
+                                    if (flag)
+                                    { <input name="CanChangeSettings-@member.Id" id="CanChangeSettings-@member.Id" type="checkbox" checked /> }
+                                    else
+                                    { <input name="CanChangeSettings-@member.Id" id="CanChangeSettings-@member.Id" type="checkbox" /> }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    flag = false;
+                                    foreach (var right in Model)
+                                    {
+                                        if (right.Id == member.Id && right.Name == "CanSendEmails")
+                                        {
+                                            flag = true;
+                                        }
+                                    }
+                                    <input type="hidden" name="CanSendEmails-@member.Id" value="off">
+
+                                    if (flag)
+                                    { <input name="CanSendEmails-@member.Id" id="CanSendEmails-@member.Id" type="checkbox" checked /> }
+                                    else
+                                    { <input name="CanSendEmails-@member.Id" id="CanSendEmails-@member.Id" type="checkbox" /> }
+                                }
+                            </td>
+                        </tr>
+                        IdsDisplayed += member.Id;
+                    }
+                }
+            }
         </tbody>
     </table>
 
+    @Html.AntiForgeryToken()
     <div class="form-group" style="display:block;">
         <div class="col-sm-12">
             <div class="btn-group pull-right">
-                <a href='@("/Home/Index")' class="btn btn-default">Cancel</a>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
 }
 <br />
+
+@section scripts
+{
+<script>
+        function goBack() {
+            window.history.back();
+        }
+
+        $(function(){
+            var msg = "@(TempData["Msg"] as string)";
+            if (msg !== "") {
+                toastr.success(msg);
+            }
+        });
+</script>
+}
 
 
 

@@ -18,9 +18,14 @@ namespace TaskManager.Controllers
         }
 
         [Route("EmailTemplates/IndexAlt")] //KLUDGE: Default index not working!
-        public ActionResult IndexAlt()
+        public async Task<ActionResult> IndexAlt()
         {
-            return View("Index");
+            await AuthorizeUserInIdentity();
+
+            if (User.IsInRole("CanChangeSettings"))
+                return View("Index");
+
+            return View("ReadOnlyIndex");
         }
 
         // NEW

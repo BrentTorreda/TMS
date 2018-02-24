@@ -74,18 +74,20 @@ namespace TaskManager.Controllers
 
             if (Request.IsAuthenticated)
             {
-                userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
-                var user = await UserManager.FindByNameAsync(userName);
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-            }
-            else
-            {
                 userName = User.Identity.GetUserName();
+                if (userName == null)
+                {
+                    userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+                    var user = await UserManager.FindByNameAsync(userName);
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                }
+                return true;
             }
-            return true;
+
+            return false;
         }
 
     }

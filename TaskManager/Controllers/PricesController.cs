@@ -44,8 +44,6 @@ namespace TaskManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(Prices price)
         {
-            var _context = new ApplicationDbContext();
-
             if (!ModelState.IsValid)
             {
                 return View("PriceForm");

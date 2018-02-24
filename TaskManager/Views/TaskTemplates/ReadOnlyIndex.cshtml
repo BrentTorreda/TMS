@@ -23,16 +23,6 @@
     </table>
 
     @Html.AntiForgeryToken()
-
-    <div class="container">
-        <div class="form-group" style="display:block;">
-            <div class="col-sm-12">
-                <div class="btn-group pull-right">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
 }
 
 @section scripts
@@ -57,7 +47,7 @@
                         width: "10%",
                         className: 'dt-body-center',
                         render: function (data, type, full, meta) {
-                            return '<input data-val="true" type="checkbox" id="[' + meta.row + '].IsTemplate" name="[' + meta.row + '].IsTemplate" value="true" ' + (data ? 'checked' : '') + ' />';
+                            return '<input disabled="disabled" data-val="true" type="checkbox" id="[' + meta.row + '].IsTemplate" name="[' + meta.row + '].IsTemplate" value="true" ' + (data ? 'checked' : '') + ' />';
                         }
                     },
                     {

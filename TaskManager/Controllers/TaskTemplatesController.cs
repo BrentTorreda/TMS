@@ -20,7 +20,10 @@ namespace TaskManager.Controllers
 
             tasks = _context.Tasks.ToList();
 
-            return View(tasks);
+            if(User.IsInRole("CanChangeSettings"))
+                return View("Index",tasks);
+
+            return View("ReadOnlyIndex", tasks);
         }
 
         // POST: TasksTemplates

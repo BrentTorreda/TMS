@@ -909,6 +909,13 @@
     <Content Include="Views\Companies\ReadOnlyIndex.cshtml" />
     <Content Include="Views\TaskTypes\ReadOnlyIndex.cshtml" />
     <Content Include="Views\Prices\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Tasks\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Members\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Members\ReadOnlyMemberForm.cshtml" />
+    <Content Include="Views\Tasks\ReadOnlyTaskForm.cshtml" />
+    <Content Include="Views\SubtaskLevel1\ReadOnlySubTaskLevel1Form.cshtml" />
+    <Content Include="Views\EmailTemplates\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\TaskTemplates\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

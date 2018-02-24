@@ -15,9 +15,9 @@ namespace TaskManager.Controllers
         // GET: Tasks 
         public async Task<ActionResult> Index(int id)
         {
-            var viewModel = new TasksFormViewModel();
-
             await AuthorizeUserInIdentity();
+
+            var viewModel = new TasksFormViewModel();
 
             if (id == 0)
                 viewModel.FilterBy = "Task Index";
@@ -30,7 +30,11 @@ namespace TaskManager.Controllers
                 viewModel.FilterBy = company.CompanyName;
                 viewModel.FilterId = id;
             }
-            return View(viewModel);            
+
+            if (User.IsInRole("CanAddTasks"))
+                return View("Index", viewModel);
+            else
+                return View("ReadOnlyIndex", viewModel);
         }
         
         public ViewResult New()
@@ -91,7 +95,10 @@ namespace TaskManager.Controllers
                 Members = _context.Members.ToList()
             };
 
-            return View("TaskFormEdit", viewModel);
+            if (User.IsInRole("CanAddTasks"))
+                return View("TaskFormEdit", viewModel);
+            else
+                return View("ReadOnlyTaskForm", viewModel);
         }
 
         // POST: Tasks

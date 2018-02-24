@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Email Templates</h2>
+
+<hr />
+
+<table id="emailTemplates" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Date Created</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#emailTemplates").DataTable({
+                ajax: {
+                    url: "/api/emailtemplates",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "Subject"
+                    },
+                    {
+                        data: "DateCreated"
+                    }
+                ]
+            });
+        });
+    </script>
+}
+
+
+

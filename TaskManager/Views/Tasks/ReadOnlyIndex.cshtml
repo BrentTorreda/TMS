@@ -1,0 +1,253 @@
+﻿@model TaskManager.ViewModels.TasksFormViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.FilterBy</h2>
+
+<ul class="nav nav-pills orange">
+    <li class="active"><a href="#">Table</a></li>
+    <li><a href="#">Kanban</a></li>
+</ul>
+
+<hr />
+
+<!-- Modal button -->
+@*<p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#useTemplate">New Task</button>
+</p>*@
+
+<!-- Modal -->
+<div id="useTemplate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Base this new task on a template?</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label class="control-label" for="TaskDescription">Available Templates:</label>
+                        <select class="form-control" id="taskTemplates">
+                            <option value="select"></option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div id="modalButtons" class="modal-footer">
+                <div class="btn-group pull-right">
+                    <button type="button" id="modalAccept" class="btn btn-success">Yes</button>
+                    <button type="button" id="modalClose" class="btn btn-primary">No</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table id="tasks" class="table table-hover">
+    <thead>
+        <tr>
+            <th> </th>
+            <th> </th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>ETD</th>
+            <th>Started</th>
+            <th>Hours</th>
+            <th>Bill</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        var id = @Html.Raw(Json.Encode(Model.FilterId));
+        var filterBy = @Html.Raw(Json.Encode(Model.FilterBy));
+
+        //populate task template dropdown in Modal
+        $.ajax({
+            type: "GET",
+            url: "/api/tasks",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, data) {
+                    if (data.IsTemplate) {
+                        var div_data = "<option value=" + data.TaskId + ">" + data.TaskName + "</option>";
+                        $(div_data).appendTo('#taskTemplates');
+                    }
+                });
+            }
+        });
+
+        $(document).delegate("#modalClose", "click", function (event) {
+            window.open("/Tasks/New", "_self");
+        });
+
+        $(document).delegate("#modalAccept", "click", function (event) {
+            var v = $("#taskTemplates").val();
+            if (v == "select") { /*BTo - For no value selected. Weird*/
+                toastr.error("Please select a template.")
+            } else {
+                window.open("/Tasks/NewFromTemplate/" + v, "_self");
+            }
+        });
+
+        function format(table_id) {
+            return '<table id="' + table_id + '" class="display" border="0" style="padding-left:50px; width:100%;">' +
+                '<thead>' +
+                '<th></th >' +
+                '<th>Name</th>' +
+                '<th>Hours</th>' +
+                '<th>Date Created</th>' +
+                '<th>Assigned To</th>' +
+                '<th>Time Worked</th>' +
+                '<th>Status</th>' +
+                '</thead>' +
+                '</table>';
+        }
+
+        function sub_DataTable(vtask_id, table_id) {
+            var subtable = $('#'+ table_id).DataTable({
+                paging: false,
+                ordering: false,
+                info: false,
+                searching: false,
+
+                ajax: {
+                    url: "/api/subtasklevel1/" + vtask_id,
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "TaskId",
+                        width: "5%",
+                        render: function (data, type, subtask) {
+                            var markup = "<a class='btn btn-primary btn-xs' href='/subtasklevel1/logwork/" + subtask.SubTaskId + "'> Start </a>";
+                            if (subtask.TaskStatuses.TaskStatusName == "Completed") { /*To Do: Change this Magic String!*/
+                                markup = "<a class='btn btn-primary btn-xs' href='/subtasklevel1/logwork/" + subtask.SubTaskId + "'> View </a>";;
+                            }
+                            return markup;
+                        }
+                    },
+                    {
+                        data: "SubTaskName",
+                        width: "40%"
+                    },
+                    
+                    {
+                        data: "Hours",
+                        width: "5%"
+                    },
+                    {
+                        data: "DateCreated",
+                        render: function (data) {
+                            return moment(data).format("DD MMM YYYY");
+                        }
+                    },
+                    {
+                        data: "Members.FullName",
+                        defaultContent: "<i>Not set</i>"
+                    },
+                    {
+                        data: "TimeWorked"
+                    },
+                    {
+                        data: "TaskStatuses.TaskStatusName"
+                    }
+                ]
+            });
+        }
+
+        var table = $("#tasks").DataTable({
+            ajax: {
+                url: "/api/tasks/" + id,
+                dataSrc: ""
+            },            
+
+            columns: [
+                {
+                    className: 'details-control',
+                    data: "TaskId",
+                    defaultContent: '',
+                    render: function (data) {
+                        return "<input type='hidden' name='TaskId' value=" + data + ">";
+                    }
+                },
+                {
+                    data: "TaskId",
+                    render: function (data, type, subtask) {
+                        return "<a class='btn btn-primary btn-xs' href='/tasks/edit/" + data + "'>View</a>";
+                    }
+                },
+                {
+                    data: "TaskName"
+                },
+                {
+                    data: "TaskDescription",
+                },
+                {
+                    data: "DateCreated",
+                    render: function (data) {
+                        return moment(data).format("DD MMM YYYY");
+                    }
+                },
+                {
+                    data: "Hours",
+                    ordering: true
+                },
+                {
+                    data: "DateWorkStarted",
+                    render: function (data) {
+                        return moment(data).format("DD MMM YYYY");
+                    }
+                },
+                {
+                    data: "TimeWorked"
+                },
+                {
+                    data: "Price.Amount"
+                },
+                {
+                    data: "TaskType.TaskName"
+                },
+                {
+                    data: "TaskStatus.TaskStatusName"
+                }
+            ]
+        });
+
+        // Add event listener for opening and closing details
+        $('#tasks').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                var cell = table.cell(this);
+                var virtual_task_id = cell.data();
+                var subtable_id = "subtable-" + virtual_task_id;
+                row.child(format(subtable_id)).show();
+                tr.addClass('shown');
+                sub_DataTable(virtual_task_id, subtable_id);
+            }
+        });
+    });
+    </script>
+}

@@ -10,10 +10,22 @@ namespace TaskManager.ViewModels
 {
     public class AdminViewModel
     {
-        [Required]
-        public int MemberId { get; set; }
+        public string UserName { get; set; }
 
-        [ForeignKey("MemberId")]
-        public Members Members { get; set; }
+        public string Id { get; set; }
+
+        public string RoleId { get; set; }
+
+        public string Name { get; set; }
+
+        public bool CanAddTasks { get; set; }
+
+        public bool CanReassignTasks { get; set; }
+
+        public bool CanSendEmails { get; set; }
+
+        public bool CanChangeSettings { get; set; }
+
+        public IEnumerable<Members> Members { get; set; }
     }
 }
