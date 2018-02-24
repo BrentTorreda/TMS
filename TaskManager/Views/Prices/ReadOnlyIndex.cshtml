@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TaskManager.Models.Prices>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Prices Index</h2>
+<hr />
+
+<div class="container">
+    <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered" id="example"></table>
+</div>
+<input type="hidden" id="apiName" value="Prices" /> @*Used by DataTable free editor!*@
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            var myTable;
+
+            myTable = $('#example').DataTable({
+
+                ajax: {
+                    url: "/api/prices",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        title: "PriceId",
+                        data: "PriceId",
+                        visible: false,
+                        searchable: false
+                    },
+                    {
+                        title: "Amount",
+                        data: "Amount"
+                    },
+                    {
+                        title: "PriceDescription",
+                        data: "PriceDescription"
+                    }
+                ],
+
+                //dom: 'Bfrtip',        // Needs button container
+                //select: 'single',
+                //responsive: true,
+                //altEditor: true,     // Enable altEditor
+                //buttons: [{
+                //    text: 'Add',
+                //    name: 'add',        // do not change name
+                //    id: 'addRecord'
+                //},
+                //{
+                //    extend: 'selected', // Bind to Selected row
+                //    text: 'Edit',
+                //    name: 'edit'        // do not change name
+                //},
+                //{
+                //    extend: 'selected', // Bind to Selected row
+                //    text: 'Delete',
+                //    name: 'delete'      // do not change name
+                //}]
+            });
+        });
+    </script>
+}

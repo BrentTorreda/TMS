@@ -19,6 +19,7 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
+        [Authorize]
         // GET /api/taskcategories
         public IHttpActionResult GetTaskCategories()
         {

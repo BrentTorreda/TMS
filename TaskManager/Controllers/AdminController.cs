@@ -1,25 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using System.Threading.Tasks;
 using TaskManager.ViewModels;
-using TaskManager.Models;
 
 namespace TaskManager.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-
-        public AdminController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         // GET: Admin
-        public ActionResult Index()
+        public async Task<ActionResult>  Index()
         {
+            await AuthorizeUserInIdentity();
+
             AdminViewModel viewModel = new AdminViewModel();
 
             return View();

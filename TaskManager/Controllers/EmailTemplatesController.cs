@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 
-
 namespace TaskManager.Controllers
 {
-    public class EmailTemplatesController : Controller
+    public class EmailTemplatesController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-
-        public EmailTemplatesController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         // GET: EmailTemplates
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            await AuthorizeUserInIdentity();
+
             return View();
         }
 

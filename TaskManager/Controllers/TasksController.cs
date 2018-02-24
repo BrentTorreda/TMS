@@ -3,25 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 using TaskManager.SQL;
 
 namespace TaskManager.Controllers
 {
-    public class TasksController : Controller
+    public class TasksController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-        
-        public TasksController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         // GET: Tasks 
-        public ActionResult Index(int id)
+        public async Task<ActionResult> Index(int id)
         {
             var viewModel = new TasksFormViewModel();
+
+            await AuthorizeUserInIdentity();
 
             if (id == 0)
                 viewModel.FilterBy = "Task Index";

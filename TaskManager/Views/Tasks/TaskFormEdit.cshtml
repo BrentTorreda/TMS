@@ -494,6 +494,7 @@
             });
 
             function toggleRecurrenceVisibility(val) {
+                $("#RepeatEvery").prop("disabled", false);
                 if (val == 0) {
                     $("#daysOfWeek").show();
                     $("#dayOfMonth").hide();

@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Controllers
 {
-    public class TaskTemplatesController : Controller
+    public class TaskTemplatesController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-
-        public TaskTemplatesController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         // GET: TaskTemplates
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            await AuthorizeUserInIdentity();
+
             var tasks = new List<Tasks>();
 
             tasks = _context.Tasks.ToList();

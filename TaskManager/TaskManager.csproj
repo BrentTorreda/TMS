@@ -271,6 +271,7 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SendEmailsController.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
+    <Compile Include="Controllers\TaskManagerBaseController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
     <Compile Include="Dtos\EmailDto.cs" />
@@ -376,6 +377,10 @@
     <Compile Include="Migrations\201802120532144_IncreasedMailBodyInEmailsTo500000.cs" />
     <Compile Include="Migrations\201802120532144_IncreasedMailBodyInEmailsTo500000.Designer.cs">
       <DependentUpon>201802120532144_IncreasedMailBodyInEmailsTo500000.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802240032039_SeedUserRoles.cs" />
+    <Compile Include="Migrations\201802240032039_SeedUserRoles.Designer.cs">
+      <DependentUpon>201802240032039_SeedUserRoles.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
@@ -900,6 +905,10 @@
     <Content Include="Views\EmailTemplates\Index.cshtml" />
     <Content Include="Views\SendEmails\SendEmailForm.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\TaskCategories\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Companies\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\TaskTypes\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Prices\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -908,6 +917,7 @@
     <Folder Include="EmailTemplates\" />
     <Folder Include="UploadedFiles\Attachments\" />
     <Folder Include="Views\DownloadFile\" />
+    <Folder Include="Views\TaskManagerBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1083,6 +1093,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802120532144_IncreasedMailBodyInEmailsTo500000.resx">
       <DependentUpon>201802120532144_IncreasedMailBodyInEmailsTo500000.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802240032039_SeedUserRoles.resx">
+      <DependentUpon>201802240032039_SeedUserRoles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

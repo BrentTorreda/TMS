@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TaskManager.Models.TaskTypes>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Task Types Index</h2>
+<hr />
+
+<div class="container">
+    <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered" id="example"></table>
+</div>
+<input type="hidden" id="apiName" value="TaskTypes" /> @*Used by DataTable free editor!*@
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var myTable;
+
+            myTable = $('#example').DataTable({
+
+                ajax: {
+                    url: "/api/tasktypes",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        title: "TaskTypeId",
+                        data: "TaskTypeId",
+                        visible: false,
+                        searchable: false
+                    },
+                    {
+                        title: "TaskName",
+                        data: "TaskName"
+                    }
+                ],
+
+                //dom: 'Bfrtip',        // Needs button container
+                //select: 'single',
+                //responsive: true,
+                //altEditor: true,     // Enable altEditor
+                //buttons: [{
+                //    text: 'Add',
+                //    name: 'add',        // do not change name
+                //    id: 'addRecord'
+                //},
+                //{
+                //    extend: 'selected', // Bind to Selected row
+                //    text: 'Edit',
+                //    name: 'edit'        // do not change name
+                //},
+                //{
+                //    extend: 'selected', // Bind to Selected row
+                //    text: 'Delete',
+                //    name: 'delete'      // do not change name
+                //}]
+            });
+        });
+    </script>
+}

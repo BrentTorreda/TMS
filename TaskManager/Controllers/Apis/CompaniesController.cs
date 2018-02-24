@@ -16,7 +16,7 @@ namespace TaskManager.Controllers.Apis
             _context = new ApplicationDbContext();
         }
 
-        // GET /api/members
+        // GET /api/companies
         public IHttpActionResult GetCompanies()
         {           
             var memberDtos = _context.Companies
@@ -26,7 +26,7 @@ namespace TaskManager.Controllers.Apis
             return Ok(memberDtos);
         }
 
-        // DELETE /api/members
+        // DELETE /api/companies
         [HttpDelete]
         public IHttpActionResult DeleteCompany(int id)
         {

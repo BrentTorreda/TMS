@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.ViewModels;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TaskManager.Controllers
 {
-    public class MembersController : Controller
+    public class MembersController : TaskManagerBaseController
     {
         // GET: Members        
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            await AuthorizeUserInIdentity();
+
             return View();
         }
         

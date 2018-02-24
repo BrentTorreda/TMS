@@ -20,7 +20,10 @@ namespace TaskManager.Controllers
         // GET: TaskCategories
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole("CanChangeSettings"))
+                return View("Index");
+
+            return View("ReadOnlyIndex");
         }
 
         public ViewResult New()

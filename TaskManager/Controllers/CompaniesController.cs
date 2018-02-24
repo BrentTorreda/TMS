@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using TaskManager.Models;
-using TaskManager.ViewModels;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TaskManager.Controllers
 {
-    public class CompaniesController : Controller
+    public class CompaniesController : TaskManagerBaseController
     {
         // GET: Companies        
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            await AuthorizeUserInIdentity();
+
+            if (User.IsInRole("CanChangeSettings"))
+                return View("Index");
+
+            return View("ReadOnlyIndex");
         }
 
         public ViewResult New()

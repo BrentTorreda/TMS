@@ -1,30 +1,24 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using TaskManager.Models;
-using TaskManager.ViewModels;
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.Identity.Client;
-using Microsoft.Graph;
-using TaskManager.TokenStorage;
 using System.Configuration;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
-using System.Globalization;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Identity.Client;
+using Microsoft.Graph;
+using TaskManager.Models;
+using TaskManager.ViewModels;
+using TaskManager.TokenStorage;
 
 namespace TaskManager.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-
-        public DashboardController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         // GET: Dashboard
         public async Task<ActionResult> Index()
         {
@@ -40,7 +34,10 @@ namespace TaskManager.Controllers
             //OWIN or cookie auth
            if (Request.IsAuthenticated)
             {
+
                 userName = await GetUserEmail();
+
+                await AuthorizeUserInIdentity();
             }
             else
             {

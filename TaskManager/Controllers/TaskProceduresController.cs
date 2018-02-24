@@ -1,21 +1,17 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Controllers
 {
-    public class TaskProceduresController : Controller
+    public class TaskProceduresController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-
-        public TaskProceduresController()
+        public async Task<ViewResult> Index()
         {
-            _context = new ApplicationDbContext();
-        }
+            await AuthorizeUserInIdentity();
 
-        public ViewResult Index()
-        {
             return View();
         }
         

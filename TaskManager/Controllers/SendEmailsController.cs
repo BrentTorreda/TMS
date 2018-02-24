@@ -7,21 +7,17 @@ using TaskManager.Models;
 using TaskManager.ViewModels;
 using System.Net.Mail;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;   
 
 namespace TaskManager.Controllers
 {
-    public class SendEmailsController : Controller
+    public class SendEmailsController : TaskManagerBaseController
     {
-        private ApplicationDbContext _context;
-
-        public SendEmailsController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         // GET: SendEmails
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            await AuthorizeUserInIdentity();
+
             return View();
         }
 

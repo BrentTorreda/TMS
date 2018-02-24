@@ -1,15 +1,21 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using TaskManager.Models;
+using System.Threading.Tasks;
 
 namespace TaskManager.Controllers
 {
-    public class PricesController : Controller
+    public class PricesController : TaskManagerBaseController
     {
         // GET: Prices
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            await AuthorizeUserInIdentity();
+
+            if (User.IsInRole("CanChangeSettings"))
+                return View("Index");
+
+            return View("ReadOnlyIndex");
         }
 
         public ViewResult New()
