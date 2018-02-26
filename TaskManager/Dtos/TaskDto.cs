@@ -46,5 +46,7 @@ namespace TaskManager.Dtos
         public bool IsTemplate { get; set; }
 
         public int AncestorTaskId { get; set; }
+
+        public int SubTaskCount { get; set; }
     }
 }

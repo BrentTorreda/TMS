@@ -107,6 +107,8 @@ namespace TaskManager.ViewModels
 
         public string FileNames { get; set; }
 
+        public int SubTaskCount { get; set; }
+
         public TasksFormViewModel()
         {
             TaskId = 0;

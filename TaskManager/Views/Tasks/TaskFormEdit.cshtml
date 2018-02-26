@@ -247,8 +247,8 @@
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             <br />
-            @*<p>@Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })</p>*@
-            <table id="subTasks" class="dataTable table table-hover" style="width:100%">
+            <p>@Html.ActionLink("New Subtask", "New", "SubtaskLevel1", new { id = Model.TaskId }, new { @class = "btn btn-primary" })</p>
+            <table id="subTasks" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
                         <th> </th>
@@ -364,26 +364,6 @@
                         }
                     }
                 ],
-
-                dom: 'Bfrtip',        // Needs button container
-                select: 'single',
-                responsive: true,
-                altEditor: true,     // Enable altEditor
-                buttons: [{
-                    text: 'Add',
-                    name: 'add',        // do not change name
-                    id: 'addRecord'
-                },
-                {
-                    extend: 'selected', // Bind to Selected row
-                    text: 'Edit',
-                    name: 'edit'        // do not change name
-                },
-                {
-                    extend: 'selected', // Bind to Selected row
-                    text: 'Delete',
-                    name: 'delete'      // do not change name
-                }]
             });
 
             var table2 = $('#occurrencesList').DataTable({

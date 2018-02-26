@@ -29,7 +29,7 @@ namespace TaskManager.Controllers
 
                 viewModel.FilterBy = company.CompanyName;
                 viewModel.FilterId = id;
-            }
+            }            
 
             if (User.IsInRole("CanAddTasks"))
                 return View("Index", viewModel);

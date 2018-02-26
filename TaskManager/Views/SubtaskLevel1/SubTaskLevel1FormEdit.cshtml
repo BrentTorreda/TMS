@@ -177,10 +177,8 @@
             var subtaskId = @Html.Raw(Json.Encode(Model.SubTaskId));
 
             var viewOnly_bv = @Html.Raw(Json.Encode(Model.ViewOnly_bv));
-
-            $(document).ready(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
+            
+            $('#datetimepicker1').datetimepicker();
 
             var table = $("#taskSteps").DataTable({
 

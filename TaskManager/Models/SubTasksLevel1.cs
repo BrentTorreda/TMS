@@ -54,5 +54,7 @@ namespace TaskManager.Models
         public string Notes { get; set; }
 
         public bool IsCompleted { get; set; }
+
+        public DateTime StartedOn { get; set; }
     }
 }

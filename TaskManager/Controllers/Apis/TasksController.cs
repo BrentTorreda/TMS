@@ -8,6 +8,7 @@ using TaskManager.Models;
 using TaskManager.SQL;
 using System;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace TaskManager.Controllers.Apis
 {
@@ -33,6 +34,15 @@ namespace TaskManager.Controllers.Apis
             var taskDtos = tasksQuery
                    .ToList()
                    .Select(Mapper.Map<Tasks, TaskDto>);
+
+            var i = 0;
+
+            //IList<string> tasks taskDtos.ToList();
+
+            //foreach( var task in taskDtos)
+            //{
+            //    taskDtos[i++].SubTaskCount = _context.SubTasksLevel1.Where(t => t.TaskId == task.TaskId).Count();
+            //}
 
             return Ok(taskDtos);
         }              

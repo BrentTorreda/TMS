@@ -70,7 +70,7 @@
         <div class="form-group col-sm-6">
             <label class="control-label col-sm-3" for="Hours">Hours Required</label>
             <div class="col-sm-8">
-                @Html.TextBoxFor(t => t.Hours, new {@type = "number", @class = "form-control" })
+                @Html.TextBoxFor(t => t.Hours, new { @type = "number", @class = "form-control" })
                 @Html.ValidationMessageFor(t => t.Hours)
             </div>
         </div>
@@ -107,15 +107,15 @@
             </div>
         </div>
     </div>
-    
-    <div class="form-group" style="display:block;"> 
+
+    <div class="form-group" style="display:block;">
         <div class="col-sm-12">
             <div class="btn-group pull-right">
                 <a id="cancelTrans" class="btn btn-default">Cancel</a>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
-    </div>  
+    </div>
 }
 
 @section scripts
@@ -143,3 +143,5 @@
     </script>
 }
 
+@*<add assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A" />
+<add assembly="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A" />*@

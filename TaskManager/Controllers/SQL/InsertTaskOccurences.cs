@@ -23,7 +23,7 @@ namespace TaskManager.SQL
             int i = 0;
             int? newId;
 
-            //get all original subtask IDs for use in queyring task procs
+            //get all original subtask IDs for use in querying task procs
             foreach (var st in oldSubTasks)
             {
                 oldSubTaskIds[i++] = st.SubTaskId;

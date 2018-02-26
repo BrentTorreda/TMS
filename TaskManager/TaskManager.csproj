@@ -104,7 +104,15 @@
     <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.3.1.0\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
     <Reference Include="NetSpell.SpellChecker">
       <HintPath>..\packages\RichTextEditor.8.2.0.4\lib\NetSpell.SpellChecker.dll</HintPath>
     </Reference>
@@ -291,6 +299,7 @@
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SendEmailsController.cs" />
+    <Compile Include="Controllers\SQL\InsertEndlessTask.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskManagerBaseController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
@@ -402,6 +411,14 @@
     <Compile Include="Migrations\201802240032039_SeedUserRoles.cs" />
     <Compile Include="Migrations\201802240032039_SeedUserRoles.Designer.cs">
       <DependentUpon>201802240032039_SeedUserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802260422414_AddedSubTaskOccurrenceDetailsTableAddedStartedOnInSubTasksLevel1.cs" />
+    <Compile Include="Migrations\201802260422414_AddedSubTaskOccurrenceDetailsTableAddedStartedOnInSubTasksLevel1.Designer.cs">
+      <DependentUpon>201802260422414_AddedSubTaskOccurrenceDetailsTableAddedStartedOnInSubTasksLevel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.cs" />
+    <Compile Include="Migrations\201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.Designer.cs">
+      <DependentUpon>201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
@@ -558,6 +575,7 @@
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\Prices.cs" />
     <Compile Include="Models\SubTasksLevel1.cs" />
+    <Compile Include="Models\TasksOccurrenceDetails.cs" />
     <Compile Include="Models\TaskCategories.cs" />
     <Compile Include="Models\TaskPool.cs" />
     <Compile Include="Models\TaskProcedures.cs" />
@@ -1125,6 +1143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802240032039_SeedUserRoles.resx">
       <DependentUpon>201802240032039_SeedUserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802260422414_AddedSubTaskOccurrenceDetailsTableAddedStartedOnInSubTasksLevel1.resx">
+      <DependentUpon>201802260422414_AddedSubTaskOccurrenceDetailsTableAddedStartedOnInSubTasksLevel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.resx">
+      <DependentUpon>201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

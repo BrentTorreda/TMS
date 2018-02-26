@@ -180,11 +180,15 @@
 
             columns: [
                 {
-                    className: 'details-control',
-                    data: "TaskId",
+                    data: "SubTaskCount",
                     defaultContent: '',
-                    render: function (data) {
-                        return "<input type='hidden' name='TaskId' value=" + data + ">";
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        if (cellData > 0) {
+                            $(td).className('details-control')
+                        }
+                    },
+                    render: function (data, type, subtask) {
+                        return "<input type='hidden' value='" + data + "' />";
                     }
                 },
                 {
