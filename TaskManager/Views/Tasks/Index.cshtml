@@ -180,13 +180,14 @@
 
             columns: [
                 {
-                    data: "SubTaskCount",
+                    className: "details-control",
+                    data: "TaskId",
                     defaultContent: '',
-                    createdCell: function (td, cellData, rowData, row, col) {
-                        if (cellData > 0) {
-                            $(td).className('details-control')
-                        }
-                    },
+                    //createdCell: function (td, cellData, rowData, row, col) {
+                    //    if (cellData > 0) {
+                    //        $(td).className('details-control')
+                    //    }
+                    //}
                     render: function (data, type, subtask) {
                         return "<input type='hidden' value='" + data + "' />";
                     }
