@@ -23,7 +23,8 @@ namespace TaskManager
                         "~/Scripts/Countimer/dist/ez.countimer.js",
                         "~/Scripts/moment.js",
                         "~/Scripts/bootstrap-datetimepicker.min.js",
-                        "~/Scripts/summernote.js",                        
+                        "~/Scripts/summernote.js",
+                        "~/Scripts/js.cookie.js",
                         "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

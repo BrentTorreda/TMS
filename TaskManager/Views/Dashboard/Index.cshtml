@@ -26,7 +26,7 @@
                 <ul style="list-style-type:none">
                     <li></li>
                 </ul>
-                <a id="replyMail" class="btn btn-primary" >Reply</a>
+                <a href="#" id="replyMail" class="btn btn-primary" >Reply</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -204,7 +204,7 @@
                 <a data-toggle="collapse" href="#emailInbox" class="btn btn-default">Emails</a>
             </h4>
         </div>
-        <div id="emailInbox" class="panel-collapse collapse">
+        <div id="emailInbox" class="@( Model.OpenPanel == "email" ? "panel" : "panel-collapse collapse" )">
             <div class="panel-body">
                 <div class="col-sm-2">
                     <a id="archiveEmails" class="btn btn-primary btn-xs" href="#">Archive</a>
@@ -550,7 +550,7 @@
                 $(".modal-body #modalContent").html(adata.MailBody);
                 $(".modal-header #modal-title").html(title);
                 $(".modal-header #modal-subtitle").html(sender);
-                $("#replyMail").attr('href', '/SendEmails/New?"' + title + '"&&"' + sender + '"' );
+                $("#replyMail").attr('href', "/SendEmails/New?subject=" + title + "&sendee=" + sender + "&caller=Dashboard");
             });
         
             function filterEmails() {

@@ -22,5 +22,7 @@ namespace TaskManager.ViewModels
         public IEnumerable<Microsoft.Graph.Message> EmailDetails { get; set; }
 
         public IEnumerable<Emails> Emails { get; set; }
+
+        public string OpenPanel { get; set; }
     }
 }

@@ -20,7 +20,8 @@ namespace TaskManager.Controllers
     public class DashboardController : TaskManagerBaseController
     {
         // GET: Dashboard
-        public async Task<ActionResult> Index()
+        [Route("Dashboard/Index/{openPanel}/")]
+        public async Task<ActionResult> Index(string openPanel)
         {
 
             var viewModel = new DashboardViewModel();
@@ -29,12 +30,12 @@ namespace TaskManager.Controllers
             viewModel.Tasks = _context.Tasks.ToList();
             viewModel.Companies = _context.Companies.ToList();
             viewModel.SubTasksLevel1 = _context.SubTasksLevel1.ToList();
+            viewModel.OpenPanel = openPanel;
 
             string userName = "";
             //OWIN or cookie auth
            if (Request.IsAuthenticated)
             {
-
                 userName = await GetUserEmail();
 
                 await AuthorizeUserInIdentity();

@@ -286,7 +286,7 @@
         <div class="form-group" style="display:block;">
             <div class="col-sm-12">
                 <div class="btn-group pull-right">
-                    <a onclick="goBack()" id="cancelTrans" class="btn btn-default">Cancel</a>
+                    <a href="@Url.Action("Index", "Tasks", new { id = "0" })" id="cancelTrans" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>

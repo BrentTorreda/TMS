@@ -105,6 +105,8 @@ namespace TaskManager.ViewModels
 
         public string EmailSendee { get; set; }
 
+        public string EmailViewCaller { get; set; }
+
         public string FileNames { get; set; }
 
         public int SubTaskCount { get; set; }
