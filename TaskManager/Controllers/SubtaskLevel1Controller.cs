@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 using TaskManager.SQL;
+using System;
 
 
 namespace TaskManager.Controllers
@@ -82,7 +83,8 @@ namespace TaskManager.Controllers
             {
                 Prices = _context.Prices.ToList(),
                 Members = _context.Members.ToList(),
-                Tasks = _context.Tasks.ToList()
+                Tasks = _context.Tasks.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList()
             };
 
             viewModel.ViewOnly_bv = 1;
@@ -101,7 +103,8 @@ namespace TaskManager.Controllers
             {
                 Prices = _context.Prices.ToList(),
                 Members = _context.Members.ToList(),
-                Tasks = _context.Tasks.ToList()
+                Tasks = _context.Tasks.ToList(),
+                TaskStatuses = _context.TaskStatuses.ToList()
             };
 
             return View("SubTaskLevel1FormEdit", viewModel);
@@ -116,12 +119,21 @@ namespace TaskManager.Controllers
 
             if (!ModelState.IsValid)
             {
-                var viewModel = new SubtaskLevel1ViewModel(subTask) { };
+                //fix 05.03.18 - Model is emptied after saving
+                var viewModel = new SubtaskLevel1ViewModel(subTask)
+                {
+                    Prices = _context.Prices.ToList(),
+                    Members = _context.Members.ToList(),
+                    Tasks = _context.Tasks.ToList(),
+                    TaskStatuses = _context.TaskStatuses.ToList()
+
+                };
                 return View("SubTaskLevel1FormNew", viewModel);
             }
 
             if (subTask.SubTaskId == 0)
             {
+                subTask.StartedOn = DateTime.Now; //KLUDGE - Remove
                 _context.SubTasksLevel1.Add(subTask);
             }
             else
@@ -135,6 +147,8 @@ namespace TaskManager.Controllers
                 subTaskInDb.TaskId = subTask.TaskId;
                 subTaskInDb.Notes = subTask.Notes;
                 subTaskInDb.IsCompleted = subTask.IsCompleted;
+                subTaskInDb.DateCreated = subTask.DateCreated;
+                subTaskInDb.StartedOn = DateTime.Now; //KLUDGE - Remove
 
                 if (subTask.IsCompleted)
                 {

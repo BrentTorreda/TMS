@@ -94,7 +94,7 @@
         <div class="form-group" style="display:block;">
             <div class="col-sm-12">
                 <div class="btn-group pull-right">
-                    <a onclick="GoBack()" class="btn btn-default">Close</a>
+                    <a href="/EmailTemplates/IndexAlt" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
@@ -117,70 +117,72 @@
                 if ($('#fileAttach1').val() != '') {
                     uploadFile();
                 }
-            })
-        });
+            })        
 
-        function uploadFile() {
-            var myform = document.getElementById("EmailTemplates");
-            var fd = new FormData(myform);
+            function uploadFile() {
+                var myform = document.getElementById("EmailTemplates");
+                var fd = new FormData(myform);
 
-            $.ajax({
-                // Your server script to process the upload
-                url: '/api/UploadFile/email',
-                type: 'POST',
+                $.ajax({
+                    // Your server script to process the upload
+                    url: '/api/UploadFile/email',
+                    type: 'POST',
 
-                // Form data
-                data: fd,
+                    // Form data
+                    data: fd,
 
-                // Tell jQuery not to process data or worry about content-type
-                cache: false,
-                contentType: false,
-                processData: false,
+                    // Tell jQuery not to process data or worry about content-type
+                    cache: false,
+                    contentType: false,
+                    processData: false,
 
-                // Custom XMLHttpRequest
-                xhr: function () {
-                    var myXhr = $.ajaxSettings.xhr();
-                    if (myXhr.upload) {
-                        // For handling the progress of the upload
-                        myXhr.upload.addEventListener('progress', function (e) {
-                            if (e.lengthComputable) {
-                                $('progress').attr({
-                                    value: e.loaded,
-                                    max: e.total,
-                                });
-                            }
-                        }, false);
-                    }
-                    return myXhr;
-                },
-            })
-                .done(function () {
-                    var fullPath = $('#fileAttach1').val();
-                    var fileName = fullPath.replace(/^.*?([^\\\/]*)$/, '$1');
-                    attachments++;
-                    var tempFileName = $('input[name="FileNames"]').val();
-                    if (tempFileName != "") {
-                        tempFileName += ";"
-                    }
-                    $('input[name="FileNames"]').val(tempFileName + fileName);
-
-                    $('#attachmentList li:last').after('<li><div class="col-sm-10"><input style="border:none;display:inline;background-color#ffffff;width:800px"' +
-                        ' disabled id="fileName' + attachments + '" type="text" value="' + fileName + '" /></div></li>');
-
-                    toastr.success("Upload successful.");
+                    // Custom XMLHttpRequest
+                    xhr: function () {
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) {
+                            // For handling the progress of the upload
+                            myXhr.upload.addEventListener('progress', function (e) {
+                                if (e.lengthComputable) {
+                                    $('progress').attr({
+                                        value: e.loaded,
+                                        max: e.total,
+                                    });
+                                }
+                            }, false);
+                        }
+                        return myXhr;
+                    },
                 })
-                .fail(function () {
-                    toastr.error("Something unexpected happened.");
-                });;
-        }';m,,mn, mj vg78i8klo7y'
+                    .done(function () {
+                        var fullPath = $('#fileAttach1').val();
+                        var fileName = fullPath.replace(/^.*?([^\\\/]*)$/, '$1');
 
-        function DoSubmit() {
-            $('input[name="NumberOfAttachments"]').val(attachments);
-            return true;
-        }
+                        attachments++;
 
-        function GoBack() {
-            window.history.back();
-        }
+                        var tempFileName = $('input[name="FileNames"]').val();
+                        if (tempFileName != "") {
+                            tempFileName += ";"
+                        }
+                        $('input[name="FileNames"]').val(tempFileName + fileName);
+
+                        $('#attachmentList li:last').after('<li><div class="col-sm-10"><input style="border:none;display:inline;background-color#ffffff;width:800px"' +
+                            ' disabled id="fileName' + attachments + '" type="text" value="' + fileName + '" /></div></li>');
+
+                        toastr.success("Upload successful.");
+                    })
+                    .fail(function () {
+                        toastr.error("Something unexpected happened.");
+                    });
+            }
+
+            function DoSubmit() {
+                $('input[name="NumberOfAttachments"]').val(attachments);
+                return true;
+            }
+
+            function GoBack() {
+                window.history.back();
+            }
+        });
     </script>
 }

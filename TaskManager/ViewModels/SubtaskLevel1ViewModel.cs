@@ -48,6 +48,8 @@ namespace TaskManager.ViewModels
 
         public int ViewOnly_bv { get; set; }
 
+        public DateTime StartedOn { get; set; }
+
         public SubtaskLevel1ViewModel()
         {
             SubTaskId = 0;
@@ -59,14 +61,15 @@ namespace TaskManager.ViewModels
             SubTaskName = subTask.SubTaskName;
             SubTaskDescription = subTask.SubTaskDescription;
             TaskId = subTask.TaskId;
-            MemberId = subTask.MemberId;
-            DateCreated = subTask.DateCreated;
+            MemberId = subTask.MemberId;            
             Hours = subTask.Hours;
             PriceId = subTask.PriceId;
             SubTaskOrder = subTask.SubTaskOrder;
             TimeWorked = subTask.TimeWorked;
             Notes = subTask.Notes;
             IsCompleted = subTask.IsCompleted;
+            DateCreated = subTask.DateCreated;
+            StartedOn = subTask.StartedOn;
         }
     }
 }
