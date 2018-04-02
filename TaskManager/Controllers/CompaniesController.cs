@@ -2,11 +2,15 @@
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using TaskManager.Models;
+using TaskManager.ViewModels;
+using TaskManager.SQL;
+using System;
 
 namespace TaskManager.Controllers
 {
     public class CompaniesController : TaskManagerBaseController
     {
+
         // GET: Companies        
         public async Task<ActionResult> Index()
         {
@@ -21,46 +25,67 @@ namespace TaskManager.Controllers
         public ViewResult New()
         {
             //12.29.17 - BTo - Needed. Otherwise View will return a Model.IsValid = false
-            var model = new Companies();
+            var viewModel = new CompanyFormViewModel();
 
-            model.CompanyId = 0;
+            viewModel.CompanyId = 0;
+            viewModel.Tasks = _context.Tasks.ToList();
 
-            return View("CompanyForm", model);
+            return View("CompanyForm", viewModel);
         }
 
         public ActionResult Edit(int id)
         {
-            var _context = new ApplicationDbContext();
+            var viewModel = new CompanyFormViewModel(_context.Companies.SingleOrDefault(m => m.CompanyId == id));
+            viewModel.Tasks = _context.Tasks.ToList();
 
-            var company = _context.Companies.SingleOrDefault(m => m.CompanyId == id);
-
-            if (company == null)
+            if (viewModel == null)
                 return HttpNotFound();
             
-            return View("CompanyForm", company);
+            return View("CompanyForm", viewModel);
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Companies company)
+        public ActionResult Save(CompanyFormViewModel companyViewModel)
         {
-            var _context = new ApplicationDbContext();
-            
+            Companies company = new Companies();
+            CompanyTasks compTasks = new CompanyTasks();
+
             if (!ModelState.IsValid)
             {               
                 return View("CompanyForm");
             }
 
-            if (company.CompanyId == 0)
+            if (companyViewModel.CompanyId == 0)
             {
+                //add company
+                company.CompanyName = companyViewModel.CompanyName;
+                company.Email = companyViewModel.Email;
+                company.Phone = companyViewModel.Phone;
+                
                 _context.Companies.Add(company);
+                _context.SaveChanges(); //save to get the new company id
+
+                //add company tasks
+                PrepareTemplate autoInsertTask = new PrepareTemplate();
+                var total = System.Web.HttpContext.Current.Request.Params["totalTasks"];
+                for( var i = 1; i <= Convert.ToInt32(total); i++)
+                {
+                    compTasks.CompanyId = company.CompanyId;
+                    compTasks.TaskId = Convert.ToInt32(System.Web.HttpContext.Current.Request.Params["TaskId" + i.ToString()]);
+
+                    //auto insert tasks
+                    autoInsertTask.InsertTemplateForCompany(compTasks.TaskId, compTasks.CompanyId);
+                }
+
+                _context.CompanyTasks.Add(compTasks);
             }
             else
             {
-                var compnayInDb = _context.Companies.Single(c => c.CompanyId == company.CompanyId);
-                compnayInDb.CompanyName = company.CompanyName;
-                compnayInDb.Email = company.Email;
-                compnayInDb.Phone = company.Phone;
+                var companyInDb = _context.Companies.Single(c => c.CompanyId == company.CompanyId);
+                companyInDb.CompanyName = company.CompanyName;
+                companyInDb.Email = company.Email;
+                companyInDb.Phone = company.Phone;
             }
 
             _context.SaveChanges();

@@ -34,7 +34,7 @@ else //OWIN
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         @if (!Request.IsAuthenticated)
         {
-            <li>@Html.ActionLink("Sign In", "SignIn", "Home")</li>
+            <li>@Html.ActionLink("Sign In", "Login", "Account")</li>
         }
         else
         {

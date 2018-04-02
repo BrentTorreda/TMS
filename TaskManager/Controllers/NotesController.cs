@@ -25,13 +25,13 @@ namespace TaskManager.Controllers
             string userName = "";
             //OAUTH or cookie auth
             if (Request.IsAuthenticated)
-            {
-                userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
-            }
-            else
-            {
+            //{
+            //    userName = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            //}
+            //else
+            //{
                 userName = User.Identity.GetUserName();
-            }
+            //}
 
             var member = _context.Members.Single(m => m.Email == userName);
             viewModel.MadeBy = member.MemberId;

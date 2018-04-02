@@ -56,6 +56,8 @@ namespace TaskManager.ViewModels
         [StringLength(1000)]
         public string FilePath3 { get; set; }
 
+        public string Caller { get; set; }
+
         public TaskProcedureViewModel()
         {
             TaskProcedureId = 0;

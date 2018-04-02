@@ -36,9 +36,16 @@ namespace TaskManager.Controllers
             //OWIN or cookie auth
            if (Request.IsAuthenticated)
             {
-                userName = await GetUserEmail();
+                try
+                {
+                    userName = await GetUserEmail();
 
-                await AuthorizeUserInIdentity();
+                    await AuthorizeUserInIdentity();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }                
             }
             else
             {

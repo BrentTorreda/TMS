@@ -25,7 +25,8 @@ namespace TaskManager.Controllers
             return View("TaskProceduresForm", viewModel);
         }
 
-        public ActionResult Edit(int id)
+        [Route("TaskProcedures/Edit/{id}/{caller}/")]
+        public ActionResult Edit(int id, string caller)
         {
             var taskProc = _context.TaskProcedures.SingleOrDefault(t => t.TaskProcedureId == id);
 
@@ -33,6 +34,7 @@ namespace TaskManager.Controllers
                 return HttpNotFound();
 
             var viewModel = new TaskProcedureViewModel(taskProc) { };
+            viewModel.Caller = caller;
 
             return View("TaskProceduresForm", viewModel);
         }

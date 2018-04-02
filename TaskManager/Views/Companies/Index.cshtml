@@ -8,10 +8,14 @@
 <h2>Companies Index</h2>
 <hr />
 
+<p>
+    @Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-primary" })
+</p>
+
 <div class="container">
-    <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered" id="example"></table>
+    <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered" id="companies"></table>
 </div>
-<input type="hidden" id="apiName" value="Companies" /> @*Used by DataTable free editor!*@
+@*<input type="hidden" id="apiName" value="Companies" /> @*Used by DataTable free editor!*@
 
 @section scripts
 {
@@ -19,7 +23,7 @@
         $(document).ready(function () {
             var myTable;
 
-            myTable = $('#example').DataTable({
+            myTable = $('#companies').DataTable({
 
                 ajax: {
                     url: "/api/companies",
@@ -28,14 +32,10 @@
 
                 columns: [
                     {
-                        title: "CompanyId",
                         data: "CompanyId",
-                        visible: false,
-                        searchable: false
-                    },
-                    {
-                        title: "CompanyName",
-                        data: "CompanyName"
+                        render: function (data, type, company) {
+                            return "<a href='/companies/edit/" + data + "'>" + company.CompanyName + "</a>";
+                        }
                     },
                     {
                         title: "Email",
@@ -44,28 +44,31 @@
                     {
                         title: "Phone",
                         data: "Phone"
+                    },
+                    {
+                        data: "CompanyId",
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-company-id=" + data + ">Delete</button>";
+                        }
                     }
-                ],
+                ]
+            });
 
-                dom: 'Bfrtip',        // Needs button container
-                select: 'single',
-                responsive: true,
-                altEditor: true,     // Enable altEditor
-                buttons: [{
-                    text: 'Add',
-                    name: 'add',        // do not change name
-                    id: 'addRecord'
-                },
-                {
-                    extend: 'selected', // Bind to Selected row
-                    text: 'Edit',
-                    name: 'edit'        // do not change name
-                },
-                {
-                    extend: 'selected', // Bind to Selected row
-                    text: 'Delete',
-                    name: 'delete'      // do not change name
-                }]
+            $("#companies").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this company's data?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/companies/" + button.attr("data-company-id"),
+                            method: "DELETE",
+                            success: function () {
+                                toastr.success("Record successfully deleted.");
+                                myTable.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>

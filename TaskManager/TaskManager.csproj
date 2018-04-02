@@ -275,6 +275,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Apis\CompaniesController.cs" />
+    <Compile Include="Controllers\Apis\CompanyTasksController.cs" />
     <Compile Include="Controllers\Apis\DashboardController.cs" />
     <Compile Include="Controllers\Apis\EmailsController.cs" />
     <Compile Include="Controllers\Apis\EmailTemplatesController.cs" />
@@ -305,6 +306,7 @@
     <Compile Include="Controllers\TaskManagerBaseController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Dtos\CompanyTasksDto.cs" />
     <Compile Include="Dtos\EmailDto.cs" />
     <Compile Include="Dtos\EmailTemplateDto.cs" />
     <Compile Include="Dtos\NoteDto.cs" />
@@ -352,10 +354,6 @@
     <Compile Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs" />
     <Compile Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.Designer.cs">
       <DependentUpon>201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801190021573_AddedTableSubTasksDeferralDetails.cs" />
-    <Compile Include="Migrations\201801190021573_AddedTableSubTasksDeferralDetails.Designer.cs">
-      <DependentUpon>201801190021573_AddedTableSubTasksDeferralDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.cs" />
     <Compile Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.Designer.cs">
@@ -421,10 +419,23 @@
     <Compile Include="Migrations\201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.Designer.cs">
       <DependentUpon>201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803301150429_AddedCompanyTasksTable.cs" />
+    <Compile Include="Migrations\201803301150429_AddedCompanyTasksTable.Designer.cs">
+      <DependentUpon>201803301150429_AddedCompanyTasksTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803311209233_AddedTaskIdToCompanyTasks.cs" />
+    <Compile Include="Migrations\201803311209233_AddedTaskIdToCompanyTasks.Designer.cs">
+      <DependentUpon>201803311209233_AddedTaskIdToCompanyTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803311504191_RemovedTaskTypesTaskCategoriesFromCompanyTasks.cs" />
+    <Compile Include="Migrations\201803311504191_RemovedTaskTypesTaskCategoriesFromCompanyTasks.Designer.cs">
+      <DependentUpon>201803311504191_RemovedTaskTypesTaskCategoriesFromCompanyTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\c.cs" />
     <Compile Include="Migrations\c.Designer.cs">
       <DependentUpon>c.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompanyTasks.cs" />
     <Compile Include="Models\Emails.cs" />
     <Compile Include="Models\EmailTemplateAttachments.cs" />
     <Compile Include="Models\EmailTemplates.cs" />
@@ -592,6 +603,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="TokenStorage\SessionTokenCache.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\CompanyFormViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\DoddleReportEnumerables\TaskListByMembers.cs" />
     <Compile Include="ViewModels\EmailTemplateViewModel.cs" />
@@ -779,6 +791,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\IIS_local.pubxml" />
     <None Include="Properties\PublishProfiles\SomeeProfile.pubxml" />
     <Content Include="Scripts\Countimer\.editorconfig" />
@@ -1110,9 +1123,6 @@
     <EmbeddedResource Include="Migrations\201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.resx">
       <DependentUpon>201801162347175_AddedMembersMadeByInNotesAddedCreatedByActionInTasks.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801190021573_AddedTableSubTasksDeferralDetails.resx">
-      <DependentUpon>201801190021573_AddedTableSubTasksDeferralDetails.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801190023364_AddedTableSubTasksDeferralDetails1.resx">
       <DependentUpon>201801190023364_AddedTableSubTasksDeferralDetails1.cs</DependentUpon>
     </EmbeddedResource>
@@ -1160,6 +1170,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.resx">
       <DependentUpon>201802260508502_ChangedSubTaskOccurrenceDetailsTableToTaskOccurenceDetailsTableAddedDayInWeek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803301150429_AddedCompanyTasksTable.resx">
+      <DependentUpon>201803301150429_AddedCompanyTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803311209233_AddedTaskIdToCompanyTasks.resx">
+      <DependentUpon>201803311209233_AddedTaskIdToCompanyTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803311504191_RemovedTaskTypesTaskCategoriesFromCompanyTasks.resx">
+      <DependentUpon>201803311504191_RemovedTaskTypesTaskCategoriesFromCompanyTasks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\c.resx">
       <DependentUpon>c.cs</DependentUpon>

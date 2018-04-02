@@ -34,16 +34,23 @@ namespace TaskManager.SQL
             SqlParameter param2 = new SqlParameter("param2", startDate);
             int newTaskId = _context.Database.SqlQuery<Int32>("sp_addtaskoccurrence @param1, @param2", param1, param2).FirstOrDefault();
 
-            //subtask     
-            newId = _context.Database.SqlQuery<Int32>("sp_addsubtasktemplate @param2, @param3", new SqlParameter("param2", id), new SqlParameter("param3", newTaskId)).FirstOrDefault();
-            var subTasks = _context.SubTasksLevel1.Where(s => s.TaskId == newTaskId).ToList();
-
-            //loop through subtasks and insert the procedures for each
-            i = 0;
-            foreach (var st in subTasks)
+            try
             {
-                newId = _context.Database.SqlQuery<Int32>("sp_addtaskproceduretemplate @param4, @param5, @param6", new SqlParameter("param4", oldSubTaskIds[i++]), new SqlParameter("param5", newTaskId), new SqlParameter("param6", st.SubTaskId)).FirstOrDefault();
+                //subtask     
+                newId = _context.Database.SqlQuery<Int32>("sp_addsubtasktemplate @param2, @param3", new SqlParameter("param2", id), new SqlParameter("param3", newTaskId)).FirstOrDefault();
+                var subTasks = _context.SubTasksLevel1.Where(s => s.TaskId == newTaskId).ToList();
+
+                //loop through subtasks and insert the procedures for each
+                i = 0;
+                foreach (var st in subTasks)
+                {
+                    newId = _context.Database.SqlQuery<Int32>("sp_addtaskproceduretemplate @param4, @param5, @param6", new SqlParameter("param4", oldSubTaskIds[i++]), new SqlParameter("param5", newTaskId), new SqlParameter("param6", st.SubTaskId)).FirstOrDefault();
+                }
             }
+            catch (Exception)
+            {
+                Console.WriteLine("No Subtask found.");
+            }            
 
             return newTaskId;
         }

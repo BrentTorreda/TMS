@@ -136,7 +136,7 @@
                 }
                 else
                 {
-                    <a onclick="goBack()" class="btn btn-default">Close</a>
+                    <a href="/Tasks/Edit/@Model.TaskId"  class="btn btn-default">Close</a>
                 }
                 @if (Model.ViewOnly_bv == 0)
                 {
@@ -202,7 +202,7 @@
                         render: function (data, type, taskProc) {
                             var viewMarkup = "";
                             if (viewOnly_bv == 0) {
-                                viewMarkup = "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit/" + data + "'> View </a>";
+                                viewMarkup = "<a class='btn btn-primary btn-xs' href='/taskprocedures/edit?id=" + data + "&caller=subtask> View </a>";
                             }
                             else {
                                 viewMarkup = "<a class='btn btn-primary btn-xs' href='/taskprocedures/view/" + data + "'> View </a>";

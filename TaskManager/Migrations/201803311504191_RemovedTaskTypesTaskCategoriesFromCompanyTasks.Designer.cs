@@ -7,13 +7,13 @@ namespace TaskManager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedTableSubTasksDeferralDetails : IMigrationMetadata
+    public sealed partial class RemovedTaskTypesTaskCategoriesFromCompanyTasks : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedTableSubTasksDeferralDetails));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedTaskTypesTaskCategoriesFromCompanyTasks));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801190021573_AddedTableSubTasksDeferralDetails"; }
+            get { return "201803311504191_RemovedTaskTypesTaskCategoriesFromCompanyTasks"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,4 +1,4 @@
-﻿@model TaskManager.Models.Companies
+﻿@model TaskManager.ViewModels.CompanyFormViewModel
 
 @{
     ViewBag.Title = "Company Form";
@@ -6,6 +6,8 @@
 }
 
 <h2>Company Form</h2>
+
+<hr />
 
 @using (Html.BeginForm("Save", "Companies",
             FormMethod.Post, new { @class = "form-horizontal" }))
@@ -32,14 +34,117 @@
             @Html.ValidationMessageFor(c => c.Phone)
         </div>
     </div>
-    
+
     @Html.AntiForgeryToken()
 
-    <a href='@("/Companies/Index")' class="btn btn-default">Close</a>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <br />
+    <hr />
+    <h4>Company Tasks</h4>
+    <br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="Email">Company Tasks</label>
+        <div class="col-sm-6">
+            <select id="taskName" class="form-control" style="padding-left:2px;">
+                @foreach (var task in Model.Tasks)
+                {
+                    if (task.IsTemplate)
+                    {
+                        <option value="@task.TaskId"> @task.TaskName  </option>
+                    }
+                }
+            </select>            
+        </div> 
+        <div class="col-sm-2">
+            <button type="button" class="addTask btn btn-primary pull-left">Add</button>
+        </div>
+    </div>
+
+    <br />
+
+    <table id="companytasks" class="table table-hover"></table>
+
+    <input type="hidden" name="totalTasks" id="totalTasks" />
+
+    <div class="form-group" style="display:block;">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right">
+                <a href="/Companies/Index" class="btn btn-default">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
 }
 
-@section scripts
+        @section scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            <script>
+        $(document).ready(function () {
+            var companyId = @Html.Raw(Json.Encode(Model.CompanyId));
+            var totalTasks = 0;
+
+            var table = $("#companytasks").DataTable({
+                //ajax: {
+                //    url: "/api/companytasks",
+                //    dataSrc: ""
+                //},
+
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+
+                columns: [
+                    {
+                        title: "Task Name",
+                        width: "25%"
+                    },
+                    {
+                        title: "Company Id"
+                    },
+                    {
+                        title: "Task Id",
+                        render: function (data) {
+                            return "<input type='hidden' class='hidTaskList'/>";
+                        }
+                    },
+                    {
+                        render: function (data) {
+                            return "<button class='js-delete btn btn-primary btn-xs' data-companytask-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $(".addTask").click(function () {
+                var taskName = $("#taskName").find('option:selected').text();
+                var findTask = $("tr:contains('" + taskName + "')");
+
+                if (findTask.length == 0) {
+                    table.row.add([
+                        taskName,
+                        companyId,
+                        $("#taskName").find('option:selected').val(),
+                    ]).draw(false);
+
+                    totalTasks++;
+                    $("#totalTasks").val(totalTasks);
+                    var newRow = $("tr:contains('" + taskName + "')");                    
+                    newRow.find("input").val($("#taskName").find('option:selected').val());
+                    newRow.find("input").attr("id", "TaskId" + totalTasks);
+                    newRow.find("input").attr("name", "TaskId" + totalTasks);
+
+                    toastr.success("Task added.");
+                }
+                else{
+                    toastr.error("Task already exists.");
+                }
+            });
+
+            $("#companytasks").on("click", ".js-delete", function () {
+                table.row($(this).parents("tr")).remove().draw();
+            });
+
+        })
+            </script>
+        }

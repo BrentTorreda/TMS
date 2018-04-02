@@ -28,29 +28,36 @@ namespace TaskManager.Controllers
             if (Request.IsAuthenticated)
             {
                 string userName = "";
-                
-                userName = ClaimsPrincipal.Current.FindFirst("name").Value;
-                
-
-                string userId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
-                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userId))
+                try
                 {
-                    // Invalid principal, sign out
-                    return RedirectToAction("SignOut");
-                }
+                    userName = ClaimsPrincipal.Current.FindFirst("name").Value;
 
-                // Since we cache tokens in the session, if the server restarts
-                // but the browser still has a cached cookie, we may be
-                // authenticated but not have a valid token cache. Check for this
-                // and force signout.
-                SessionTokenCache tokenCache = new SessionTokenCache(userId, HttpContext);
-                if (!tokenCache.HasData())
+
+                    string userId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userId))
+                    {
+                        // Invalid principal, sign out
+                        return RedirectToAction("SignOut");
+                    }
+
+                    // Since we cache tokens in the session, if the server restarts
+                    // but the browser still has a cached cookie, we may be
+                    // authenticated but not have a valid token cache. Check for this
+                    // and force signout.
+                    SessionTokenCache tokenCache = new SessionTokenCache(userId, HttpContext);
+                    if (!tokenCache.HasData())
+                    {
+                        // Cache is empty, sign out
+                        return RedirectToAction("SignOut");
+                    }
+
+                    ViewBag.UserName = userName;
+                }
+                catch (Exception ex)
                 {
-                    // Cache is empty, sign out
-                    return RedirectToAction("SignOut");
-                }
-
-                ViewBag.UserName = userName;
+                    Console.WriteLine(ex);
+                }                
+                
             }
             return View();
         }
