@@ -6,7 +6,7 @@ using TaskManager.Models;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace TaskManager.SQL
+namespace TaskManager.Controllers.SQL
 {
     public class PrepareTemplate
     {

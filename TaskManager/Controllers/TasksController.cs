@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.ViewModels;
-using TaskManager.SQL;
+using TaskManager.Controllers.SQL;
 
 namespace TaskManager.Controllers
 {

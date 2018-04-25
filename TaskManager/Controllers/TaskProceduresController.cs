@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.ViewModels;
+using SQL = TaskManager.Controllers.SQL;
 
 namespace TaskManager.Controllers
 {
@@ -15,12 +16,19 @@ namespace TaskManager.Controllers
             return View();
         }
         
-        public ViewResult New(int taskId, int subtaskId)
+        public ViewResult New(int taskId, int subTaskId)
         {
             var viewModel = new TaskProcedureViewModel();
+            SQL.TMSMiscSQL miscSQL = new SQL.TMSMiscSQL();
+
+            Tasks parentTask = _context.Tasks.FirstOrDefault(t => t.TaskId == taskId);
+            SubTasksLevel1 parentSubTask = _context.SubTasksLevel1.FirstOrDefault(s => s.SubTaskId == subTaskId);
 
             viewModel.TaskId = taskId;
-            viewModel.SubTaskId = subtaskId;
+            viewModel.SubTaskId = subTaskId;
+            viewModel.TaskName = parentTask.TaskName;
+            viewModel.SubTaskName = parentSubTask.SubTaskName;
+            viewModel.TaskProcedureOrder = miscSQL.GetCurrentTaskProcOrder(subTaskId) + 1;
 
             return View("TaskProceduresForm", viewModel);
         }

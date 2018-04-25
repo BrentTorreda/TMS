@@ -5,7 +5,7 @@ using System.Web;
 using TaskManager.Models;
 using TaskManager.ViewModels;
 
-namespace TaskManager.SQL
+namespace TaskManager.Controllers.SQL
 {
     public class CheckIfTaskIsDone
     {

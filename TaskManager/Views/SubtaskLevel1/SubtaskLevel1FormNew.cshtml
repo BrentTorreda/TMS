@@ -12,7 +12,7 @@
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="form-group">
-        <label class="control-label col-sm-2" for="SubTaskOrder">Order</label>
+        <label class="control-label col-sm-2" for="SubTaskOrder">Step Number</label>
         <div class="col-sm-4">
             @Html.TextBoxFor(s => s.SubTaskOrder, new { @class = "form-control", @type = "number", @min = "1" } )
             @Html.ValidationMessageFor(s => s.SubTaskOrder)

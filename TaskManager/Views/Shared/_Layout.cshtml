@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>  
+<body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -42,7 +42,12 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Create Note", "New", "Notes")</li>
-                            <li>@Html.ActionLink("Send Email", "New", "SendEmails", new { subject = "", sendee = "", caller = ""}, null)</li>
+                            <li>@Html.ActionLink("Send Email", "New", "SendEmails", new { subject = "", sendee = "", caller = "" }, null)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Add Task", "New", "Tasks")</li>
+                            <li>@Html.ActionLink("Add Company", "New", "Companies")</li>
+                            <li class="divider"></li>
+                            <li><a id="showWizard" href="#">TMS Setup Wizard</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -64,7 +69,7 @@
                         </ul>
                     </li>
 
-                    
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Admin
@@ -76,23 +81,65 @@
                         </ul>
                     </li>
                     @*@if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Inbox", "Inbox", "Home")</li>
-                    }*@
+                        {
+                            <li>@Html.ActionLink("Inbox", "Inbox", "Home")</li>
+                        }*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TaskManager</p>
-        </footer>
+
+    <div id='wizardModal' class="modal fade modal-lg" role="dialog" data-backdrop="static" data-url='@Url.Action("../WizardInitialSetup/ShowInitialSetupWizard")'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">TMS Quick Setup Wizard</h4>
+                </div>
+                <div class="modal-body">
+                    <div id='wizardContainer'></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    @Scripts.Render("~/bundles/lib")
-    @RenderSection("scripts", required: false)
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - TaskManager</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/lib")
+        @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#showWizard').click(function () {
+            var url = $('#wizardModal').data('url');
+
+            $.get(url, function (data) {
+                $('#wizardContainer').html(data);
+
+                $('#wizardModal').modal('show');
+            });
+        });
+
+        $('#wizardModal').on('show.bs.modal', function () {
+            $(this).find('.modal-body').css({
+                width: 'auto', //probably not needed
+                height: 'auto', //probably not needed 
+                'max-height': '100%'
+            });
+        });
+
+    });
+</script>

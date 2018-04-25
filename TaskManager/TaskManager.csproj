@@ -302,10 +302,12 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SendEmailsController.cs" />
     <Compile Include="Controllers\SQL\InsertEndlessTask.cs" />
+    <Compile Include="Controllers\SQL\TMSMiscSQL.cs" />
     <Compile Include="Controllers\TaskCategoriesController.cs" />
     <Compile Include="Controllers\TaskManagerBaseController.cs" />
     <Compile Include="Controllers\TaskTemplatesController.cs" />
     <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Controllers\WizardInitialSetupController.cs" />
     <Compile Include="Dtos\CompanyTasksDto.cs" />
     <Compile Include="Dtos\EmailDto.cs" />
     <Compile Include="Dtos\EmailTemplateDto.cs" />
@@ -980,6 +982,7 @@
     <Content Include="Views\SubtaskLevel1\ReadOnlySubTaskLevel1Form.cshtml" />
     <Content Include="Views\EmailTemplates\ReadOnlyIndex.cshtml" />
     <Content Include="Views\TaskTemplates\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Shared\_ShowWizardInitialSetup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

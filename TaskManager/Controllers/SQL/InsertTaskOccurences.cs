@@ -4,7 +4,7 @@ using TaskManager.Models;
 using System.Data.SqlClient;
 using System.Globalization;
 
-namespace TaskManager.SQL
+namespace TaskManager.Controllers.SQL
 {
     public class InsertTaskOccurences
     {

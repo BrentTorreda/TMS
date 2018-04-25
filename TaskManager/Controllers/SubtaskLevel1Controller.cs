@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using TaskManager.Models;
 using TaskManager.ViewModels;
-using TaskManager.SQL;
+using SQL = TaskManager.Controllers.SQL;
 using System;
 
 
@@ -26,12 +26,16 @@ namespace TaskManager.Controllers
 
         public ActionResult New(int id)
         {
+            SQL.TMSMiscSQL miscSQL = new SQL.TMSMiscSQL();
             var viewModel = new SubtaskLevel1ViewModel()
             {
                 Prices = _context.Prices.ToList(),
                 Members = _context.Members.ToList(),
                 TaskStatuses = _context.TaskStatuses.ToList(),
-                TaskId = id
+                TaskId = id,
+                TaskStatusId = 1, //Not started
+                DateCreated = DateTime.Today,
+                SubTaskOrder = miscSQL.GetCurrentSubTaskOrder(id)
             };
 
             return View("SubtaskLevel1FormNew", viewModel);
@@ -152,7 +156,7 @@ namespace TaskManager.Controllers
 
                 if (subTask.IsCompleted)
                 {
-                    var updateMainTask = new CheckIfTaskIsDone();
+                    var updateMainTask = new SQL.CheckIfTaskIsDone();
                     updateMainTask.UpdateParentTask(subTask.TaskId); //check if all subtasks are done
                     subTaskInDb.TaskStatusId = TaskCompleted;
                 }

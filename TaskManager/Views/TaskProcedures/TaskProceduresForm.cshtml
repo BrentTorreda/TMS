@@ -5,6 +5,13 @@
 }
 
 <h2>Task Procedures Form</h2>
+
+@if (Model.TaskName != null && @Model.SubTaskName != null)
+{
+    var headSub = @Model.TaskName + " > " + @Model.SubTaskName;
+    <h4>@headSub</h4>
+}
+
 <h4>@Model.TaskProcedureDescription</h4>
 <hr />
 <br />

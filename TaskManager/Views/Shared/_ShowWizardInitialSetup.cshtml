@@ -1,0 +1,197 @@
+﻿<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#company">Add Company</a></li>
+    <li><a data-toggle="tab" href="#task">Add Tasks</a></li>
+    <li><a data-toggle="tab" href="#assignTask">Assign Tasks</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="company" class="tab-pane fade in active">
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="CompanyName">Name: </label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="CompanyName" name="CompanyName" />
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Email">Email: </label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="Email" name="Email" />
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Phone">Phone#:</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="Phone" name="Phone" />
+            </div>
+        </div>
+        <br /><br />
+        <div class="row" style="vertical-align:bottom;">
+            <div class="form-group" style="display:block;">
+                <div class="col-sm-12">
+                    <div class="btn-group pull-right">
+                        <a href="/Companies/Index" class="btn btn-default">Clear</a>
+                        <a href="/Companies/Index" class="btn btn-primary">Save</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="task" class="tab-pane fade">
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="CompanyName">Name: </label>
+            <div class="col-sm-6">
+                <div class='input-group' id='nameAdd'>
+                    <input class="form-control" type="text" id="CompanyName" name="CompanyName" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-saved"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="TaskDescription">Description:</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" id="TaskDescription" name="TaskDescription" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="TaskTypeId">Type:</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="TaskTypeId" name="TaskTypeId" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="TaskCategoryId">Category:</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="TaskCategoryId" name="TaskCategoryId" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="TaskCategoryId">Hours:</label>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" id="Hours" name="Hours" />
+            </div>
+        </div>
+        <br />
+        <hr />
+        <div class="container">
+            <table cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="dataTable table table-bordered" id="companytasks"></table>
+        </div>
+
+        <div class="row" style="vertical-align:bottom;">
+            <div class="form-group" style="display:block;">
+                <div class="col-sm-12">
+                    <div class="btn-group pull-right">
+                        <a href="/Companies/Index" class="btn btn-default">Clear</a>
+                        <a href="/Companies/Index" class="btn btn-primary">Save</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="assignTask" class="tab-pane fade">
+        <div class="container">
+            <table cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="dataTable table table-bordered" id="assigntasks"></table>
+        </div>
+        <br /><br />
+
+        <div class="row">
+            <div class="form-group" style="display:block;">
+                <div class="col-sm-12">
+                    <div class="btn-group pull-right">
+                        <a href="/Companies/Index" class="btn btn-default">Clear</a>
+                        <a href="/Companies/Index" class="btn btn-primary">Save</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <h4>Member Current Tasks:</h4>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="MemberId">Member:</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="MemberId" name="MemberId" />
+            </div>
+        </div>
+        <br /><br />
+
+        <div class="container">
+            <table cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="dataTable table table-bordered" id="currenttasks"></table>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+    var table = $("#companytasks").DataTable({
+
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "searching": false,
+
+        columns: [
+            {
+                title: "Task Name",
+                width: "75%"
+            },
+            {
+                title: "Hours"
+            }
+        ]
+    });
+
+    var table = $("#assigntasks").DataTable({
+
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "searching": false,
+
+        columns: [
+            {
+                title: "Task Name",
+                width: "25%"
+            },
+            {
+                title: "Assign To"
+            },
+            {
+                title: "Date Assigned"
+            },
+            {
+                title: "Hours"
+            }
+        ]
+    });
+
+    var table = $("#currenttasks").DataTable({
+
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "searching": false,
+
+        columns: [
+            {
+                title: "Task Name",
+                width: "75%"
+            },
+            {
+                title: "Status"
+            }
+        ]
+    });
+</script>
